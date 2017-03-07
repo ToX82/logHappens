@@ -1,0 +1,60 @@
+/*
+* Sticky footer
+*/
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/*
+* Body
+*/
+img {
+    max-width: 100%;
+}
+
+/*
+* Header
+*/
+header {
+    z-index: 9999;
+}
+header .brand-logo {
+    padding: 0 20px;
+}
+header .brand-logo img {
+    width: 32px;
+    vertical-align: sub;
+}
+
+/*
+* Navigation
+*/
+.side-nav {
+    top: 64px;
+}
+.sidebar-title {
+    font-size: 10pt;
+}
+
+/*
+* Logs
+*/
+pre {
+    font-size: 11px;
+}
+
+/*
+* Materialize hacks
+*/
+.no-margin {
+    margin: 0;
+}
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #0d47a1;
+}
