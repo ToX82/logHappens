@@ -18,10 +18,11 @@ include("libs/router.php");
     <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Comfortaa">
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/custom.min.css">
 </head>
-<body>
+<body data-color-default="<?= $colors['default'] ?>" data-color-notice="<?= $colors['notice'] ?>">
     <header id="header" class="page-topbar">
         <?php include('views/header.php') ?>
     </header>

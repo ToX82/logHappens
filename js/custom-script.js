@@ -9,7 +9,7 @@ $(document).ready(function() {
     * Select box
     */
     $('select').material_select();
-    $("select").on("change", function() {
+    $(".page-length").on("change", function() {
         var length = $(this).val();
         var url = "ajax.php?page=set_pagelength&length=" + length;
         $.ajax({
@@ -85,12 +85,16 @@ $(document).ready(function() {
     }
 
     function reloadContent(link, linkName, time) {
-        setInterval(function() {
-            var howMany = $(".logs-list").attr("data-rows");
+        var colorDefault = $("body").attr("data-color-default");
+        var colorNotice = $("body").attr("data-color-notice");
 
-            $(".log-container").load("ajax.php" + link, function() {
-                $(".logs-list h5").html(linkName);
-            });
-        }, 5000);
+        $(".color-themed").addClass(colorNotice).removeClass(colorDefault);
+        $(".log-container").load("ajax.php" + link, function() {
+            $(".logs-list h5").html(linkName);
+        });
+
+        setTimeout(function() {
+            $(".color-themed").addClass(colorDefault).removeClass(colorNotice);
+        }, 3000);
     }
 });

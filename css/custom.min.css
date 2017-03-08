@@ -14,8 +14,14 @@ main {
 /*
 * Body
 */
+body {
+    font-family: 'Comfortaa', cursive;
+}
 img {
     max-width: 100%;
+}
+b, strong {
+    font-weight: bold;
 }
 
 /*
@@ -28,8 +34,8 @@ header .brand-logo {
     padding: 0 20px;
 }
 header .brand-logo img {
-    width: 32px;
-    vertical-align: sub;
+    width: 50px;
+    vertical-align: middle;
 }
 
 /*

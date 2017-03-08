@@ -1,5 +1,5 @@
-<ul id="slide-out" class="side-nav fixed leftside-navigation col s12 m3 no-padding">
-    <li class="user-details light-blue darken-3 white-text no-padding">
+<ul id="slide-out" class="side-nav fixed leftside-navigation col s12 m3 no-padding grey lighten-5">
+    <li class="user-details color-themed <?= $colors["default"] ?> darken-3 white-text no-padding">
         <div class="row">
             <div class="col col s8 m8 l8">
                 <p class="sidebar-title no-margin">Please choose a log</p>

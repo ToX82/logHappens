@@ -1,4 +1,4 @@
-<div class="footer-copyright light-blue darken-2">
+<div class="footer-copyright color-themed <?= $colors["default"] ?> darken-2">
     <div class="container">
         <div class="row no-margin">
             <div class="col s6 center-align">

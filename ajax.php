@@ -5,11 +5,11 @@ include("libs/router.php");
 $logic = "";
 $page = "info";
 
-if (isset($_GET['logic'])) {
-    $logic = $_GET['logic'];
-    include("logics/{$logic}.php");
+if (checkExist('logic')) {
+    $logic = filterString('logic');
+    include("logics/" . $logic . ".php");
 }
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-    include('views/pages/'. $page .'.php');
+if (checkExist('page')) {
+    $page = filterString('page');
+    include("views/pages/" . $page . ".php");
 }

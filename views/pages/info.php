@@ -8,11 +8,11 @@
             in an easier format, perhaps grouped by time.
         </p>
 
-        <h5>That's why LogHappens exists</h5>
+        <h5>That's why LogHappens exists!</h5>
         <p>
             LogHappens aims to fix this lack. It is a simple tool, it will not
             try to avoid writing bugs, but it will notify you immediately when
-            something has been logged by your web server or your favourite
+            something has been logged by your web server or your favorite
             framework.
         </p>
 
@@ -25,7 +25,7 @@
             you just want to read the file, you can group log entries by date/time
             and print the rest of the file. If you are feeling adventurous, you
             can possibly do whatever you want: highlight words, create tags, split
-            errors... the only limit is your fantasy. Which is unlimited, isn't it? ;)
+            errors... the only limit is your fantasy. Which is unlimited, of course. ;)
             <br><br>
             This is an example of an apache 2.4 log file reader:
             <pre style="font-size: 13px; border: 1px solid #aaa; padding: 10px;">

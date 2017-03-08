@@ -1,11 +1,11 @@
 <?php
-if (isset($_GET['logic'])) {
-    if (is_file("logics/{$_GET['logic']}.php")) {
-        include("logics/{$_GET['logic']}.php");
+if (checkExist('logic')) {
+    if (is_file("logics/" . filterString('logic') . ".php")) {
+        include("logics/" . filterString('logic') . ".php");
     }
 }
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
+if (checkExist('page')) {
+    $page = filterString('page');
     $page = 'views/pages/'. $page .'.php';
 }
 
