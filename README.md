@@ -17,3 +17,8 @@ Of course it does. While it is true that every software has its own bugs, every 
 ##### Future plans?
 
 While not currently supported, I am planning to add support for remote logs too. Maybe through SFTP, I don't know yet... I'm open for ideas!
+
+
+##### What does it look like?
+
+![It looks like this](https://cloud.githubusercontent.com/assets/659492/24559514/47412cee-163f-11e7-91ec-58f61e36ead1.png)
