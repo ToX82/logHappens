@@ -1,4 +1,9 @@
 <?php
+$menu = [
+    "icon" => "build",
+    "color" => "red",
+    "title" => "Apache error.log"
+];
 $content = file("/var/log/apache2/error.log");
 
 $group = "";

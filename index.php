@@ -1,6 +1,5 @@
 <?php
 include("libs/libs.php");
-include("libs/router.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,15 +34,14 @@ include("libs/router.php");
 
             <section id="content" class="col s12 m9">
                 <div class="log-container">
-                    <?php include($page); ?>
+                    <?php
+                    include("libs/router.php");
+                    include($page);
+                    ?>
                 </div>
             </section>
         </div>
     </main>
-
-    <footer class="page-footer white">
-        <?php include('views/footer.php') ?>
-    </footer>
 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>

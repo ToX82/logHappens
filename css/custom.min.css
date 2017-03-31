@@ -20,9 +20,6 @@ body {
 img {
     max-width: 100%;
 }
-b, strong {
-    font-weight: bold;
-}
 
 /*
 * Header
@@ -53,6 +50,7 @@ header .brand-logo img {
 */
 pre {
     font-size: 11px;
+    margin: 0;
 }
 
 /*

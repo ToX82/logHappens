@@ -1,29 +1,8 @@
 $(document).ready(function() {
 
-    /*
-    * Side nav
-    */
-    $(".button-collapse").sideNav();
-
-    /*
-    * Select box
-    */
-    $('select').material_select();
-    $(".page-length").on("change", function() {
-        var length = $(this).val();
-        var url = "ajax.php?page=set_pagelength&length=" + length;
-        $.ajax({
-            method: "GET",
-            url: url
-        })
-        .done(function() {
-            window.location.reload();
-        });
-    });
-
-    /*
-    * Live reloading
-    */
+    /**
+     * Live reloading instructions
+     */
     var currentUrl = "?" + window.location.search.substring(1);
 
     $(".side-nav a[data-tofollow=true]").each(function() {
@@ -36,25 +15,32 @@ $(document).ready(function() {
             $(".logs-list h5").html(linkName);
         }
 
-        recount(link, action, false);
+        // First logs count
+        recount(link, false);
 
+        // Recount logs every X seconds
         setInterval(function() {
-            recount(link, action, true);
+            recount(link, true);
         }, 5000);
     });
-    var currentUrl = "?" + window.location.search.substring(1);
 
-
-    function recount(link, action, push) {
+    /**
+     * Recount logs and trigger warnings when something happens
+     * @param {string} link The url of the log's page, for refreshing logs
+     * @param {bool} push Show push messages or not
+     */
+    function recount(link, push) {
         var $link = $(".side-nav a[href='" + link + "']");
         var $badge = $link.find(".badge");
         var howMany = $link.attr("data-howmany");
+        var action = link.replace("log_reader", "log_counter");
 
         $.ajax({
             url: "ajax.php" + action,
         }).done(function(howManyNew) {
             if (howManyNew !== howMany) {
                 var difference = parseInt(howManyNew) - parseInt(howMany);
+                console.log(link);
                 if (push === true) {
 
                     Push.create('LogHappens!', {
@@ -68,8 +54,7 @@ $(document).ready(function() {
                     });
 
                     if (currentUrl == link) {
-                        var linkName = $link.attr("data-name");
-                        reloadContent(link, linkName);
+                        reloadContent(link);
                     }
                     $badge.addClass("new");
                 }
@@ -84,17 +69,42 @@ $(document).ready(function() {
         });
     }
 
-    function reloadContent(link, linkName, time) {
+    /**
+     * Refresh the log's list
+     * @param {string} link The url of the log's page, for refreshing logs
+     */
+    function reloadContent(link) {
+        var $link = $(".side-nav a[href='" + link + "']");
         var colorDefault = $("body").attr("data-color-default");
         var colorNotice = $("body").attr("data-color-notice");
 
+        $(".log-container").load("ajax.php" + link);
         $(".color-themed").addClass(colorNotice).removeClass(colorDefault);
-        $(".log-container").load("ajax.php" + link, function() {
-            $(".logs-list h5").html(linkName);
-        });
 
         setTimeout(function() {
             $(".color-themed").addClass(colorDefault).removeClass(colorNotice);
         }, 3000);
     }
+
+
+    /**
+     * Side nav
+     */
+    $(".button-collapse").sideNav();
+
+    /**
+     * Select box
+     */
+    $('select').material_select();
+    $(".page-length").on("change", function() {
+        var length = $(this).val();
+        var url = "ajax.php?page=set_pagelength&length=" + length;
+        $.ajax({
+            method: "GET",
+            url: url
+        })
+        .done(function() {
+            window.location.reload();
+        });
+    });
 });

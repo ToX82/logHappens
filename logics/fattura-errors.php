@@ -1,4 +1,9 @@
 <?php
+$menu = [
+    "icon" => "send",
+    "color" => "green",
+    "title" => "Fatturazione error.log"
+];
 $content = file("/var/www/fatturazione/logs/error.log");
 
 $group = "";

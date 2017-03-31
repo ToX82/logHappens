@@ -10,7 +10,7 @@ $logs = array_slice($logs, 0, $_SESSION['pagelength']);
             <div class="card color-themed <?= $colors["default"] ?> lighten-5">
                 <div class="card-content">
                     <div class="card-body">
-                        <strong><?= $time ?></strong><br>
+                        <span class="card-title"><?= $time ?></span>
                         <pre><?= implode($log, "<br>") ?></pre>
                     </div>
                 </div>

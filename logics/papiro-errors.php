@@ -1,4 +1,9 @@
 <?php
+$menu = [
+    "icon" => "palette",
+    "color" => "orange",
+    "title" => "Il Papiro Web error.log"
+];
 $content = file("/var/www/papiro_nuovo/logs/php-error.log");
 
 $group = "";
