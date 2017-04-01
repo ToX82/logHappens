@@ -19,7 +19,7 @@ include("libs/libs.php");
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Comfortaa">
     <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="css/custom.min.css">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body data-color-default="<?= $colors['default'] ?>" data-color-notice="<?= $colors['notice'] ?>">
     <header id="header" class="page-topbar">
@@ -42,6 +42,8 @@ include("libs/libs.php");
             </section>
         </div>
     </main>
+
+    <?php include('views/footer.php') ?>
 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>

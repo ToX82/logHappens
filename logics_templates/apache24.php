@@ -6,7 +6,6 @@ $menu = [
 ];
 $content = file("/var/log/apache2/error.log");
 
-$group = "";
 $log = [];
 foreach ($content as $line) {
     // Grab the log's time and group logs by time
