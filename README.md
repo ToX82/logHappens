@@ -33,4 +33,4 @@ While not currently supported, I am planning to add support for remote logs too.
 
 ##### What does it look like?
 
-![It looks like this](https://cloud.githubusercontent.com/assets/659492/24559514/47412cee-163f-11e7-91ec-58f61e36ead1.png)
+![It looks like this](https://cloud.githubusercontent.com/assets/659492/24580720/1efab678-170d-11e7-8fa8-87a16447fa06.png)

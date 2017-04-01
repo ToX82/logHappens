@@ -13,22 +13,17 @@ foreach ($content as $line) {
     if ($time != "") {
         // Remove date-time and other useless informations from the log details
         $line = substr($line, 34);
-        if (substr($line, 0, 13) == "[:error] [pid") {
-            $line = substr($line, 45);
-        }
+        $line = preg_replace("[\[:error.*\]]", "", $line);
+        $line = preg_replace("[\[pid .*\]]", "", $line);
         $line = str_replace("PHP", "", $line);
-        $line = trim($line);
 
-        // Add vertical spacing for warnings and notices
-        if (substr($line, 0, 9) == "Warning: ") {
-            $line = "<br>" . $line;
-        }
-        if (substr($line, 0, 8) == "Notice: ") {
-            $line = "<br>" . $line;
-        }
+        // Highlight the type of errors, using a badge
+        $line = str_replace("Notice: ", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
+        $line = str_replace("Warning: ", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
+        $line = str_replace("Fatal error: ", "<span class='lh-badge' style='background-color: #a71616;'>Fatal error:</span> ", $line);
 
         // Save the log entry
-        $log[$time][] = $line;
+        $log[$time][] = trim($line);
     }
 }
 

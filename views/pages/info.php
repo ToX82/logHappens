@@ -25,31 +25,7 @@
             you just want to read the file, you can group log entries by date/time
             and print the rest of the file. If you are feeling adventurous, you
             can possibly do whatever you want: highlight words, create tags, split
-            errors... the only limit is your fantasy. Which is unlimited, of course. ;)
-            <br><br>
-            This is an example of an apache 2.4 log file reader:
-            <pre style="font-size: 13px; border: 1px solid #aaa; padding: 10px;">
-    $content = <span style="color:#400000;">file</span>(<span style="color:#0000e6;">"/var/log/apache2/error.log"</span>);
-
-    <span style="color:#797997;">$log</span> = [];
-    <span style="color:#400000;font-weight: bold;">foreach</span> (<span style="color:#797997;">$content</span> <span style="color:#400000;font-weight: bold;">as</span> <span style="color:#797997;">$line</span>) {
-        <span style="color: #555;">// Grab the log's time and group logs by time</span>
-        <span style="color:#797997;">$time</span> = <span style="color:#400000;">substr</span>(<span style="color:#797997;">$line</span>, <span style="color:#008c00;">1</span>, <span style="color:#008c00;">19</span>);
-
-        <span style="color: #555;">// Remove date-time from the log details</span>
-        <span style="color:#797997;">$line</span> = <span style="color:#400000;">substr</span>(<span style="color:#797997;">$line</span>, <span style="color:#008c00;">34</span>);
-        <span style="color:#797997;">$line</span> = <span style="color:#400000;">trim</span>(<span style="color:#797997;">$line</span>);
-
-        <span style="color: #555;">// Save the log entry</span>
-        <span style="color:#797997;">$log</span>[<span style="color:#797997;">$time</span>][] = <span style="color:#797997;">$line</span>;
-    }
-
-    <span style="color: #555;">// Reverse the logs, so that we can see last errors first</span>
-    <span style="color:#797997;">$logs</span> = <span style="color:#400000;">array_reverse</span>(<span style="color:#797997;">$log</span>);</pre>
-            If it looks simple, it's because it is actually simple. What you see
-            is a basic configuration, which outputs something like this:
-            <img src="images/logHappened.png" alt="log example">
-        </p>
+            errors... the only limit is your fantasy.
 
         <h5>Future plans?</h5>
         <p>

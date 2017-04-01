@@ -49,7 +49,10 @@ footer {
     top: 64px;
 }
 .sidebar-title {
-    font-size: 10pt;
+    font-size: 8pt;
+}
+.side-nav a {
+    font-size: 12px;
 }
 
 /*
@@ -58,6 +61,14 @@ footer {
 pre {
     font-size: 11px;
     margin: 0;
+}
+pre .lh-badge {
+    border-radius: 3px;
+    background-color: #0d47a1;
+    clear: both;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 1px 5px;
 }
 
 /*
