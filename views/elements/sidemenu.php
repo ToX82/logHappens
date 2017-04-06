@@ -45,8 +45,3 @@ foreach ($files as $file) {
         </div>
     </li>
 </ul>
-
-
-<footer class="page-footer white">
-    <?php include('views/footer.php') ?>
-</footer>
