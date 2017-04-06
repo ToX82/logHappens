@@ -23,13 +23,13 @@ include("libs/libs.php");
 </head>
 <body data-color-default="<?= $colors['default'] ?>" data-color-notice="<?= $colors['notice'] ?>">
     <header id="header" class="page-topbar">
-        <?php include('views/header.php') ?>
+        <?php include('views/elements/header.php') ?>
     </header>
 
     <main id="main">
         <div class="row">
             <aside id="left-sidebar-nav" class="col s12 m3 no-padding">
-                <?php include('views/sidemenu.php') ?>
+                <?php include('views/elements/sidemenu.php') ?>
             </aside>
 
             <section id="content" class="col s12 m9">
@@ -43,11 +43,11 @@ include("libs/libs.php");
         </div>
     </main>
 
-    <?php include('views/footer.php') ?>
+    <?php include('views/elements/footer.php') ?>
 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="vendors/push.js/push.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/push.js/0.0.13/push.min.js"></script>
     <script type="text/javascript" src="js/custom-script.js"></script>
 </body>
 </html>
