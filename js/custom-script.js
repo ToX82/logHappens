@@ -1,16 +1,36 @@
 $(document).ready(function() {
+    /**
+     * Side nav
+     */
+    $(".button-collapse").sideNav();
+
+    /**
+     * Select box
+     */
+    $('select').material_select();
+    $(".page-length").on("change", function() {
+        var length = $(this).val();
+        var url = "ajax.php?page=set_pagelength&length=" + length;
+        $.ajax({
+            method: "GET",
+            url: url
+        })
+        .done(function() {
+            window.location.reload();
+        });
+    });
+
 
     /**
      * Live reloading instructions
      */
     var currentUrl = "?" + window.location.search.substring(1);
-
     $(".side-nav a[data-tofollow=true]").each(function() {
         var $link = $(this);
         var link = $link.attr("href");
         var action = link.replace("log_reader", "log_counter");
 
-        if (currentUrl == link) {
+        if (currentUrl === link) {
             var linkName = $link.attr("data-name");
             $(".logs-list h5").html(linkName);
         }
@@ -36,10 +56,10 @@ $(document).ready(function() {
         var action = link.replace("log_reader", "log_counter");
 
         $.ajax({
-            url: "ajax.php" + action,
+            url: "ajax.php" + action
         }).done(function(howManyNew) {
             if (howManyNew !== howMany) {
-                var difference = parseInt(howManyNew) - parseInt(howMany);
+                var difference = Number(howManyNew) - Number(howMany);
                 console.log(link);
                 if (push === true) {
 
@@ -53,7 +73,7 @@ $(document).ready(function() {
                         timeout: 5000
                     });
 
-                    if (currentUrl == link) {
+                    if (currentUrl === link) {
                         reloadContent(link);
                     }
                     $badge.addClass("new");
@@ -85,26 +105,4 @@ $(document).ready(function() {
             $(".color-themed").addClass(colorDefault).removeClass(colorNotice);
         }, 3000);
     }
-
-
-    /**
-     * Side nav
-     */
-    $(".button-collapse").sideNav();
-
-    /**
-     * Select box
-     */
-    $('select').material_select();
-    $(".page-length").on("change", function() {
-        var length = $(this).val();
-        var url = "ajax.php?page=set_pagelength&length=" + length;
-        $.ajax({
-            method: "GET",
-            url: url
-        })
-        .done(function() {
-            window.location.reload();
-        });
-    });
 });
