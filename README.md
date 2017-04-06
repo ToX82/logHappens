@@ -1,5 +1,6 @@
 logHappens!
 =============
+[![Code Climate](https://codeclimate.com/github/ToX82/logHappens/badges/gpa.svg)](https://codeclimate.com/github/ToX82/logHappens) 
 
 See the website: http://loghappens.com
 
