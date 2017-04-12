@@ -28,3 +28,8 @@ function filterInt($name)
 {
     return filter_input(INPUT_GET, $name, FILTER_SANITIZE_NUMBER_INT);
 }
+
+function redirect($destination)
+{
+    header("Refresh:0; url=" . $destination);
+}

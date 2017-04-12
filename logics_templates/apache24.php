@@ -3,8 +3,14 @@ $menu = [
     "icon" => "build",
     "color" => "red",
     "title" => "Apache error.log"
+    "file" => "/var/log/apache2/error.log"
 ];
-$content = file("/var/log/apache2/error.log");
+if (!is_readable($menu['file'])) {
+    echo 'Unable to open the log file. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
+    die;
+}
+
+$content = file($menu['file']);
 
 $log = [];
 foreach ($content as $line) {

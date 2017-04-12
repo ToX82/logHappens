@@ -6,17 +6,11 @@ foreach ($files as $file) {
     $filename = str_replace("logics/", "", $file);
     $filename = str_replace(".php", "", $filename);
     $menu_items[$filename] = $menu;
+    $menu_items[$filename]['count'] = count($logs);
 }
 ?>
 
 <ul id="slide-out" class="side-nav fixed leftside-navigation col s12 m3 no-padding grey lighten-5">
-    <li class="user-details color-themed <?= $colors["default"] ?> darken-3 white-text no-padding">
-        <div class="row">
-            <div class="col col s8 m8 l8">
-                <p class="sidebar-title no-margin">Please choose a log</p>
-            </div>
-        </div>
-    </li>
     <li>
         <a href="?page=info" class="waves-effect">
             <i class="material-icons">equalizer</i>
@@ -25,9 +19,10 @@ foreach ($files as $file) {
     </li>
     <?php foreach ($menu_items as $filename => $item) { ?>
         <li>
-            <a href="?page=log_reader&logic=<?= $filename ?>" class="waves-effect waves-<?= $item['color'] ?>" data-tofollow="true" data-howmany="0" data-name="<?= $item['title'] ?>">
+            <a href="?page=log_reader&logic=<?= $filename ?>" class="waves-effect waves-<?= $item['color'] ?>" data-tofollow="true" data-howmany="<?= $item['count'] ?>" data-name="<?= $item['title'] ?>" data-fileurl="<?= $item['file'] ?>">
                 <i class="material-icons <?= $item['color'] ?>-text text-darken-2"><?= $item['icon'] ?></i>
-                <span class="badge">0</span><?= $item['title'] ?>
+                <span class="badge"><?= $item['count'] ?></span>
+                <?= $item['title'] ?>
             </a>
         </li>
     <?php } ?>

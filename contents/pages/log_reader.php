@@ -5,6 +5,7 @@ $logs = array_slice($logs, 0, $_SESSION['pagelength']);
 <div class="row logs-list" data-rows=<?= count($logs) ?>>
     <div class="col s12">
         <h5>Loading log file...</h5>
+        <p><a class='truncateLink' href='ajax.php?action=truncate&amp;logFile='>Truncate log file!</a></p>
 
         <?php foreach ($logs as $time => $log) { ?>
             <div class="card color-themed <?= $colors["default"] ?> lighten-5">

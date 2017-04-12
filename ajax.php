@@ -11,5 +11,5 @@ if (checkExist('logic')) {
 }
 if (checkExist('page')) {
     $page = filterString('page');
-    include("views/pages/" . $page . ".php");
+    include("contents/pages/" . $page . ".php");
 }

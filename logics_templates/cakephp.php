@@ -2,9 +2,15 @@
 $menu = [
     "icon" => "send",
     "color" => "teal",
-    "title" => "Fatturazione error.log"
+    "title" => "CakePHP error.log",
+    "file" => "/var/www/cakephp/logs/error.log"
 ];
-$content = file("/var/www/cakephp/logs/error.log");
+if (!is_readable($menu['file'])) {
+    echo 'Unable to open the log file. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
+    die;
+}
+
+$content = file($menu['file']);
 
 $log = [];
 foreach ($content as $line) {
