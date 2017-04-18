@@ -24,9 +24,10 @@ foreach ($content as $line) {
         $line = str_replace("PHP", "", $line);
 
         // Highlight the type of errors, using a badge
-        $line = str_replace("Notice: ", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
-        $line = str_replace("Warning: ", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
-        $line = str_replace("Fatal error: ", "<span class='lh-badge' style='background-color: #a71616;'>Fatal error:</span> ", $line);
+        $line = preg_replace("/^Notice: /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
+        $line = preg_replace("/^Warning: /", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
+        $line = preg_replace("/^Fatal error: /", "<span class='lh-badge' style='background-color: #a71616;'>Fatal error:</span> ", $line);
+        $line = preg_replace("/^Error: /", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
 
         // Save the log entry
         $log[$time][] = trim($line);

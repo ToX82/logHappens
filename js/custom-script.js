@@ -34,6 +34,7 @@ $(document).ready(function() {
             var filePath = $link.attr('data-fileurl');
             $('.logs-list h5').html(linkName);
             $('.truncateLink').attr('href', $('.truncateLink').attr('href') + filePath);
+            $('.viewLink').attr('href', 'file:///' + filePath);
         }
 
         // Recount logs every X seconds
@@ -112,9 +113,27 @@ $(document).ready(function() {
     */
     $('.truncateLink').on('click', function(e) {
         e.preventDefault();
-        var confirm = window.confirm('Are you sure you want to truncate this log?');
-        if (confirm == true) {
+        var confirm = window.confirm('Are you sure you want to truncate this log file?');
+        if (confirm === true) {
             window.location.href = $(this).attr('href');
         }
     });
+
+    /**
+    * ViewLink method
+    *
+    */
+    $('.viewLink').on('click', function(e) {
+        e.preventDefault();
+        copyToClipboard($(this).attr('href'));
+        Materialize.toast('This log\'s path has been copied to your clipboard. Please paste it into a new tab to see the log file.', 5000, 'indigo darken-3');
+    });
+
+    function copyToClipboard(text) {
+        var $temp = $('<input>');
+        $('body').append($temp);
+        $temp.val(text).select();
+        document.execCommand('copy');
+        $temp.remove();
+    }
 });
