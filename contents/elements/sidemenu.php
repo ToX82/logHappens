@@ -10,7 +10,7 @@ foreach ($files as $file) {
 }
 ?>
 
-<ul id="slide-out" class="side-nav fixed leftside-navigation col s12 m3 no-padding grey lighten-5">
+<ul id="slide-out" class="side-nav fixed leftside-navigation col s8 m5 l3 no-padding grey lighten-5">
     <li>
         <a href="?page=info" class="waves-effect">
             <i class="material-icons">equalizer</i>
@@ -19,7 +19,7 @@ foreach ($files as $file) {
     </li>
     <?php foreach ($menu_items as $filename => $item) { ?>
         <li>
-            <a href="?page=log_reader&logic=<?= $filename ?>" class="waves-effect waves-<?= $item['color'] ?>" data-tofollow="true" data-howmany="<?= $item['count'] ?>" data-name="<?= $item['title'] ?>" data-fileurl="<?= $item['file'] ?>">
+            <a href="?page=log_reader&amp;logic=<?= $filename ?>" class="waves-effect waves-<?= $item['color'] ?>" data-tofollow="true" data-howmany="<?= $item['count'] ?>" data-name="<?= $item['title'] ?>" data-fileurl="<?= $item['file'] ?>">
                 <i class="material-icons <?= $item['color'] ?>-text text-darken-2"><?= $item['icon'] ?></i>
                 <span class="badge"><?= $item['count'] ?></span>
                 <?= $item['title'] ?>

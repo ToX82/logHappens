@@ -21,12 +21,12 @@ $logs = array_slice($logs, 0, $_SESSION['pagelength']);
 
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large red">
-        <i class="large material-icons">more_horiz</i>
+        <i class="large material-icons">menu</i>
     </a>
     <ul>
         <li>
             <a class="btn-floating indigo darken-2 viewLink" href='' target='_blank'>
-                <i class="material-icons tooltipped" data-position="left" data-delay="50" data-tooltip="View this log file">search</i>
+                <i class="material-icons tooltipped" data-position="left" data-delay="50" data-tooltip="Open this log file">visibility</i>
             </a>
         </li>
         <li>

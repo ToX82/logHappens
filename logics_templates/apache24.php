@@ -16,6 +16,8 @@ $log = [];
 foreach ($content as $line) {
     // Grab the log's time and group logs by time
     $time = substr($line, 1, 19);
+    $time = date("l d-m-Y - H:i:s", strtotime($time));
+
     if ($time != "") {
         // Remove date-time and other useless informations from the log details
         $line = substr($line, 34);
@@ -27,6 +29,7 @@ foreach ($content as $line) {
         $line = preg_replace("/^Notice: /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
         $line = preg_replace("/^Warning: /", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
         $line = preg_replace("/^Fatal error: /", "<span class='lh-badge' style='background-color: #a71616;'>Fatal error:</span> ", $line);
+        $line = preg_replace("/^Parse error: /", "<span class='lh-badge' style='background-color: #a71616;'>Parse error:</span> ", $line);
         $line = preg_replace("/^Error: /", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
 
         // Save the log entry

@@ -28,11 +28,11 @@ include("libs/libs.php");
 
     <main id="main">
         <div class="row">
-            <aside id="left-sidebar-nav" class="col s12 m3 no-padding">
+            <aside id="left-sidebar-nav" class="col s12 m12 l3 no-padding">
                 <?php include('contents/elements/sidemenu.php') ?>
             </aside>
 
-            <section id="content" class="col s12 m9">
+            <section id="content" class="col s12 m12 l9">
                 <div class="log-container">
                     <?php
                     include("libs/router.php");
