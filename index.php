@@ -1,5 +1,7 @@
 <?php
 include("libs/libs.php");
+include("libs/router.php");
+include("libs/build_menu.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +37,6 @@ include("libs/libs.php");
             <section id="content" class="col s12 m12 l9">
                 <div class="log-container">
                     <?php
-                    include("libs/router.php");
                     include($page);
                     ?>
                 </div>

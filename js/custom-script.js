@@ -24,7 +24,7 @@ $(document).ready(function() {
      * Live reloading instructions
      */
     var currentUrl = '?' + window.location.search.substring(1);
-    $('.side-nav a[data-tofollow=true]').each(function() {
+    $('.side-nav a[data-tracked=true]').each(function() {
         var $link = $(this);
         var link = $link.attr('href');
 
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
         // This is needed to copy the log's path into the clipboard
         var $temp = $('<input>');
-        var link = ($(this).attr('href');
+        var link = $(this).attr('href');
         $('body').append($temp);
         $temp.val(link).select();
         document.execCommand('copy');

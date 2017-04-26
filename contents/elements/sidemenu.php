@@ -1,15 +1,3 @@
-<?php
-$files = glob("logics/*.php");
-$menu_items = [];
-foreach ($files as $file) {
-    include($file);
-    $filename = str_replace("logics/", "", $file);
-    $filename = str_replace(".php", "", $filename);
-    $menu_items[$filename] = $menu;
-    $menu_items[$filename]['count'] = count($logs);
-}
-?>
-
 <ul id="slide-out" class="side-nav fixed leftside-navigation col s8 m5 l3 no-padding grey lighten-5">
     <li>
         <a href="?page=info" class="waves-effect">
@@ -18,8 +6,15 @@ foreach ($files as $file) {
         </a>
     </li>
     <?php foreach ($menu_items as $filename => $item) { ?>
-        <li>
-            <a href="?page=log_reader&amp;logic=<?= $filename ?>" class="waves-effect waves-<?= $item['color'] ?>" data-tofollow="true" data-howmany="<?= $item['count'] ?>" data-name="<?= $item['title'] ?>" data-fileurl="<?= $item['file'] ?>">
+        <li class="<?php if ($filename == $logic) echo "active" ?>">
+            <a href="?page=log_reader&amp;logic=<?= $filename ?>"
+                class="waves-effect waves-<?= $item['color'] ?> <?php if ($filename == $logic) echo "active" ?>"
+                data-tracked="true"
+                data-howmany="<?= $item['count'] ?>"
+                data-name="<?= $item['title'] ?>"
+                data-fileurl="<?= $item['file'] ?>"
+                >
+
                 <i class="material-icons <?= $item['color'] ?>-text text-darken-2"><?= $item['icon'] ?></i>
                 <span class="badge"><?= $item['count'] ?></span>
                 <?= $item['title'] ?>

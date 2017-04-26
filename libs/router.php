@@ -1,24 +1,34 @@
 <?php
+$action = null;
+$logic = null;
+$page = null;
+$notfound = false;
+
 if (checkExist('action')) {
-    include("contents/actions/" . filterString('action') . ".php");
+    $action = filterString('action');
+    include("contents/actions/" . $action . ".php");
 }
 if (checkExist('logic')) {
-    if (is_file("logics/" . filterString('logic') . ".php")) {
-        include("logics/" . filterString('logic') . ".php");
+    $logic = filterString('logic');
+
+    if (is_file("logics/" . $logic . ".php")) {
+        include("logics/" . $logic . ".php");
     } else {
         include("contents/pages/404.php");
         $notfound = true;
     }
 }
 if (checkExist('page')) {
-     if (is_file("contents/pages/" . filterString('page') . ".php")) {
-        $page = 'contents/pages/'. filterString('page') .'.php';
+    $page = filterString('page');
+
+     if (is_file("contents/pages/" . $page . ".php")) {
+        $page = 'contents/pages/'. $page .'.php';
      } else {
          include("contents/pages/404.php");
          unset($page);
      }
 }
 
-if (!isset($page) || isset($notfound)) {
+if ($page === null || $notfound === true) {
     $page = 'contents/pages/info.php';
 }
