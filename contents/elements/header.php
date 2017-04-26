@@ -6,6 +6,14 @@
                 <img src="images/logo.png" alt="Logo" />
                 LogHappens
             </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a class="grey-text text-lighten-3" href="http://loghappens.com">Website</a>
+                </li>
+                <li>
+                    <a class="grey-text text-lighten-3" href="https://github.com/ToX82/logHappens">GitHub</a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>

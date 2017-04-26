@@ -6,7 +6,7 @@
 * http://materializecss.com/color.html#palette
 */
 $colors = [
-    "default" => "brown",
+    "default" => "indigo",
     "notice" => "red"
 ];
 

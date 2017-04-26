@@ -43,8 +43,6 @@ include("libs/libs.php");
         </div>
     </main>
 
-    <?php include('contents/elements/footer.php') ?>
-
     <script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/push.js/0.0.13/push.min.js"></script>
