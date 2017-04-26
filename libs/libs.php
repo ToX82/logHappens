@@ -24,7 +24,7 @@ function redirect($destination)
 */
 function checkExist($name)
 {
-    return isset($_GET[$name]);
+    return filter_input(INPUT_GET, $name, FILTER_DEFAULT);
 }
 
 function filterString($name)
