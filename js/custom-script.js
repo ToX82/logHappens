@@ -27,15 +27,6 @@ $(document).ready(function() {
     $('.side-nav a[data-tofollow=true]').each(function() {
         var $link = $(this);
         var link = $link.attr('href');
-        var action = link.replace('log_reader', 'log_counter');
-
-        if (currentUrl === link) {
-            var linkName = $link.attr('data-name');
-            var filePath = $link.attr('data-fileurl');
-            $('.logs-list h5').html(linkName);
-            $('.truncateLink').attr('href', $('.truncateLink').attr('href') + filePath);
-            $('.viewLink').attr('href', 'file:///' + filePath);
-        }
 
         // Recount logs every X seconds
         setInterval(function() {
@@ -60,7 +51,6 @@ $(document).ready(function() {
         }).done(function(howManyNew) {
             if (howManyNew !== howMany) {
                 var difference = Number(howManyNew) - Number(howMany);
-                console.log(link);
                 if (push === true) {
 
                     Push.create('LogHappens!', {
@@ -125,15 +115,17 @@ $(document).ready(function() {
     */
     $('.viewLink').on('click', function(e) {
         e.preventDefault();
-        copyToClipboard($(this).attr('href'));
+
+        // This is needed to copy the log's path into the clipboard
+        var $temp = $('<input>');
+        var link = ($(this).attr('href');
+        $('body').append($temp);
+        $temp.val(link).select();
+        document.execCommand('copy');
+        $temp.remove();
+
+        // Then show a toast to the user
         Materialize.toast('This log\'s path has been copied to your clipboard. Please paste it into a new tab to see the log file.', 5000, 'indigo darken-3');
     });
 
-    function copyToClipboard(text) {
-        var $temp = $('<input>');
-        $('body').append($temp);
-        $temp.val(text).select();
-        document.execCommand('copy');
-        $temp.remove();
-    }
 });

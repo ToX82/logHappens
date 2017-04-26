@@ -12,7 +12,15 @@ if (!isset($_SESSION["pagelength"])) {
 }
 
 /*
-* DATA SANITIZATION
+* Misc functions
+*/
+function redirect($destination)
+{
+    header("Refresh:0; url=" . $destination);
+}
+
+/*
+* Data sanitization
 */
 function checkExist($name)
 {
@@ -27,9 +35,4 @@ function filterString($name)
 function filterInt($name)
 {
     return filter_input(INPUT_GET, $name, FILTER_SANITIZE_NUMBER_INT);
-}
-
-function redirect($destination)
-{
-    header("Refresh:0; url=" . $destination);
 }
