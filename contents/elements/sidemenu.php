@@ -1,4 +1,4 @@
-<ul id="slide-out" class="side-nav fixed leftside-navigation col s8 m5 l3 no-padding grey lighten-5">
+<ul id="slide-out" class="side-nav fixed leftside-navigation col s8 m5 l3 no-padding grey lighten-4">
     <li>
         <a href="?page=info" class="waves-effect">
             <i class="material-icons">equalizer</i>
@@ -8,7 +8,7 @@
     <?php foreach ($menu_items as $filename => $item) { ?>
         <li class="<?php if ($filename == $logic) echo "active" ?>">
             <a href="?page=log_reader&amp;logic=<?= $filename ?>"
-                class="waves-effect waves-<?= $item['color'] ?> <?php if ($filename == $logic) echo "active" ?>"
+                class="truncate waves-effect waves-<?= $item['color'] ?> <?php if ($filename == $logic) echo 'active' ?>"
                 data-tracked="true"
                 data-howmany="<?= $item['count'] ?>"
                 data-name="<?= $item['title'] ?>"
@@ -26,11 +26,11 @@
         <hr>
         <div class="input-field col s12 m10 offset-m1">
             <select class="page-length">
-                <option <?php if ($_SESSION['pagelength'] == 5) { echo "selected"; } ?> value="5">Show 5 logs entry per page</option>
-                <option <?php if ($_SESSION['pagelength'] == 10) { echo "selected"; } ?> value="10">Show 10 logs entry per page</option>
-                <option <?php if ($_SESSION['pagelength'] == 25) { echo "selected"; } ?> value="25">Show 25 logs entry per page</option>
-                <option <?php if ($_SESSION['pagelength'] == 50) { echo "selected"; } ?> value="50">Show 50 logs entry per page</option>
-                <option <?php if ($_SESSION['pagelength'] == 100) { echo "selected"; } ?> value="100">Show 100 logs entry per page</option>
+                <option <?php if ($_SESSION['pagelength'] == 5) echo 'selected' ?> value="5">Show 5 logs entry per page</option>
+                <option <?php if ($_SESSION['pagelength'] == 10) echo 'selected' ?> value="10">Show 10 logs entry per page</option>
+                <option <?php if ($_SESSION['pagelength'] == 25) echo 'selected' ?> value="25">Show 25 logs entry per page</option>
+                <option <?php if ($_SESSION['pagelength'] == 50) echo 'selected' ?> value="50">Show 50 logs entry per page</option>
+                <option <?php if ($_SESSION['pagelength'] == 100) echo 'selected' ?> value="100">Show 100 logs entry per page</option>
             </select>
         </div>
     </li>

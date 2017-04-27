@@ -1,5 +1,5 @@
 <?php
-$length = filterInt('length');
+$length = filterInt("length");
 if ($length != "") {
-    $_SESSION['pagelength'] = $length;
+    $_SESSION["pagelength"] = $length;
 }

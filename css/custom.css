@@ -53,6 +53,7 @@ footer {
 }
 .side-nav a {
     font-size: 12px;
+    white-space: nowrap;
 }
 
 /*

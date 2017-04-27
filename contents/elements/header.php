@@ -3,15 +3,15 @@
         <div class="nav-wrapper">
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
             <a href="index.php" class="brand-logo">
-                <img src="images/logo.png" alt="Logo" />
+                <img src="images/logo.png" alt="Logo">
                 LogHappens
             </a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a class="grey-text text-lighten-3" href="http://loghappens.com">Website</a>
+                    <a target="_blank" class="grey-text text-lighten-3" href="http://loghappens.com">Website</a>
                 </li>
                 <li>
-                    <a class="grey-text text-lighten-3" href="https://github.com/ToX82/logHappens">GitHub</a>
+                    <a target="_blank" class="grey-text text-lighten-3" href="https://github.com/ToX82/logHappens">GitHub</a>
                 </li>
             </ul>
         </div>
