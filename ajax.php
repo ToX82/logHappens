@@ -1,6 +1,7 @@
 <?php
 include("libs/libs.php");
 include("libs/router.php");
+include("libs/build_menu.php");
 
 $logic = "";
 $page = "info";

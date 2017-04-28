@@ -1,8 +1,9 @@
 $(document).ready(function() {
     /**
-     * Side nav
+     * Materialie methods initialization
      */
     $('.button-collapse').sideNav();
+    $('.modal').modal();
 
     /**
      * Select box
@@ -10,7 +11,7 @@ $(document).ready(function() {
     $('select').material_select();
     $('.page-length').on('change', function() {
         var length = $(this).val();
-        var url = 'ajax.php?page=set_pagelength&length=' + length;
+        var url = 'ajax.php?action=set_pagelength&length=' + length;
         $.ajax({
             method: 'GET',
             url: url
@@ -42,7 +43,7 @@ $(document).ready(function() {
      */
     function recount(link, push) {
         var $link = $('.side-nav a[href="' + link + '"]');
-        var $badge = $link.find('.badge .conter');
+        var $badge = $link.find('.badge');
         var howMany = $link.attr('data-howmany');
         var action = link.replace('log_reader', 'log_counter');
 
@@ -69,7 +70,7 @@ $(document).ready(function() {
                     $badge.addClass('new');
                 }
 
-                $badge.html(difference);
+                $badge.html("");
                 $link.attr('data-howmany', howManyNew);
             } else {
                 howMany = $link.attr('data-howmany');
@@ -103,10 +104,16 @@ $(document).ready(function() {
     */
     $('.truncateLink').on('click', function(e) {
         e.preventDefault();
-        var confirm = window.confirm('Are you sure you want to truncate this log file?');
-        if (confirm === true) {
-            window.location.href = $(this).attr('href');
-        }
+        var link = $(this).attr('href');
+        var $modal = $("#confirm_truncate");
+        $modal.modal('open');
+
+        $modal.find('.yes-btn').click(function() {
+            window.location.href = link;
+        });
+        $modal.find('.no-btn').click(function() {
+            $('#confirm_truncate').modal('close');
+        });
     });
 
     /**
