@@ -2,7 +2,7 @@
 $menu = [
     "icon" => "build",
     "color" => "red",
-    "title" => "Apache error.log"
+    "title" => "Apache error.log",
     "file" => "/var/log/apache2/error.log"
 ];
 if (!is_readable($menu['file'])) {
