@@ -24,9 +24,11 @@ foreach ($content as $line) {
         if ($time != '') {
             // Remove date-time and other useless informations from the log details
             $line = substr($line, 34);
-            $line = preg_replace('[\[:error.*\]]', '', $line);
-            $line = preg_replace('[\[pid .*\]]', '', $line);
-            $line = str_replace('PHP', '', $line);
+            $line = preg_replace('[\[:error(.*?)\]]', '', $line, 1);
+            $line = preg_replace('[\[pid (.*?)\]]', '', $line, 1);
+            $line = preg_replace('[\[php7(.*?)\]]', '', $line, 1);
+            $line = preg_replace('[\[client(.*?)\]]', '', $line, 1);
+            $line = str_replace('\n', '<br>', $line);
             $line = trim($line);
 
             // Highlight the type of errors, using a badge

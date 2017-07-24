@@ -2,7 +2,7 @@
 $menu = [
     "icon" => "send",
     "color" => "teal",
-    "title" => "CakePHP error.log",
+    "title" => "CakePHP 2.x - 3.x error.log",
     "file" => "/var/www/cakephp/logs/error.log"
 ];
 if (!is_readable($menu['file'])) {
@@ -14,13 +14,16 @@ $content = file($menu['file']);
 
 $log = [];
 foreach ($content as $line) {
+    $line = htmlentities($line);
+
     // Don't print the datetime for every record
     if (substr($line, 0, 3) == "201") {
         $time = substr($line, 0, 20);
         $line = str_replace($time, "", $line);
+        $time = date("l d-m-Y - H:i:s", strtotime($time));
     }
-    $time = date("l d-m-Y - H:i:s", strtotime($time));
     $line = trim($line);
+    $line = nl2br($line);
 
     // Highlight the type of errors, using a badge
     $line = preg_replace("/^Notice: /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
