@@ -35,3 +35,11 @@ While not currently supported, I am planning to add support for remote logs too.
 ##### What does it look like?
 
 ![It looks like this](https://cloud.githubusercontent.com/assets/659492/24580720/1efab678-170d-11e7-8fa8-87a16447fa06.png)
+
+
+#### Troubleshooting
+
+By default, apache log files are not readable by apache itself. Which is a good thing, at least on a production server. If you are on a development machine though you should give those files the correct permissions if you want to use LogHappens. Here's how:
+
+* Edit `/etc/logrotate.d/apache2`, find the line saying `create 640 root adm` and replace with `create 777 root adm`.
+* Add 777 permissions to the apache logs directory: `sudo chmod -R 777 /var/log/apache2/`
