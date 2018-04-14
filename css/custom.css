@@ -17,9 +17,6 @@ main {
 body {
     font-family: 'Comfortaa', cursive;
 }
-img {
-    max-width: 100%;
-}
 
 /*
 * Header
@@ -33,13 +30,6 @@ header .brand-logo {
 header .brand-logo img {
     width: 50px;
     vertical-align: middle;
-}
-
-/*
-* Footer
-*/
-footer {
-    padding: 10px 0;
 }
 
 /*
