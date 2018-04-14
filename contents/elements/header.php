@@ -8,6 +8,9 @@
             </a>
             <ul class="right hide-on-med-and-down">
                 <li>
+                    <a target="_blank" class="grey-text text-lighten-3" href="?page=troubleshooting">Troubleshooting</a>
+                </li>
+                <li>
                     <a target="_blank" class="grey-text text-lighten-3" href="http://loghappens.com">Website</a>
                 </li>
                 <li>

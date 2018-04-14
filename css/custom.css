@@ -81,3 +81,6 @@ pre .lh-badge {
 .dropdown-content li>a, .dropdown-content li>span {
     color: #0d47a1;
 }
+.bullet-list li {
+    list-style-type: disc !important;
+}

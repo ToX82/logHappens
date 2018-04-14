@@ -32,5 +32,13 @@
             While not currently supported, I am planning to add support for remote
             logs too. Maybe through SFTP, I don't know yet... I'm open for ideas!
         </p>
+
+        <h5>Any troubles?</h5>
+        <p>
+            In order to use LogHappens you will need to configure a few things. If you
+            have any troubles, please see the <a href="?page=troubleshooting">Troubleshooting</a>
+            page. If you find some technical issues, please open an issue on
+            <a href="https://github.com/ToX82/logHappens/issues">GitHub</a>.
+        </p>
     </div>
 </div>

@@ -22,11 +22,11 @@ if (checkExist("logic")) {
 if (checkExist("page") && $page !== "contents/pages/404.php") {
     $page = filterString("page");
 
-     if (is_file("contents/pages/" . $page . ".php")) {
-        $page = "contents/pages/". $page .".php";
-     } else {
+    if (is_file("contents/pages/" . $page . ".php")) {
+        $page = "contents/pages/" . $page . ".php";
+    } else {
          $page = "contents/pages/404.php";
-     }
+    }
 }
 
 if ($page === null || $notfound === true) {
