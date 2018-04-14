@@ -27,18 +27,22 @@
             can possibly do whatever you want: highlight words, create tags, split
             errors... the only limit is your fantasy.
 
-        <h5>Future plans?</h5>
-        <p>
-            While not currently supported, I am planning to add support for remote
-            logs too. Maybe through SFTP, I don't know yet... I'm open for ideas!
-        </p>
-
         <h5>Any troubles?</h5>
         <p>
             In order to use LogHappens you will need to configure a few things. If you
             have any troubles, please see the <a href="?page=troubleshooting">Troubleshooting</a>
             page. If you find some technical issues, please open an issue on
             <a href="https://github.com/ToX82/logHappens/issues">GitHub</a>.
+        </p>
+
+        <h5>Sharing is caring!</h5>
+        <p>
+            <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/facebook.svg" width="36" height="36" style="background-color:#3B5998"></a>
+            <a href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/twitter.svg" width="36" height="36" style="background-color:#55ACEE"></a>
+            <a href="https://plus.google.com/share?url=https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/google_plus.svg" width="36" height="36" style="background-color:#DD4B39"></a>
+            <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Floghappens.com&amp;title=&amp;summary=&amp;source=https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/linkedin.svg" width="36" height="36" style="background-color:#007BB5"></a>
+            <a href="whatsapp://send?text=%20https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/whatsapp.svg" width="36" height="36" style="background-color:#12AF0A"></a>
+            <a href="mailto:?subject=&amp;body=https%3A%2F%2Floghappens.com" target="_blank"><img src="images/social/email.svg" width="36" height="36" style="background-color:#0166FF"></a>
         </p>
     </div>
 </div>
