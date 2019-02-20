@@ -1,8 +1,7 @@
 <?php
 $action = null;
 $logic = null;
-$page = null;
-$notfound = false;
+$page = "contents/pages/info.php";
 
 if (checkExist("action")) {
     $action = filterString("action");
@@ -27,8 +26,4 @@ if (checkExist("page") && $page !== "contents/pages/404.php") {
     } else {
          $page = "contents/pages/404.php";
     }
-}
-
-if ($page === null || $notfound === true) {
-    $page = "contents/pages/info.php";
 }

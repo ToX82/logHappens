@@ -41,6 +41,9 @@ header .brand-logo img {
 .sidebar-title {
     font-size: 8pt;
 }
+.side-nav svg {
+    vertical-align: sub;
+}
 .side-nav a {
     font-size: 12px;
     white-space: nowrap;
@@ -73,4 +76,7 @@ pre .lh-badge {
 }
 .bullet-list li {
     list-style-type: disc !important;
+}
+.btn-floating i {
+    margin-top: 0.126rem;
 }

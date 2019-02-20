@@ -1,7 +1,7 @@
 <ul id="slide-out" class="side-nav fixed leftside-navigation col s8 m5 l3 no-padding grey lighten-4">
     <li>
         <a href="?page=info" class="waves-effect">
-            <i class="material-icons">equalizer</i>
+            <span class="iconify grey-text text-darken-2" data-icon="ant-design:home" data-inline="false" data-width="22" data-height="22"></span>
             Home page
         </a>
     </li>
@@ -15,7 +15,7 @@
                 data-fileurl="<?= $item['file'] ?>"
                 >
 
-                <i class="material-icons <?= $item['color'] ?>-text text-darken-2"><?= $item['icon'] ?></i>
+                <span class="iconify <?= $item['color'] ?>-text text-darken-2" data-height="22" data-width="22" data-icon="<?= $item['icon'] ?>" data-inline="false"></span>
                 <span class="badge"><?= $item['count'] ?></span>
                 <?= $item['title'] ?>
             </a>

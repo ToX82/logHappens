@@ -4,7 +4,7 @@
 
         <ul class="collapsible">
             <li>
-                <div class="collapsible-header active grey lighten-2"><i class="material-icons">lens</i>LogHappens can't read log files!</div>
+                <div class="collapsible-header active grey lighten-2">LogHappens can't read log files!</div>
                 <div class="collapsible-body">
                     <p>By default, apache log files are not readable by apache itself. Which is a good
                         thing, at least on a production server. If you are on a development machine
@@ -19,7 +19,7 @@
                 </div>
             </li>
             <li>
-                <div class="collapsible-header grey lighten-2"><i class="material-icons">lens</i>How do I add a log file to be tracked?</div>
+                <div class="collapsible-header grey lighten-3">How do I add a log file to be tracked?</div>
                 <div class="collapsible-body">
                     <p>You can use one of the files you see in the `logic_templates` folder. Edit it
                         according to your needs (e.g. the log path). Move it to the `logic` folder and
@@ -29,7 +29,7 @@
                 </div>
             </li>
             <li>
-                <div class="collapsible-header grey lighten-2"><i class="material-icons">lens</i>Can I share a new template file?</div>
+                <div class="collapsible-header grey lighten-2">Can I share a new template file?</div>
                 <div class="collapsible-body">
                     <p>Of course! As you see, I have placed apache24 and CakePHP (2.x, 3.x) log files in the
                         `logic_templates` folder. If you have created your own routine, please send it

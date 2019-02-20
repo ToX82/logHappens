@@ -20,8 +20,9 @@ include("libs/build_menu.php");
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Comfortaa">
-    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="css/custom.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@1.0.0-rc7/dist/iconify.min.js"></script>
 </head>
 <body data-color-default="<?= $colors['default'] ?>" data-color-notice="<?= $colors['notice'] ?>">
     <header id="header" class="page-topbar">
@@ -36,9 +37,7 @@ include("libs/build_menu.php");
 
             <section id="content" class="col s12 m12 l9">
                 <div class="log-container">
-                    <?php
-                    include($page);
-                    ?>
+                    <?php include($page); ?>
                 </div>
             </section>
         </div>

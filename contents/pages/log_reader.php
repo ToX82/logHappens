@@ -17,17 +17,23 @@
 
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large <?= $colors["default"] ?> darken-2">
-        <i class="large material-icons">menu</i>
+        <i class="material-icon">
+            <span class="iconify white-text" data-icon="mdi:menu" data-width="26" data-height="26"></span>
+        </i>
     </a>
     <ul>
         <li>
             <a class="btn-floating green darken-2 viewLink" href="file:///<?= $menuItems[$logic]['file'] ?>" target="_blank">
-                <i class="material-icons tooltipped" data-position="left" data-delay="50" data-tooltip="Open this log file">visibility</i>
+                <i class="tooltipped material-icon" data-position="left" data-delay="50" data-tooltip="Open this log file">
+                    <span class="iconify white-text" data-icon="wpf:invisible" data-width="26" data-height="26"></span>
+                </i>
             </a>
         </li>
         <li>
             <a class="btn-floating red truncateLink" href="ajax.php?action=truncate&amp;logFile=<?= $menuItems[$logic]['file'] ?>">
-                <i class="material-icons tooltipped" data-position="left" data-delay="50" data-tooltip="Truncate this log file">delete_sweep</i>
+                <i class="tooltipped material-icon" data-position="left" data-delay="50" data-tooltip="Truncate this log file">
+                    <span class="iconify white-text" data-icon="mdi:delete-forever" data-width="26" data-height="26"></span>
+                </i>
             </a>
         </li>
     </ul>

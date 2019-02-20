@@ -1,9 +1,9 @@
 <?php
 $menu = [
-    "icon" => "build",
-    "color" => "red",
-    "title" => "Apache error.log",
-    "file" => "/var/log/apache2/error.log"
+    'icon' => 'logos:apache',
+    'color' => 'red',
+    'title' => 'Apache error.log',
+    'file' => '/var/log/apache2/error.log'
 ];
 if (!is_readable($menu['file'])) {
     echo 'Unable to open the log file. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
@@ -13,6 +13,7 @@ if (!is_readable($menu['file'])) {
 $content = file($menu['file']);
 
 $log = [];
+$time = '';
 foreach ($content as $line) {
     if (substr($line, 0, 1) != "[") {
         $log[$time][] = str_replace("\n", "", $line);
@@ -28,6 +29,7 @@ foreach ($content as $line) {
             $line = preg_replace('[\[pid (.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[php7(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[client(.*?)\]]', '', $line, 1);
+            $line = str_replace('PHP', '', $line);
             $line = str_replace('\n', '<br>', $line);
             $line = trim($line);
 
