@@ -6,7 +6,7 @@ $menu = [
     "file" => "/var/www/cakephp/logs/error.log"
 ];
 if (!is_readable($menu['file'])) {
-    echo 'Unable to open the log file. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
+    echo 'Unable to open the log file `' . $menu['file'] . '`. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
     die;
 }
 
@@ -15,7 +15,7 @@ $content = file($menu['file']);
 $log = [];
 foreach ($content as $line) {
     // Don't print the datetime for every record
-    if (substr($line, 0, 3) == "201") {
+    if (substr($line, 0, 3) == "202") {
         $time = substr($line, 0, 20);
         $line = str_replace($time, "", $line);
         $time = date("l d-m-Y - H:i:s", strtotime($time));

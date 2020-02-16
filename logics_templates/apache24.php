@@ -6,7 +6,7 @@ $menu = [
     'file' => '/var/log/apache2/error.log'
 ];
 if (!is_readable($menu['file'])) {
-    echo 'Unable to open the log file. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
+    echo 'Unable to open the log file `' . $menu['file'] . '`. Please check that the file is <a href="http://serverfault.com/questions/663837/make-error-log-readable-by-apache">readable by apache.</a>';
     die;
 }
 
