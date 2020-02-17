@@ -17,7 +17,7 @@
 </h4>
 
 <?php if (empty($logs['entries'])) { ?>
-    <div class="card border-warning">
+    <div class="card border-success">
         <div class="card-header">No entries</div>
         <div class="card-body">
             <p class="card-text">

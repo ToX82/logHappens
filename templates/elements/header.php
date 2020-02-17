@@ -1,5 +1,5 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="<?= buildUrl('display/info') ?>">LogHappens</a>
+    <a class="navbar-brand" href="<?= buildUrl('') ?>">LogHappens</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header" aria-controls="header" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
