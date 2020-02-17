@@ -8,7 +8,6 @@ require_once BASE_PATH . 'vendor/autoload.php';
  * Check if a GET variable exists
  *
  * @param string $name GET Variable's name
- * 
  * @return string variable's value
  */
 function isPage($name)
@@ -35,7 +34,6 @@ function splitQueryParams()
  * REDIRECT OR RELOAD
  *
  * @param string $destination Destinazione
- * 
  * @return void
  */
 function reload($destination = '')
@@ -94,7 +92,6 @@ function baseUrl()
  * Builds a complete url
  *
  * @param string $params Desired url parameters
- * 
  * @return string
  */
 function buildUrl($params)
@@ -106,7 +103,6 @@ function buildUrl($params)
  * Builds an asset url
  *
  * @param string $asset Desired asset url
- * 
  * @return string
  */
 function buildAssetUrl($asset)
@@ -121,7 +117,6 @@ function buildAssetUrl($asset)
  *
  * @param string $page  Url to match
  * @param string $class Return class (eg. active)
- * 
  * @return string
  */
 function checkPage($page, $class)

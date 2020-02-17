@@ -1,12 +1,9 @@
 <?php
-$pageTitle = "Loghappens";
-include "config.php";
 include "libs/libs.php";
 init();
 benchmark();
 
 include "routers/router.php";
-
 include "layouts/default.php";
 ?>
 

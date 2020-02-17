@@ -3,7 +3,6 @@
  * Trasforma la data in formato leggibile
  *
  * @param string $date Data
- * 
  * @return string
  */
 function toDateTime($date)
@@ -50,7 +49,6 @@ function getmicrotime()
  * Convert memory size in human readable format
  *
  * @param int $size Size
- * 
  * @return float
  */
 function convert($size)

@@ -1,5 +1,4 @@
 <?php
-include "config.php";
 include "libs/libs.php";
 init();
 

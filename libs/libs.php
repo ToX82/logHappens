@@ -19,7 +19,6 @@ function init()
  * Debug function
  *
  * @param mixed $var Variable to be printed (string or array)
- * 
  * @return void
  */
 function debug($var)

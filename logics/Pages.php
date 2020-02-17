@@ -7,7 +7,6 @@ class Pages
      * Displays a static page
      *
      * @param string $page The page we want to display. 404.php if the page does not exist
-     * 
      * @return string
      */
     public function display($page)

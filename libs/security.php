@@ -4,7 +4,6 @@
  * Parse a GET variable returning a clean string
  *
  * @param string $key GET Variable's index
- * 
  * @return string
  */
 function filterString($key)
@@ -17,7 +16,6 @@ function filterString($key)
  * Parse a GET variable returning a clean int value
  *
  * @param string $key GET Variable's index
- * 
  * @return string
  */
 function filterInt($key)
