@@ -8,11 +8,18 @@ $objPages = new logics\Pages();
 // Array con le pagine di template da includere
 $views = [];
 
+// Actions to be done for every request
+$countAll = $objParsers->countall();
+
 // Se non esiste un parametro nella URL seleziono la home page
 if (empty($params)) {
-    reload('info');
+    if (empty($countAll)) {
+        reload('display/start');
+    }
+    reload('display/info');
 }
 
+// Page specific actions
 if (isPage('truncate')) {
     $pageTitle = "Parsers";
 
@@ -32,7 +39,7 @@ if (isPage('viewlog')) {
 if (isPage('display')) {
     $pageTitle = "Display";
 
-    $page = filterString(1);
-    $file = $objPages->display($page);
+    $displayPage = filterString(1);
+    $file = $objPages->display($displayPage);
     $views[] = $file;
 }
