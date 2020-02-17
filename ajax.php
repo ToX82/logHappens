@@ -1,16 +1,8 @@
 <?php
-include("libs/libs.php");
-include("libs/router.php");
-include("libs/build_menu.php");
+include "config.php";
+include "libs/libs.php";
+init();
 
-$logic = "";
-$page = "info";
+include "routers/router.ajax.php";
 
-if (checkExist('logic')) {
-    $logic = filterString('logic');
-    include("logics/" . $logic . ".php");
-}
-if (checkExist('page')) {
-    $page = filterString('page');
-    include("contents/pages/" . $page . ".php");
-}
+echo $return;

@@ -1,0 +1,62 @@
+pre {
+    white-space: pre-wrap;
+}
+#left-sidebar-nav {
+    height: 100%;
+    min-height: calc(100vh - 57px);
+    background: rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 57px;
+    margin-top: 57px;
+}
+#content {
+    margin-top: 57px;
+}
+li.nav-item {
+    padding: 0;
+}
+.nav-link {
+    padding: 9px 18px;
+}
+.log-entries {
+    font-size: 10pt;
+}
+.lh-badge {
+    border-radius: 3px;
+    background-color: #0D47A1;
+    clear: both;
+    color: #FFF;
+    font-weight: bold;
+    padding: 1px 5px;
+}
+.badge {
+    font-weight: bold;
+}
+.badge-highlight {
+    background: firebrick;
+    color: #FFF;
+}
+table.dataTable thead .sorting::before,
+table.dataTable thead .sorting_asc::before,
+table.dataTable thead .sorting_desc::before,
+table.dataTable thead .sorting_asc_disabled::before,
+table.dataTable thead .sorting_desc_disabled::before {
+    content: "\2191";
+    left: 70px;
+}
+table.dataTable thead .sorting::after,
+table.dataTable thead .sorting_asc::after,
+table.dataTable thead .sorting_desc::after,
+table.dataTable thead .sorting_asc_disabled::after,
+table.dataTable thead .sorting_desc_disabled::after {
+    left: 75px;
+    content: "\2193";
+}
+table.datatable th {
+    height: 1px;
+    width: 1374px;
+    display: block;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}

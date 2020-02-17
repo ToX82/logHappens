@@ -1,0 +1,7 @@
+{
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {"logics\\": "logics/"}
+    }
+}

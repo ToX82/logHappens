@@ -1,3 +1,2 @@
-.vscode/
-logics/*
-site/
+vendor/**
+config.php

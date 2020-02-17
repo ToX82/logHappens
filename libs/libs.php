@@ -1,38 +1,30 @@
 <?php
-include("config.php");
+/**
+ * Initialization instructions
+ *
+ * @return void
+ */
+function init()
+{
+    include_once __DIR__ . "/utilities.php";
+    include_once __DIR__ . "/paths.php";
+    include_once __DIR__ . "/security.php";
 
-/*
-* Initial configurations
-*/
-header("Content-type: text/html;charset=utf-8");
-session_start();
-
-if (!isset($_SESSION["pagelength"])) {
-    $_SESSION["pagelength"] = $pagelength;
+    header('Content-type: text/html;charset=utf-8');
+    error_reporting(0);
+    ini_set('display_errors', 0);
 }
 
-/*
-* Misc functions
-*/
-function redirect($destination)
+/**
+ * Debug function
+ *
+ * @param mixed $var Variable to be printed (string or array)
+ * 
+ * @return void
+ */
+function debug($var)
 {
-    header("Refresh:0; url=" . $destination);
-}
-
-/*
-* Data sanitization
-*/
-function checkExist($name)
-{
-    return filter_input(INPUT_GET, $name, FILTER_DEFAULT);
-}
-
-function filterString($name)
-{
-    return filter_input(INPUT_GET, $name, FILTER_SANITIZE_STRING);
-}
-
-function filterInt($name)
-{
-    return filter_input(INPUT_GET, $name, FILTER_SANITIZE_NUMBER_INT);
+    echo "<pre>";
+        print_r($var);
+    echo "</pre>";
 }
