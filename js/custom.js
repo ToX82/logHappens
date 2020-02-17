@@ -1,6 +1,11 @@
 $(document).ready(function() {
     bootstrap();
 
+    // Recount logs every X seconds
+    setInterval(function() {
+        recountAll();
+    }, 5000);
+
     /**
      * TruncateLink method
      *
@@ -15,64 +20,48 @@ $(document).ready(function() {
             window.location.href = link;
         });
     });
-
-    /**
-     * Live reloading instructions
-     */
-    $('#left-sidebar-nav a[data-tracked=true]').each(function() {
-        var link = $(this).attr('href');
-
-        // First recount...
-        recount(link, true);
-
-        // Recount logs every X seconds
-        setInterval(function() {
-            recount(link, true);
-        }, 5000);
-    });
 });
 
 /**
  * Recount logs and trigger warnings when something happens
  *
- * @param {string} link The url of the log's page, for refreshing logs
- * @param {bool} push Show push messages or not
  */
-function recount(link, push) {
+function recountAll() {
     var baseUrl = $('.baseUrl').html();
-    var $link = $('#left-sidebar-nav a[href="' + link + '"]');
-    var $badge = $link.find('.badge');
-    var file = $link.attr('data-file');
-    var howMany = $link.attr('data-howmany');
-    var currentFile = $('.log-container h4').attr('data-file');
+    var $sidebar = $('#left-sidebar-nav');
 
     $.ajax({
-        url: baseUrl + 'ajax.php?countlog&file=' + file
-    }).done(function(howManyNew) {
-        if (howManyNew !== howMany) {
-            var difference = Number(howManyNew) - Number(howMany);
-            if (push === true) {
-                Push.create('LogHappens!', {
-                    body: file + ': ' + difference + ' new logs!',
-                    icon: baseUrl + '/img/logo.png',
-                    timeout: 4000,
-                    onClick: function () {
-                        window.focus();
-                        this.close();
-                    }
-                });
-            }
+        url: baseUrl + 'ajax.php?countall',
+        dataType: 'json'
+    }).done(function(data) {
+        $.each(data, function(key, countNew) {
+            var $navLink = $sidebar.find('a[data-file="' + key + '"]');
+            var countOld = parseInt($navLink.find('.badge').html().trim());
 
-            if (currentFile === file) {
-                reloadContent(file);
-            }
-            $badge.addClass('badge-highlight');
+            if (countNew !== countOld) {
+                var difference = Number(countNew) - Number(countOld);
+                if (push === true) {
+                    Push.create('LogHappens!', {
+                        body: file + ': ' + difference + ' new logs!',
+                        icon: baseUrl + '/img/logo.png',
+                        timeout: 4000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+                }
 
-            $badge.html(howManyNew);
-            $link.attr('data-howmany', howManyNew);
-        } else {
-            $badge.removeClass('badge-highlight');
-        }
+                if (currentFile === file) {
+                    reloadContent(file);
+                }
+                $badge.addClass('badge-highlight');
+
+                $badge.html(countNew);
+            } else {
+                $badge.removeClass('badge-highlight');
+            }
+        });
     });
 }
 

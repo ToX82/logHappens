@@ -10,7 +10,11 @@ class Parsers
      */
     public function __construct()
     {
-        include BASE_PATH . "config.php";
+        $parsers = [];
+
+        if (is_file(BASE_PATH . "config.php")) {
+            include BASE_PATH . "config.php";
+        }
 
         $this->config = $parsers;
     }
@@ -26,16 +30,31 @@ class Parsers
     }
 
     /**
+     * Recount all of the tracked log files
+     *
+     * @return array
+     */
+    public function countAll()
+    {
+        $counts = [];
+        foreach ($this->config as $key => $config) {
+            $counts[$key] = $this->count($key);
+        }
+
+        return $counts;
+    }
+
+    /**
      * Counts the number of entries for a given log file
      *
      * @param string $file Log file
-     * 
      * @return int
      */
     public function count($file)
     {
         $logs = $this->read($file);
-        if (empty($logs['entries'])) {
+
+        if (count($logs['entries']) === 0) {
             return '';
         }
 
@@ -46,15 +65,10 @@ class Parsers
      * Returns the entries for a given log file
      *
      * @param string $file Log file
-     * 
      * @return array
      */
     public function read($file)
     {
-        if (!isset($this->config[$file])) {
-            reload('404');
-        }
-
         $data = $this->config[$file];
         include BASE_PATH . "parsers/" . $data['parser'] . ".php";
 
@@ -74,7 +88,6 @@ class Parsers
      * Truncates a log file
      *
      * @param string $file Log file to truncate
-     * 
      * @return void
      */
     public function truncate($file)
