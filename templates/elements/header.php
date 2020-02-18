@@ -9,7 +9,7 @@
         </ul>
         <ul class="navbar-nav right">
             <li class="nav-item">
-                <a target="_blank" class="nav-link" href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
+                <a class="nav-link" href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
             </li>
             <li class="nav-item">
                 <a target="_blank" class="nav-link" href="https://github.com/ToX82/logHappens">GitHub</a>
