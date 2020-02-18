@@ -29,39 +29,56 @@ $(document).ready(function() {
 function recountAll() {
     var baseUrl = $('.baseUrl').html();
     var $sidebar = $('#left-sidebar-nav');
+    var currentPage = $('.log-container h4').attr('data-file');
+    var notificationText = '';
 
     $.ajax({
         url: baseUrl + 'ajax.php?countall',
         dataType: 'json'
     }).done(function(data) {
-        $.each(data, function(key, countNew) {
-            var $navLink = $sidebar.find('a[data-file="' + key + '"]');
-            var countOld = parseInt($navLink.find('.badge').html().trim());
+        $.each(data, function(file, countNew) {
+            var $navLink = $sidebar.find('a[data-file="' + file + '"]');
+            var $badge = $navLink.find('.badge');
+            var countOld = $badge.html().trim();
+
+            countNew = (countNew != '') ? parseInt(countNew) : 0;
+            countOld = (countOld != '') ? parseInt(countOld) : 0;
 
             if (countNew !== countOld) {
-                var difference = Number(countNew) - Number(countOld);
-                if (push === true) {
-                    Push.create('LogHappens!', {
-                        body: file + ': ' + difference + ' new logs!',
-                        icon: baseUrl + '/img/logo.png',
-                        timeout: 4000,
-                        onClick: function () {
-                            window.focus();
-                            this.close();
-                        }
-                    });
-                }
+                var difference = countNew - countOld;
 
-                if (currentFile === file) {
+                if (currentPage === file) {
                     reloadContent(file);
                 }
-                $badge.addClass('badge-highlight');
 
                 $badge.html(countNew);
+                $badge.addClass('badge-highlight');
+                notificationText = notificationText + file + ': ' + difference + ' new logs!     ';
             } else {
                 $badge.removeClass('badge-highlight');
             }
         });
+
+        if (notificationText !== '') {
+            pushNotification(notificationText, baseUrl);
+        }
+    });
+}
+
+/**
+ *
+ * @param string text The notification's body
+ * @param string baseUrl Application's base url
+ */
+function pushNotification(text, baseUrl) {
+    Push.create('LogHappened!', {
+        body: text,
+        icon: baseUrl + '/img/logo.png',
+        timeout: 4000,
+        onClick: function () {
+            window.focus();
+            this.close();
+        }
     });
 }
 
