@@ -2,42 +2,61 @@ logHappens!
 =============
 [![Code Climate](https://codeclimate.com/github/ToX82/logHappens/badges/gpa.svg)](https://codeclimate.com/github/ToX82/logHappens) 
 
-Bug happens. Every developer knows that. The nasty thing is that if you want to see what happened, you have to crawl between hundred lines log files, written in txt format, with no options to see them in an easier format, perhaps grouped by time.
+Bug happens 💩 Every developer knows that. The bad thing is that if you want to see what happened, more often than not you have to crawl between hundred lines log files, written in a format which is all but human friendly.
 
 
 ##### That's why LogHappens exists!
 
-LogHappens aims to fix this lack. It is a simple tool, it will not prevent you from writing bugs, but it will notify you immediately when something has been logged.
+LogHappens aims to fix exactly this. It is a simple tool, it will not prevent you from writing bugs, but it will notify you immediately when something has been logged by your web server or your favorite framework.
 
 
 ##### Does it handle different log formats?
 
-Of course it does. While it is true that every software has its own bugs, every software have its own way of logging things too. This is why I have tried to make it as simple as possible to create your own routine for reading log files. No fancy regex strings: if you just want to read the file, you can write a small php routine and group log entries by date/time, just printing the rest of the file. If you are feeling adventurous, you could possibly do whatever you want: highlight words, create tags, split errors... the only limit is your fantasy!
+Of course it does. Every software has its own bugs, and every software have its own way of logging things too. This is why I have tried to make it as simple as possible to let you create your own routine for reading log files. No fancy regex strings: if you just want to read the file, you can group log entries by date/time and print the rest of the file. If you are feeling adventurous, you can possibly do whatever you want: highlight words, create tags, split errors... the only limit is your fantasy.
 
 
 ##### How do I add a log file to be tracked?
 
-You can use one of the files you see in the `logic_templates` folder. Edit it according to your needs (e.g. the log path). Move it to the `logic` folder and refresh the page. Voilà. Use as much logics as you like to track more log files, and edit the way they group logs according to your needs. It should be pretty easy, isn't it?
+LogHappens 2.x made it much simpler to add tracking for a new file. Just add a new record in your config.php file, and set the values according to your preferences. Something like this
 
+    'apache' => [
+        'icon' => 'logos:apache', // Your desired icon for this entry. LogHappens uses https://iconify.design/ for icons
+        'color' => '#104B73', // The icon's color
+        'title' => 'Apache error', // The log file's title
+        'file' => '/var/log/apache2/error.log', // The log file's path
+        "parser" => "apache24" // The parser (currently supported parsers are: apache2.4, cakephp3.x, codeigniter)
+    ],
 
-##### Can I share a new template file?
+##### Can I share a new parser file?
 
-Of course! As you see, I have placed apache24 and CakePHP 3.x log files in the `logic_templates` folder. If you have created your own routine, please send it to me, I will be glad to add it to the other templates!
-
-
-##### Future plans?
-
-While not currently supported, I am planning to add support for remote logs too. Maybe through SFTP, I don't know yet... I'm open for ideas!
+Of course! As you see, I have placed apache24, CakePHP 3.x and CodeIgniter log files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
 
 
 ##### What does it look like?
 
-![It looks like this](https://user-images.githubusercontent.com/659492/53073881-94cd0800-34e9-11e9-82a0-82dbf1f99c5d.png)
+![It looks like this](https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png)
 
 
 #### Troubleshooting
 
-By default, apache log files are not readable by apache itself. Which is a good thing, at least on a production server. If you are on a development machine though you should give those files the correct permissions if you want to use LogHappens. Here's how:
+By default, apache log files are not readable by apache itself. Which is a good thing, at least on a production server. If you are on a development machine though you might want to give those files the correct permissions in order to be usable with LogHappens.
+Here's how you do it:
 
-* Edit `/etc/logrotate.d/apache2`, find the line saying `create 640 root adm` and replace with `create 777 root adm`.
-* Add 777 permissions to the apache logs directory: `sudo chmod -R 777 /var/log/apache2/`
+* Edit /etc/logrotate.d/apache2, find the line saying create 640 root adm and replace with create 777 root adm.
+* Add 777 permissions to the apache logs directory: sudo chmod -R 777 /var/log/apache2/
+
+
+#### LogHappens can't read my application's log files!
+Just set that file's permissions to 777, so that LogHappens can both read and write (truncate) that file.
+
+
+#### Can I track a remote file (I.E. through a URL)?
+If you are not worried for the security issues of having an error log publicly reachable, then yes. Just set the URL in the configuration path.
+
+    'myExampleSite' => [
+        "icon" => "wpf-online",
+        "color" => "#104B73",
+        "title" => "My ExampleSite Errors",
+        "file" => "https://example.com/logs/error.log",
+        "parser" => "cakephp3"
+    ],
