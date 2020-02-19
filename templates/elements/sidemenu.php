@@ -1,8 +1,8 @@
 <ul class="list-group flex-column">
     <li class="list-group-item nav-item <?= ($displayPage === 'info') ? 'active' : '' ?>">
-        <a class="nav-link" href="<?= buildUrl("display/info") ?>">
-            <span class="iconify" data-icon="flat-color-icons:info" data-inline="false"></span>
-            About LogHappens...
+        <a class="nav-link <?= ($displayPage === 'info') ? 'text-white' : '' ?>" href="<?= buildUrl("display/info") ?>">
+            <span class="iconify" data-icon="flat-color-icons:info" data-height="20" data-width="20" data-inline="false"></span>
+            <strong>About LogHappens...</strong>
         </a>
     </li>
     <?php foreach ($objParsers->list() as $key => $item) { ?>

@@ -14,6 +14,7 @@ foreach ($content as $line) {
         continue;
     }
 
+    $line = str_replace(' -->', '', $line);
     $line = trim($line);
 
     // Highlight the type of errors, using a badge
@@ -21,6 +22,8 @@ foreach ($content as $line) {
     $line = preg_replace("/^WARNING - /", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
     $line = preg_replace("/^INFO - /", "<span class='lh-badge' style='background-color: #a79716;'>Info:</span> ", $line);
     $line = preg_replace("/^ERROR - /", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
+
+    $line = str_replace("Severity: Warning", "<span class='lh-badge' style='background-color: #a79716;'>Warning</span> ", $line);
 
     // Save the log entry
     $logs[$time][] = $line;

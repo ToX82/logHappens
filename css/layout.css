@@ -54,7 +54,7 @@ table.dataTable thead .sorting_desc_disabled::after {
 }
 table.datatable th {
     height: 1px;
-    width: 1374px;
+    width: auto;
     display: block;
     padding: 0;
     margin: 0;
