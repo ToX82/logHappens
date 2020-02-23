@@ -36,7 +36,7 @@
             <?php foreach ($logs['entries'] as $time => $log) { ?>
                 <tr>
                     <td>
-                        <div class="card border-warning">
+                        <div class="card border-primary">
                             <div class="card-header"><?= $time ?></div>
                             <div class="card-body">
                                 <pre class="card-text"><?= implode("<br>", $log) ?></pre>
