@@ -1,8 +1,8 @@
 <?php
 /**
- * Trasforma la data in formato leggibile
+ * Transforms the date in a localized readable format
  *
- * @param string $date Data
+ * @param string $date Date
  * @return string
  */
 function toDateTime($date)
@@ -11,7 +11,9 @@ function toDateTime($date)
         return '-';
     }
 
-    return date("l d-m-Y - H:i:s", strtotime($date));
+    $lang = getBrowserLanguage();
+    $fmt = new \IntlDateFormatter($lang, IntlDateFormatter::FULL, IntlDateFormatter::MEDIUM);
+    return $fmt->format(strtotime($date));
 }
 
 /**

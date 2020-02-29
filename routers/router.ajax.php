@@ -1,5 +1,5 @@
 <?php
-$objParsers = new logics\Parsers();
+$objParsers = new logics\Parsers(BASE_PATH . "config.php");
 $return = null;
 
 if (isset($_GET['countall'])) {

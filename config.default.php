@@ -3,8 +3,8 @@
 $parsers = [
     "apache" => [
         "icon" => "logos:apache",
-        "color" => "red",
-        "title" => "Apache error.log",
+        "color" => "#104B73",
+        "title" => "Apache error",
         "file" => "/var/log/apache2/error.log",
         "parser" => "apache24"
     ],

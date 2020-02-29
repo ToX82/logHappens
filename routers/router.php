@@ -2,8 +2,7 @@
 $params = trim($_SERVER['QUERY_STRING'], '/');
 $params = explode("/", $params);
 $params = array_filter($params, 'strlen');
-$objParsers = new logics\Parsers();
-$objPages = new logics\Pages();
+$objParsers = new logics\Parsers(BASE_PATH . "config.php");
 
 // Array con le pagine di template da includere
 $views = [];
@@ -40,6 +39,6 @@ if (isPage('display')) {
     $pageTitle = "Display";
 
     $displayPage = filterString(1);
-    $file = $objPages->display($displayPage);
+    $file = logics\Pages::display($displayPage);
     $views[] = $file;
 }

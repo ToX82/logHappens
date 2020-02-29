@@ -8,12 +8,12 @@ class Parsers
     /**
      * __construct
      */
-    public function __construct()
+    public function __construct($config)
     {
         $parsers = [];
 
-        if (is_file(BASE_PATH . "config.php")) {
-            include BASE_PATH . "config.php";
+        if (is_file($config)) {
+            include $config;
         }
 
         $this->config = $parsers;

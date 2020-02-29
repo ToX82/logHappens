@@ -16,6 +16,42 @@ function init()
 }
 
 /**
+ * Detects the user's browser language
+ *
+ * @return string
+ */
+function getBrowserLanguage()
+{
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+
+    return $lang;
+}
+
+/**
+ * Returns the user's language name (when available)
+ *
+ * @return string
+ */
+function getUserLanguage()
+{
+    $lang = getBrowserLanguage();
+    switch ($lang) {
+        case 'nl':
+            return 'Dutch';
+        case 'fr':
+            return 'French';
+        case 'de':
+            return 'German';
+        case 'it':
+            return 'Italian';
+        case 'sp':
+            return 'Spanish';
+        default:
+            return 'English';
+    }
+}
+
+/**
  * Debug function
  *
  * @param mixed $var Variable to be printed (string or array)

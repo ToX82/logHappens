@@ -12,7 +12,7 @@
                 <a class="nav-link" href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
             </li>
             <li class="nav-item">
-                <a target="_blank" class="nav-link" href="https://github.com/ToX82/logHappens">GitHub</a>
+                <a target="_blank" rel="noreferrer" class="nav-link" href="https://github.com/ToX82/logHappens">GitHub</a>
             </li>
         </ul>
     </div>

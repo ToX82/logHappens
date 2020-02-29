@@ -95,9 +95,13 @@ function reloadContent(file) {
 }
 
 function bootstrap() {
+    var dataTablesLang = $('body').attr('data-language');
     $('.datatable').DataTable({
         ordering: false,
         order: [[ 0, "desc" ]],
-        stateSave: true
+        stateSave: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/' + dataTablesLang + '.json'
+        }
     });
 }

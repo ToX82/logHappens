@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4/dist/litera/bootstrap.min.css">
     <link rel="stylesheet" href="<?= buildAssetUrl("css/layout.css") ?>">
 
-    <script src="https://cdn.jsdelivr.net/npm/@iconify/iconify@1/dist/iconify.min.js"></script>
+    <script rel=preconnect src="https://cdn.jsdelivr.net/npm/@iconify/iconify@1/dist/iconify.min.js"></script>
 </head>
-<body>
+<body data-language="<?= getUserLanguage() ?>">
     <header id="header" class="page-topbar">
         <?php include('templates/elements/header.php') ?>
     </header>
