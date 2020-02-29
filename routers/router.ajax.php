@@ -1,5 +1,5 @@
 <?php
-$objParsers = new logics\Parsers(BASE_PATH . "config.php");
+$objParsers = new logics\Parsers(BASE_PATH . "config.json");
 $return = null;
 
 if (isset($_GET['countall'])) {

@@ -1,6 +1,6 @@
 logHappens!
 =============
-[![Code Climate](https://codeclimate.com/github/ToX82/logHappens/badges/gpa.svg)](https://codeclimate.com/github/ToX82/logHappens) 
+[![Code Climate](https://codeclimate.com/github/ToX82/logHappens/badges/gpa.svg)](https://codeclimate.com/github/ToX82/logHappens)
 
 Bug happens 💩 Every developer knows that. The bad thing is that if you want to see what happened, more often than not you have to crawl between hundred lines log files, written in a format which is all but human friendly.
 
@@ -17,15 +17,15 @@ Of course it does. Every software has its own bugs, and every software have its 
 
 ##### How do I add a log file to be tracked?
 
-LogHappens 2.x made it much simpler to add tracking for a new file. Just add a new record in your config.php file, and set the values according to your preferences. Something like this
+LogHappens 2.x made it much simpler to add tracking for a new file. Just add a new record in your config.json file, and set the values according to your preferences. Something like this
 
-    'apache' => [
-        'icon' => 'logos:apache', // Your desired icon for this entry. LogHappens uses https://iconify.design/ for icons
-        'color' => '#104B73', // The icon's color
-        'title' => 'Apache error', // The log file's title
-        'file' => '/var/log/apache2/error.log', // The log file's path
-        "parser" => "apache24" // The parser (currently supported parsers are: apache2.4, cakephp3.x, codeigniter)
-    ],
+    "apache": {
+        "icon": "logos:apache",
+        "color": "#104B73",
+        "title": "Apache error",
+        "file": "/var/log/apache2/error.log",
+        "parser": "apache24"
+    }
 
 ##### Can I share a new parser file?
 

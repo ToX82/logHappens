@@ -9,11 +9,11 @@
                 <p>Here is a quick guide to get started. Are you ready?</p>
                 <ul>
                     <li>
-                        First things first, you should create your own "config.php" file.<br>
-                        In order to do do so, please copy "config.default.php" to "config.php".
+                        First things first, you should create your own "config.json" file.<br>
+                        In order to do do so, please copy "config.default.json" to "config.json".
                     </li>
                     <li>
-                        Then, open your newly created "config.php" with your favorite code editor,
+                        Then, open your newly created "config.json" with your favorite code editor,
                         and add as many log files as you need, by using the same structure as the
                         record that you will already see (which is the standard apache logs).<br>
                         Beware, on some systems you might need to change the file path for this record.

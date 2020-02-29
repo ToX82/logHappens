@@ -1,6 +1,6 @@
 <?php
 $params = splitQueryParams();
-$objParsers = new logics\Parsers(BASE_PATH . "config.php");
+$objParsers = new logics\Parsers(BASE_PATH . "config.json");
 
 // Array con le pagine di template da includere
 $views = [];

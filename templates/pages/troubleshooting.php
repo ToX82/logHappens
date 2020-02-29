@@ -32,7 +32,7 @@
                     <li class="mb-3">
                         <strong>How do I add a log file to be tracked?</strong>
                         <div>
-                            <p>Just add a new record in your config.php file, and set the values according to your preferences.
+                            <p>Just add a new record in your config.json file, and set the values according to your preferences.
                             </p>
                         </div>
                     </li>

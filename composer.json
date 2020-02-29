@@ -5,6 +5,7 @@
         "psr-4": {"logics\\": "logics/"}
     },
     "require-dev": {
-        "fig-r/psr2r-sniffer": "^0.6.3"
+        "fig-r/psr2r-sniffer": "^0.6.3",
+        "phpunit/phpunit": "^8.5"
     }
 }

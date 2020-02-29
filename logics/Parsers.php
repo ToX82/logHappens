@@ -8,15 +8,20 @@ class Parsers
     /**
      * __construct
      */
-    public function __construct($config)
+    public function __construct($jsonFile)
     {
-        $parsers = [];
+        $config = [];
 
-        if (is_file($config)) {
-            include $config;
+        if (is_file($jsonFile)) {
+            $config = file_get_contents($jsonFile);
+            $config = json_decode($config, true);
+
+            if (isset($config['parsers'])) {
+                $config = $config['parsers'];
+            }
         }
 
-        $this->config = $parsers;
+        $this->config = $config;
     }
 
     /**
