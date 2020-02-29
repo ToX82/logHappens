@@ -23,9 +23,18 @@ function isPage($name)
  */
 function splitQueryParams()
 {
-    list($params) = array_keys($_GET);
+    $params = $_GET;
+    if (empty($params) && isset($_SERVER['PATH_INFO'])) {
+        $params = $_SERVER['PATH_INFO'];
+        $params = [$params => ''];
+    }
+    list($params) = array_keys($params);
     $params = trim($params, "/");
     $params = explode("/", $params);
+
+    if (count($params) === 1 && $params[0] === '') {
+        $params = [];
+    }
 
     return $params;
 }
@@ -83,9 +92,30 @@ function basePath()
  */
 function baseUrl()
 {
-    $path = str_replace("/" . basename($_SERVER['PHP_SELF']), '', $_SERVER['PHP_SELF']);
+    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://';
+    $tmpURL = dirname(__FILE__);
+    $tmpURL = str_replace(chr(92), '/', $tmpURL);
+    $tmpURL = str_replace($_SERVER['DOCUMENT_ROOT'], '', $tmpURL);
 
-    return 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}{$path}";
+    $tmpURL = ltrim($tmpURL, '/');
+    $tmpURL = rtrim($tmpURL, '/');
+
+    // check again if we find any slash string in value then we can assume its local machine
+    if (strpos($tmpURL, '/')) {
+        $tmpURL = explode('/', $tmpURL);
+        $tmpURL = $tmpURL[0];
+    }
+
+    if ($tmpURL !== $_SERVER['HTTP_HOST']) {
+        $baseUrl .= $_SERVER['HTTP_HOST'] . '/' . $tmpURL . '/';
+    } else {
+        $baseUrl .= $tmpURL . '/';
+    }
+
+    $baseUrl = str_replace('libs/', '', $baseUrl);
+    $baseUrl = rtrim($baseUrl, '/');
+
+    return $baseUrl;
 }
 
 /**

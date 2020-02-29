@@ -1,7 +1,5 @@
 <?php
-$params = trim($_SERVER['QUERY_STRING'], '/');
-$params = explode("/", $params);
-$params = array_filter($params, 'strlen');
+$params = splitQueryParams();
 $objParsers = new logics\Parsers(BASE_PATH . "config.php");
 
 // Array con le pagine di template da includere
