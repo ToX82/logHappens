@@ -1,3 +1,5 @@
+var datatable;
+
 $(document).ready(function() {
     bootstrap();
 
@@ -49,7 +51,7 @@ function recountAll() {
             if (countNew !== countOld) {
                 var difference = countNew - countOld;
 
-                if (currentPage === file) {
+                if (currentPage === file && datatable.page.info().page === 0) {
                     reloadContent();
                 }
 
@@ -106,7 +108,7 @@ function bootstrap() {
     var dataTablesLang = $('body').attr('data-language');
     var currentPage = $('.log-container h4').attr('data-file');
 
-    $('.datatable').DataTable({
+    datatable = $('.datatable').DataTable({
         ajax: baseUrl + 'ajax.php?viewlog&file=' + currentPage,
         ordering: false,
         serverSide: true,
