@@ -5,7 +5,7 @@
                 About LogHappens
             </div>
             <div class="card-body">
-                <h5>Bug happens... 💩</h5>
+                <h5>Bug happens... <span class="iconify" data-icon="emojione-v1:pile-of-poo" data-inline="true" data-width="40"></span></h5>
                 <p>
                     Every developer knows that. The bad thing is that
                     if you want to see what happened, more often than not you have to crawl between hundred

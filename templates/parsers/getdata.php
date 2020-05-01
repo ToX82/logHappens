@@ -10,8 +10,14 @@ $json->data = [];
         <div class="card border-success">
             <div class="card-header">No entries</div>
             <div class="card-body">
-                <p class="card-text">
-                    <pre>Hooray! No logs to be seen here</pre>
+                <p class="card-text text-center">
+                    <?php if ($return['recordsTotal'] > 0) { ?>
+                        <span class="iconify" data-icon="emojione:see-no-evil-monkey" data-inline="false" data-width="80"></span>
+                        <pre class="text-center">Sorry, there is nothing that matches your search<br>Try different search terms</pre>
+                    <?php } else { ?>
+                        <span class="iconify" data-icon="emojione:party-popper" data-inline="false" data-width="80"></span>
+                        <pre class="text-center">Hooray! No logs to be seen here</pre>
+                    <?php } ?>
                 </p>
             </div>
         </div>
