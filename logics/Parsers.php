@@ -57,13 +57,14 @@ class Parsers
      */
     public function count($file)
     {
-        $logs = $this->read($file);
+        $data = $this->config[$file];
+        include BASE_PATH . "parsers/" . $data['parser'] . ".php";
 
-        if (count($logs['entries']) === 0) {
+        if (count($logs) === 0) {
             return '';
         }
 
-        return count($logs['entries']);
+        return count($logs);
     }
 
     /**
@@ -72,21 +73,61 @@ class Parsers
      * @param string $file Log file
      * @return array
      */
-    public function read($file)
+    public function view($file)
     {
         $data = $this->config[$file];
-        include BASE_PATH . "parsers/" . $data['parser'] . ".php";
-
-        if (!empty($logs)) {
-            $logs = array_reverse($logs);
-        }
 
         return [
             'file' => $file,
             'writable' => is_writable($data['file']),
             'title' => $data['title'],
-            'entries' => $logs,
         ];
+    }
+
+    /**
+     * Returns the entries for a given log file
+     *
+     * @param string $file Log file
+     * @param int $offset Offset
+     * @param int $limit Limit
+     * @return array
+     */
+    public function entries($file, $offset = 0, $limit = 10, $search = '')
+    {
+        $data = $this->config[$file];
+        include BASE_PATH . "parsers/" . $data['parser'] . ".php";
+
+        // We want the records ordered from the newest to the oldest
+        if (!empty($logs)) {
+            $logs = array_reverse($logs);
+        }
+
+        // Setting the total records count
+        $recordsTotal = count($logs);
+
+        // Is there anything to search?
+        if ($search !== '') {
+            foreach ($logs as $key => $log) {
+                $found = false;
+                foreach ($log as $line) {
+                    if (strpos($line, $search) !== false) {
+                        $found = true;
+                    }
+                }
+
+                if ($found === false) {
+                    unset($logs[$key]);
+                }
+            }
+        }
+
+        // The filtered records could be different from the total, if we are searching for something
+        $recordsFiltered = count($logs);
+
+        // Subsetting the records for pagination
+        $subset = array_slice($logs, $offset, $limit);
+
+        return ['recordsFiltered' => $recordsFiltered, 'recordsTotal' => $recordsTotal, 'data' => $subset];
     }
 
     /**

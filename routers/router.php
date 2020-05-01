@@ -29,7 +29,7 @@ if (isPage('viewlog')) {
     $pageTitle = "Parsers";
 
     $file = filterString(1);
-    $logs = $objParsers->read($file);
+    $logs = $objParsers->view($file);
     $views[] = "templates/parsers/log_reader.php";
 }
 

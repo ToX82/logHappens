@@ -9,11 +9,12 @@ $(document).ready(function() {
     /**
      * TruncateLink method
      *
+     * @returns {void}
      */
     $('body').on('click', '.truncateLink', function(e) {
         e.preventDefault();
         var link = $(this).attr('href');
-        var $modal = $("#js-confirm");
+        var $modal = $('#js-confirm');
         $modal.modal('show');
 
         $modal.find('.yes-btn').click(function() {
@@ -25,6 +26,7 @@ $(document).ready(function() {
 /**
  * Recount logs and trigger warnings when something happens
  *
+ * @returns {void}
  */
 function recountAll() {
     var baseUrl = $('.baseUrl').html();
@@ -48,7 +50,7 @@ function recountAll() {
                 var difference = countNew - countOld;
 
                 if (currentPage === file) {
-                    reloadContent(file);
+                    reloadContent();
                 }
 
                 $badge.html(countNew);
@@ -66,9 +68,11 @@ function recountAll() {
 }
 
 /**
+ * Creates a push notification for the browser
  *
- * @param string text The notification's body
- * @param string baseUrl Application's base url
+ * @param {string} text The notification's body
+ * @param {string} baseUrl Application's base url
+ * @returns {void}
  */
 function pushNotification(text, baseUrl) {
     Push.create('LogHappened!', {
@@ -85,21 +89,35 @@ function pushNotification(text, baseUrl) {
 /**
  * Refresh the log's list
  *
- * @param {string} file The log's name
+ * @returns {void}
  */
-function reloadContent(file) {
-    var baseUrl = $('.baseUrl').html();
-    $('.log-container').load(baseUrl + 'ajax.php?viewlog&file=' + file, function() {
-        bootstrap();
-    });
+function reloadContent() {
+    var table = $('.datatable').DataTable();
+    table.ajax.reload();
 }
 
+/**
+ * Page bootstrap (here we set datatables settings and maybe more)
+ *
+ * @returns {void}
+ */
 function bootstrap() {
+    var baseUrl = $('.baseUrl').html();
     var dataTablesLang = $('body').attr('data-language');
+    var currentPage = $('.log-container h4').attr('data-file');
+
     $('.datatable').DataTable({
+        ajax: baseUrl + 'ajax.php?viewlog&file=' + currentPage,
         ordering: false,
-        order: [[ 0, "desc" ]],
+        serverSide: true,
+        processing: true,
         stateSave: true,
+        columns: [
+            {'data': 'log'},
+        ],
+        order: [
+            [0, 'desc']
+        ],
         language: {
             url: 'https://cdn.datatables.net/plug-ins/1.10.20/i18n/' + dataTablesLang + '.json'
         }
