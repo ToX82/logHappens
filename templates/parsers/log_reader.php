@@ -1,4 +1,7 @@
 <h4 data-file="<?= $logs['file'] ?>" class="mb-4">
+    <i style="color: <?= $logs['color'] ?>">
+        <span class="iconify" data-height="30" data-width="30" data-icon="<?= $logs['icon'] ?>" data-inline="false"></span>
+    </i>
     <?= $logs['title'] ?>
 
     <?php if ($logs['writable'] === true) { ?>

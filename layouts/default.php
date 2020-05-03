@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= getBrowserLanguage() ?>">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +30,7 @@
             </aside>
 
             <section id="content" class="col-12 col-md-12 col-lg-9">
-                <div class="row mt-4">
+                <div class="row my-4">
                     <div class="col-12 log-container">
                         <?php foreach ($views as $view) { ?>
                             <?php include($view); ?>

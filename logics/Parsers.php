@@ -79,6 +79,8 @@ class Parsers
 
         return [
             'file' => $file,
+            'icon' => $data['icon'],
+            'color' => $data['color'],
             'writable' => is_writable($data['file']),
             'title' => $data['title'],
         ];
@@ -110,7 +112,7 @@ class Parsers
             foreach ($logs as $key => $log) {
                 $found = false;
                 foreach ($log as $line) {
-                    if (strpos($line, $search) !== false) {
+                    if (stripos($line, $search) !== false) {
                         $found = true;
                     }
                 }
