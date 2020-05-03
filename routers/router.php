@@ -1,6 +1,6 @@
 <?php
 $params = splitQueryParams();
-$objParsers = new logics\Parsers(BASE_PATH . "config.json");
+$objParsers = new logics\Parsers(ROOT . "config.json");
 
 // Array con le pagine di template da includere
 $views = [];
@@ -30,7 +30,7 @@ if (isPage('viewlog')) {
 
     $file = filterString(1);
     $logs = $objParsers->view($file);
-    $views[] = "templates/parsers/log_reader.php";
+    $views[] = ROOT . "views/parsers/log_reader.php";
 }
 
 if (isPage('display')) {
@@ -38,9 +38,9 @@ if (isPage('display')) {
 
     $displayPage = filterString(1);
     $file = logics\Pages::display($displayPage);
-    $views[] = $file;
+    $views[] = ROOT . $file;
 }
 
 if (empty($views)) {
-    $views[] = "templates/pages/404.php";
+    $views[] = ROOT . "views/pages/404.php";
 }

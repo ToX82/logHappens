@@ -58,7 +58,7 @@ class Parsers
     public function count($file)
     {
         $data = $this->config[$file];
-        include BASE_PATH . "parsers/" . $data['parser'] . ".php";
+        include ROOT . "parsers/" . $data['parser'] . ".php";
 
         if (count($logs) === 0) {
             return '';
@@ -97,7 +97,7 @@ class Parsers
     public function entries($file, $offset = 0, $limit = 10, $search = '')
     {
         $data = $this->config[$file];
-        include BASE_PATH . "parsers/" . $data['parser'] . ".php";
+        include ROOT . "parsers/" . $data['parser'] . ".php";
 
         // We want the records ordered from the newest to the oldest
         if (!empty($logs)) {

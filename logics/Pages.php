@@ -11,10 +11,10 @@ class Pages
      */
     public static function display($page)
     {
-        if (is_file("templates/pages/" . $page . ".php")) {
-            return "templates/pages/" . $page . ".php";
+        if (is_file(ROOT . "views/pages/" . $page . ".php")) {
+            return "views/pages/" . $page . ".php";
         }
 
-        return "templates/pages/404.php";
+        return "views/pages/404.php";
     }
 }

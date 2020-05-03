@@ -8,25 +8,25 @@
     <title>LogHappens</title>
 
     <!-- Favicons-->
-    <link rel="icon" href="<?= buildAssetUrl("img/favicon/favicon-32x32.png") ?>" sizes="32x32">
-    <link rel="apple-touch-icon-precomposed" href="<?= buildAssetUrl("img/favicon/apple-touch-icon-152x152.png") ?>">
+    <link rel="icon" href="<?= buildAssetUrl("webroot/img/favicon/favicon-32x32.png") ?>" sizes="32x32">
+    <link rel="apple-touch-icon-precomposed" href="<?= buildAssetUrl("webroot/img/favicon/apple-touch-icon-152x152.png") ?>">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4/dist/litera/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= buildAssetUrl("css/layout.css") ?>">
+    <link rel="stylesheet" href="<?= buildAssetUrl("webroot/css/layout.css") ?>">
 
     <script rel=preconnect src="https://cdn.jsdelivr.net/npm/@iconify/iconify@1/dist/iconify.min.js"></script>
 </head>
 <body data-language="<?= getUserLanguage() ?>">
     <header id="header" class="page-topbar">
-        <?php include('templates/elements/header.php') ?>
+        <?php include(ROOT . 'views/elements/header.php') ?>
     </header>
 
     <main class="container-fluid">
         <div class="row">
             <aside id="left-sidebar-nav" class="col-12 col-md-12 col-lg-3 pt-4">
-                <?php include('templates/elements/sidemenu.php') ?>
+                <?php include(ROOT . 'views/elements/sidemenu.php') ?>
             </aside>
 
             <section id="content" class="col-12 col-md-12 col-lg-9">
@@ -41,7 +41,7 @@
         </div>
     </main>
 
-    <?php include('templates/elements/confirm_truncate.php') ?>
+    <?php include(ROOT . 'views/elements/confirm_truncate.php') ?>
     <div class="baseUrl d-none"><?= BASE_URL ?></div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
@@ -49,6 +49,6 @@
     <script src="https://cdn.jsdelivr.net/npm/datatables.net@1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/push.js@1/bin/push.min.js"></script>
-    <script type="text/javascript" src="<?= buildAssetUrl("js/custom.js") ?>"></script>
+    <script type="text/javascript" src="<?= buildAssetUrl("webroot/js/custom.js") ?>"></script>
 </body>
 </html>

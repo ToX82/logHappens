@@ -1,8 +1,7 @@
 <?php
-define('BASE_PATH', basePath() . "/");
 define('BASE_URL', baseUrl() . "/");
 
-require_once BASE_PATH . 'vendor/autoload.php';
+require_once ROOT . 'vendor/autoload.php';
 
 /**
  * Check if a GET variable exists
@@ -77,19 +76,6 @@ function currentUrl()
  *
  * @return string
  */
-function basePath()
-{
-    $return = $_SERVER['SCRIPT_FILENAME'];
-    $return = str_replace(basename($return), '', $return);
-
-    return $return;
-}
-
-/**
- * RETURNS THE CURRENT BASE URL
- *
- * @return string
- */
 function baseUrl()
 {
     $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://';
@@ -138,7 +124,7 @@ function buildUrl($params)
 function buildAssetUrl($asset)
 {
     $assetUrl = BASE_URL . $asset;
-    $assetPath = BASE_PATH . $asset;
+    $assetPath = ROOT . $asset;
     return $assetUrl . "?" . filemtime($assetPath);
 }
 
