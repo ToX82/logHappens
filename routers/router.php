@@ -40,3 +40,7 @@ if (isPage('display')) {
     $file = logics\Pages::display($displayPage);
     $views[] = $file;
 }
+
+if (empty($views)) {
+    $views[] = "templates/pages/404.php";
+}

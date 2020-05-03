@@ -59,3 +59,27 @@ function convert($size)
 
     return round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
 }
+
+function randomError()
+{
+    $haiku = [
+        "A page like that?<br>It might be very useful.<br>But now it is gone.",
+        "The Web page you seek<br>Cannot be located, but<br>Countless more exist.",
+        "Program aborting:<br>Close all that you have worked on.<br>You ask far too much.",
+        "Yesterday it worked.<br>Today it is not working.<br>Servers are like that.",
+        "Stay the patient course.<br>Of little worth is your ire.<br>This page is offline.",
+        "You step in the stream,<br>But the water has moved on.<br>This page is not here.",
+        "Out of memory.<br>We wish to hold the whole sky,<br>But we never will.",
+        "Having been erased,<br>The document you’re seeking<br>Must now be retyped.",
+        "Serious error.<br>All shortcuts have disappeared.<br>Screen. Mind. Both are blank.",
+        "Something you entered<br>transcended parameters.<br>So much is unknown.",
+        "Not a pretty sight<br>When the web dies screaming loud<br>The page is not found.",
+        "The web page you seek<br>Lies beyond our perception<br>But others await.",
+        "Rather than a beep<br>Or a rude error message,<br>These words: 'Page not found.'",
+        "To have no errors<br>Would be life without meaning<br>No struggle, no joy",
+        "Errors have occurred.<br>We won't tell you where or why.<br>Lazy programmers.",
+        "The code was willing<br>It considered your request,<br>But the chips were weak.",
+    ];
+
+    return $haiku[array_rand($haiku)];
+}
