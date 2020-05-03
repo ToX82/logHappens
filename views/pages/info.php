@@ -42,12 +42,31 @@
 
                 <h5>Do you like LogHappens? Spread the word!</h5>
                 <p>
-                    <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/facebook.svg") ?>" width="36" height="36" style="background-color:#3B5998"></a>
-                    <a href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/twitter.svg") ?>" width="36" height="36" style="background-color:#55ACEE"></a>
-                    <a href="https://plus.google.com/share?url=https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/google_plus.svg") ?>" width="36" height="36" style="background-color:#DD4B39"></a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Floghappens.com&amp;title=&amp;summary=&amp;source=https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/linkedin.svg") ?>" width="36" height="36" style="background-color:#007BB5"></a>
-                    <a href="whatsapp://send?text=%20https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/whatsapp.svg") ?>" width="36" height="36" style="background-color:#12AF0A"></a>
-                    <a href="mailto:?subject=&amp;body=https%3A%2F%2Floghappens.com" target="_blank"><img src="<?= buildAssetUrl("img/social/email.svg") ?>" width="36" height="36" style="background-color:#0166FF"></a>
+                    <div class="d-inline-block mx-2" title="Share via Facebook">
+                        <a href="https://facebook.com/sharer/sharer.php?u=https%3A%2F%2Floghappens.com" target="_blank">
+                            <span class="iconify" data-icon="logos:facebook" data-inline="false" data-width="36"></span>
+                        </a>
+                    </div>
+                    <div class="d-inline-block mx-2" title="Tweet via Twitter">
+                        <a href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Floghappens.com" target="_blank">
+                        <span class="iconify" data-icon="logos:twitter" data-inline="false" data-width="36"></span>
+                        </a>
+                    </div>
+                    <div class="d-inline-block mx-2" title="Share via Linkedin">
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Floghappens.com&amp;title=&amp;summary=&amp;source=https%3A%2F%2Floghappens.com" target="_blank">
+                            <span class="iconify" data-icon="ps:linkedin-alt" data-inline="false" style="color: #185f87;" data-width="36"></span>
+                        </a>
+                    </div>
+                    <div class="d-inline-block mx-2" title="Share via Whatsapp">
+                        <a href="whatsapp://send?text=%20https%3A%2F%2Floghappens.com" target="_blank">
+                            <span class="iconify" data-icon="logos:whatsapp" data-inline="false" data-width="36"></span>
+                        </a>
+                    </div>
+                    <div class="d-inline-block mx-2" title="Share via Email">
+                        <a href="mailto:?subject=&amp;body=https%3A%2F%2Floghappens.com" target="_blank">
+                            <span class="iconify" data-icon="logos:google-gmail" data-inline="false" data-width="36"></span>
+                        </a>
+                    </div>
                 </p>
             </div>
         </div>
