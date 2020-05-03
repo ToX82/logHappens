@@ -17,7 +17,7 @@ Of course it does. Every software has its own bugs, and every software have its 
 
 ##### How do I add a log file to be tracked?
 
-LogHappens 2.x made it much simpler to add tracking for a new file. Just add a new record in your config.json file, and set the values according to your preferences. Something like this
+Tracking new file is fairly simple with LogHappens. Just add a new record in your config.json file, and set the values according to your preferences. Something like this is enough.
 
     "apache": {
         "icon": "logos:apache",
@@ -27,9 +27,12 @@ LogHappens 2.x made it much simpler to add tracking for a new file. Just add a n
         "parser": "apache24"
     }
 
+Please visit [iconify.design](https://iconify.design/icon-sets/?query=logos%3Aapache) for more icons.
+
+
 ##### Can I share a new parser file?
 
-Of course! As you see, I have placed apache24, CakePHP 3.x and CodeIgniter log files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
+Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
 
 
 ##### What does it look like?
@@ -47,16 +50,20 @@ Here's how you do it:
 
 
 #### LogHappens can't read my application's log files!
-Just set that file's permissions to 777, so that LogHappens can both read and write (truncate) that file.
+Set that file's permissions to 777, so that LogHappens can both read and write (truncate) that file.
 
 
 #### Can I track a remote file (I.E. through a URL)?
 If you are not worried for the security issues of having an error log publicly reachable, then yes. Just set the URL in the configuration path.
 
-    'myExampleSite' => [
-        "icon" => "wpf-online",
-        "color" => "#104B73",
-        "title" => "My ExampleSite Errors",
-        "file" => "https://example.com/logs/error.log",
-        "parser" => "cakephp3"
-    ],
+    "myExampleSite": {
+        "icon": "wpf-online",
+        "color": "#104B73",
+        "title": "My ExampleSite Errors",
+        "file": "https://example.com/logs/error.log",
+        "parser": "cakephp3"
+    }
+
+
+##### Can I capture the browser's JavaScript errors too?
+Yes sir! Though it is not a LogHappens specific function you could use something [like this](https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681) to capture client side JavaScript errors
