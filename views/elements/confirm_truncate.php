@@ -11,8 +11,8 @@
                 <p>Are you sure you want to truncate this log file?</p>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary no-btn" data-dismiss="modal">No</a>
-                <a class="btn btn-primary yes-btn">Yes</a>
+                <button type="button" class="btn btn-secondary no-btn" data-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary yes-btn">Yes</button>
             </div>
         </div>
     </div>
