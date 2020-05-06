@@ -3,6 +3,13 @@ var datatable;
 $(document).ready(function() {
     bootstrap();
 
+    // Theme switcher
+    $('.theme-switcher').on('change', function() {
+        var baseUrl = $('.baseUrl').html();
+        var theme = $(this).val();
+        window.location.href = baseUrl + 'settheme/' + theme;
+    });
+
     // Recount logs every X seconds
     setInterval(function() {
         recountAll();

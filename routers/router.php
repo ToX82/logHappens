@@ -41,6 +41,17 @@ if (isPage('display')) {
     $views[] = ROOT . $file;
 }
 
+if (isPage('settheme')) {
+    $theme = filterString(1);
+    setCookieTheme($theme);
+
+    if (isset($_SERVER['HTTP_REFERER'])) {
+        reload($_SERVER['HTTP_REFERER']);
+    }
+
+    reload('/');
+}
+
 if (empty($views)) {
     $views[] = ROOT . "views/pages/404.php";
 }

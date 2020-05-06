@@ -4,16 +4,19 @@ pre {
 p {
     font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
+.navbar.fixed-top {
+    height: 3.6rem;
+}
 #left-sidebar-nav {
     height: 100%;
-    min-height: calc(100vh - 57px);
+    min-height: calc(100vh - 3.6rem);
     background: rgba(0, 0, 0, 0.1);
     position: sticky;
-    top: 57px;
-    margin-top: 57px;
+    top: 3.6rem;
+    margin-top: 3.6rem;
 }
 #content {
-    margin-top: 57px;
+    margin-top: 3.6rem;
 }
 li.nav-item {
     padding: 0;

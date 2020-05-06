@@ -60,6 +60,66 @@ function convert($size)
     return round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
 }
 
+/**
+ * Gets the user selected theme
+ *
+ * @return void
+ */
+function getTheme()
+{
+    if (!isset($_COOKIE['theme'])) {
+        $theme = 'litera';
+    } else {
+        $theme = $_COOKIE['theme'];
+    }
+    $theme = setCookieTheme($theme);
+
+    return $theme;
+}
+
+/**
+ * Writes the user's selected theme into a cookie
+ *
+ * @param string $theme selected theme
+ * @return string
+ */
+function setCookieTheme($theme)
+{
+    if (!in_array($theme, [
+        'cerulean',
+        'darkly',
+        'litera',
+        'materia',
+        'sandstone',
+        'slate',
+        'superhero',
+        'cosmo',
+        'flatly',
+        'lumen',
+        'minty',
+        'simplex',
+        'solar',
+        'united',
+        'cyborg',
+        'journal',
+        'lux',
+        'pulse',
+        'sketchy',
+        'spacelab',
+        'yeti',
+    ])) {
+        $theme = 'litera';
+    }
+    setcookie('theme', $theme, strtotime('+1 year'), '/');
+
+    return $theme;
+}
+
+/**
+ * Select a random 404 error
+ *
+ * @return string
+ */
 function randomError()
 {
     $haiku = [

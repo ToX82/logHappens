@@ -1,7 +1,7 @@
 <ul class="list-group flex-column">
     <?php foreach ($objParsers->list() as $key => $item) { ?>
         <li class="list-group-item nav-item <?= ($key === @$logs['file']) ? 'active' : '' ?>">
-            <a class="nav-link <?= ($key === @$logs['file']) ? 'text-white' : '' ?>" href="<?= buildUrl("viewlog/" . $key) ?>" data-file="<?= $key ?>">
+            <a class="nav-link <?= ($key === @$logs['file']) ? 'text-light' : '' ?>" href="<?= buildUrl("viewlog/" . $key) ?>" data-file="<?= $key ?>">
                 <i style="color: <?= $item['color'] ?>">
                     <span class="iconify" data-height="22" data-width="22" data-icon="<?= $item['icon'] ?>" data-inline="false"></span>
                 </i>
