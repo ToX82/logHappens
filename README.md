@@ -30,29 +30,6 @@ Tracking new file is fairly simple with LogHappens. Just add a new record in you
 Please visit [iconify.design](https://iconify.design/icon-sets/?query=logos%3Aapache) for more icons.
 
 
-##### Can I share a new parser file?
-
-Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
-
-
-##### What does it look like?
-
-![It looks like this](https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png)
-
-
-#### Troubleshooting
-
-By default, apache log files are not readable by apache itself. Which is a good thing, at least on a production server. If you are on a development machine though you might want to give those files the correct permissions in order to be usable with LogHappens.
-Here's how you do it:
-
-* Edit /etc/logrotate.d/apache2, find the line saying create 640 root adm and replace with create 777 root adm.
-* Add 777 permissions to the apache logs directory: sudo chmod -R 777 /var/log/apache2/
-
-
-#### LogHappens can't read my application's log files!
-Set that file's permissions to 777, so that LogHappens can both read and write (truncate) that file.
-
-
 #### Can I track a remote file (I.E. through a URL)?
 If you are not worried for the security issues of having an error log publicly reachable, then yes. Just set the URL in the configuration path.
 
@@ -67,3 +44,13 @@ If you are not worried for the security issues of having an error log publicly r
 
 ##### Can I capture the browser's JavaScript errors too?
 Yes sir! Though it is not a LogHappens specific function you could use something [like this](https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681) to capture client side JavaScript errors
+
+
+##### Can I share a new parser file?
+
+Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
+
+
+##### What does it look like?
+
+![It looks like this](https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png)
