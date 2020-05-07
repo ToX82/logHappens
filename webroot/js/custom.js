@@ -2,18 +2,20 @@ var datatable;
 
 $(document).ready(function() {
     bootstrap();
+    var refresh = $('.logs-list').attr('data-refresh');
 
     // Theme switcher
-    $('.theme-switcher').on('change', function() {
+    $('.settings-switcher').on('change', function() {
         var baseUrl = $('.baseUrl').html();
-        var theme = $(this).val();
-        window.location.href = baseUrl + 'settheme/' + theme;
+        var parameter = $(this).attr('id');
+        var selected = $(this).val();
+        window.location.href = baseUrl + 'writesettings/' + parameter + '/' + selected;
     });
 
     // Recount logs every X seconds
     setInterval(function() {
         recountAll();
-    }, 5000);
+    }, refresh * 1000);
 
     /**
      * TruncateLink method
@@ -114,6 +116,7 @@ function bootstrap() {
     var baseUrl = $('.baseUrl').html();
     var dataTablesLang = $('body').attr('data-language');
     var currentPage = $('.log-container h4').attr('data-file');
+    var pageLength = $('.datatable').attr('data-pagelength');
 
     datatable = $('.datatable').DataTable({
         ajax: baseUrl + 'ajax.php?viewlog&file=' + currentPage,
@@ -121,6 +124,7 @@ function bootstrap() {
         serverSide: true,
         processing: true,
         stateSave: true,
+        pageLength: pageLength,
         columns: [
             {'data': 'log'},
         ],

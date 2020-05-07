@@ -61,20 +61,80 @@ function convert($size)
 }
 
 /**
+ * List settings
+ *
+ * @param $parameter Which parameters we need
+ * @return array
+ */
+function listSettings($parameter)
+{
+    $data = [
+        'theme' => [
+            'default' => 'litera',
+            'options' => [
+                'cerulean',
+                'darkly',
+                'litera',
+                'materia',
+                'sandstone',
+                'slate',
+                'superhero',
+                'cosmo',
+                'flatly',
+                'lumen',
+                'minty',
+                'simplex',
+                'solar',
+                'united',
+                'cyborg',
+                'journal',
+                'lux',
+                'pulse',
+                'sketchy',
+                'spacelab',
+                'yeti',
+            ],
+        ],
+        'refresh' => [
+            'default' => 5,
+            'options' => [
+                '5',
+                '15',
+                '30',
+                '60',
+                '120',
+            ],
+        ],
+        'page-length' => [
+            'default' => 10,
+            'options' => [
+                '10',
+                '25',
+                '50',
+                '100',
+            ]
+        ]
+    ];
+
+    return $data[$parameter];
+}
+
+/**
  * Gets the user selected theme
  *
  * @return void
  */
-function getTheme()
+function setting($parameter)
 {
-    if (!isset($_COOKIE['theme'])) {
-        $theme = 'litera';
+    if (isset($_COOKIE[$parameter])) {
+        $selected = $_COOKIE[$parameter];
     } else {
-        $theme = $_COOKIE['theme'];
+        $settings = listSettings($parameter);
+        $selected = $settings['default'];
+        $selected = writeSettingsCookie($parameter, $selected);
     }
-    $theme = setCookieTheme($theme);
 
-    return $theme;
+    return $selected;
 }
 
 /**
@@ -83,36 +143,17 @@ function getTheme()
  * @param string $theme selected theme
  * @return string
  */
-function setCookieTheme($theme)
+function writeSettingsCookie($parameter, $selected)
 {
-    if (!in_array($theme, [
-        'cerulean',
-        'darkly',
-        'litera',
-        'materia',
-        'sandstone',
-        'slate',
-        'superhero',
-        'cosmo',
-        'flatly',
-        'lumen',
-        'minty',
-        'simplex',
-        'solar',
-        'united',
-        'cyborg',
-        'journal',
-        'lux',
-        'pulse',
-        'sketchy',
-        'spacelab',
-        'yeti',
-    ])) {
-        $theme = 'litera';
-    }
-    setcookie('theme', $theme, strtotime('+1 year'), '/');
+    $settings = listSettings($parameter);
 
-    return $theme;
+    if (!in_array($selected, $settings['options'])) {
+        $selected = $settings['default'];
+    }
+
+    setcookie($parameter, $selected, strtotime('+1 year'), '/');
+
+    return $selected;
 }
 
 /**

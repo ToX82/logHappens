@@ -41,9 +41,10 @@ if (isPage('display')) {
     $views[] = ROOT . $file;
 }
 
-if (isPage('settheme')) {
-    $theme = filterString(1);
-    setCookieTheme($theme);
+if (isPage('writesettings')) {
+    $parameter = filterString(1);
+    $selected = filterString(2);
+    writeSettingsCookie($parameter, $selected);
 
     if (isset($_SERVER['HTTP_REFERER'])) {
         reload($_SERVER['HTTP_REFERER']);

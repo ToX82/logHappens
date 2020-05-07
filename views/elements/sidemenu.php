@@ -1,4 +1,4 @@
-<ul class="list-group flex-column">
+<ul class="list-group flex-column logs-list" data-refresh="<?= setting('refresh') ?>">
     <?php foreach ($objParsers->list() as $key => $item) { ?>
         <li class="list-group-item nav-item <?= ($key === @$logs['file']) ? 'active' : '' ?>">
             <a class="nav-link <?= ($key === @$logs['file']) ? 'text-light' : '' ?>" href="<?= buildUrl("viewlog/" . $key) ?>" data-file="<?= $key ?>">
