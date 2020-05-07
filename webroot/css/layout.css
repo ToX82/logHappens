@@ -26,6 +26,7 @@ li.nav-item {
 }
 .log-entries {
     font-size: 10pt;
+    width: 100% !important;
 }
 .lh-badge {
     border-radius: 3px;

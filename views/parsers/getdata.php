@@ -27,7 +27,7 @@ $json->data = [];
         <?php ob_start(); ?>
         <tr>
             <td>
-                <div class="card border-primary">
+                <div class="card border-primary mb-2">
                     <div class="card-header"><?= $time ?></div>
                     <div class="card-body">
                         <pre class="card-text"><?= implode("<br>", $log) ?></pre>

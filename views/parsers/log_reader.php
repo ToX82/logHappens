@@ -17,4 +17,4 @@
     <?php } ?>
 </h4>
 
-<table class="table table-borderless datatable log-entries"></table>
+<table class="datatable log-entries"></table>
