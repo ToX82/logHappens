@@ -70,8 +70,9 @@ function listSettings($parameter)
 {
     $data = [
         'theme' => [
-            'default' => 'litera',
+            'default' => 'bootstrap',
             'options' => [
+                'bootstrap',
                 'cerulean',
                 'darkly',
                 'litera',
