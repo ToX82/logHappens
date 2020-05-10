@@ -7,17 +7,17 @@ Bug happens 💩 Every developer knows that. The bad thing is that if you want t
 
 ##### That's why LogHappens exists!
 
-LogHappens aims to fix exactly this. It is a simple tool, it will not prevent you from writing bugs, but it will notify you immediately when something has been logged by your web server or your favorite framework.
+LogHappens aims to fix exactly this. It's a simple tool, it will not prevent you from writing bugs, but it will notify you immediately when something has been logged by your web server or your favorite framework.
 
 
 ##### Does it handle different log formats?
 
-Of course it does. Every software has its own bugs, and every software have its own way of logging things too. This is why I have tried to make it as simple as possible to let you create your own routine for reading log files, while providing a few "standard" log parsers that you can immediately use.
+Of course it does. Every software has its own bugs, and every software has its own way of logging things too. This is why I have tried to make it as simple as possible to let you create your own routine for reading log files, while still providing a few log default parsers that you can immediately use.
 
 
 ##### How do I add a log file to be tracked?
 
-Tracking new file is fairly simple with LogHappens. Just add a new record in your config.json file, and set the values according to your preferences. Something like this is enough.
+Adding a new file to be tracked is fairly simple with LogHappens. Just add a new record in your config.json file, and set the values according to your preferences. Something like this is enough.
 
     "apache": {
         "icon": "logos:apache",
@@ -27,7 +27,7 @@ Tracking new file is fairly simple with LogHappens. Just add a new record in you
         "parser": "apache24"
     }
 
-Please visit [iconify.design](https://iconify.design/icon-sets/?query=logos%3Aapache) for more icons.
+Please visit [iconify.design](https://iconify.design/icon-sets) for more icons.
 
 
 #### Can I track a remote file (I.E. through a URL)?
@@ -48,7 +48,7 @@ Yes sir! Though it is not a LogHappens specific function you could use something
 
 ##### Can I share a new parser file?
 
-Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the other parsers!
+Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the provided parsers!
 
 
 ##### What does it look like?
