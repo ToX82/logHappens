@@ -12,7 +12,7 @@ LogHappens aims to fix exactly this. It is a simple tool, it will not prevent yo
 
 ##### Does it handle different log formats?
 
-Of course it does. Every software has its own bugs, and every software have its own way of logging things too. This is why I have tried to make it as simple as possible to let you create your own routine for reading log files. No fancy regex strings: if you just want to read the file, you can group log entries by date/time and print the rest of the file. If you are feeling adventurous, you can possibly do whatever you want: highlight words, create tags, split errors... the only limit is your fantasy.
+Of course it does. Every software has its own bugs, and every software have its own way of logging things too. This is why I have tried to make it as simple as possible to let you create your own routine for reading log files, while providing a few "standard" log parsers that you can immediately use.
 
 
 ##### How do I add a log file to be tracked?
