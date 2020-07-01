@@ -18,9 +18,6 @@
                         record that you will already see (which is the standard apache logs).<br>
                         Beware, on some systems you might need to change the file path for this record.
                     </li>
-                    <li>
-                        Finally, run "composer update" to install all of the (very few) dependencies.
-                    </li>
                     <li>That's it! Happy coding 😊</li>
                 </ul>
             </div>
