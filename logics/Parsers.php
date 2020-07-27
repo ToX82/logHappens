@@ -17,11 +17,40 @@ class Parsers
             $config = json_decode($config, true);
 
             if (isset($config['parsers'])) {
-                $config = $config['parsers'];
+                $config = $this->checkDatedLogFiles($config['parsers']);
             }
         }
 
         $this->config = $config;
+    }
+
+    /**
+     * Checks for dated log files (eg. the ones used in codeigniter) and returns the compiled today's log path
+     *
+     * @param array $parsers Parsers
+     * @return array
+     */
+    public function checkDatedLogFiles($parsers)
+    {
+        $placeholders = [
+            'Y', // A full numeric representation of a year, 4 digits
+            'y', // A two digit representation of a year
+            'm', // Numeric representation of a month, with leading zeros
+            'n', // Numeric representation of a month, without leading zeros
+            'd', // Day of the month, 2 digits with leading zeros
+            'j' // Day of the month without leading zeros
+        ];
+
+        // For each placeholder, for each parser file, let's check if there is something to replace
+        foreach ($placeholders as $placeholder) {
+            foreach ($parsers as $key => $parser) {
+                if (strpos($parser['file'], '{' . $placeholder . '}') !== false) {
+                    $parsers[$key]['file'] = str_replace('{' . $placeholder . '}', date($placeholder), $parsers[$key]['file']);
+                }
+            }
+        }
+
+        return $parsers;
     }
 
     /**
