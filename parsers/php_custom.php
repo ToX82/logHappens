@@ -28,6 +28,8 @@ foreach ($content as $line) {
             $line = preg_replace("/^E_USER_NOTICE/", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
             $line = preg_replace("/^E_USER_WARNING/", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
             $line = preg_replace("/^E_USER_ERROR/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
+            $line = preg_replace("/^(\w*)Exception/", "<span class='lh-badge' style='background-color: #a71616;'>Exception:</span> ", $line);
+            $line = preg_replace("/^(\w*)Error/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
 
             // Save the log entry
             $logs[$time][] = $line;
