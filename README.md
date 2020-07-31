@@ -2,6 +2,8 @@ logHappens!
 =============
 [![Code Climate](https://codeclimate.com/github/ToX82/logHappens/badges/gpa.svg)](https://codeclimate.com/github/ToX82/logHappens)
 
+[Website](https://tox82.github.io/logHappens/)
+
 Bug happens 💩 Every developer knows that. The bad thing is that if you want to see what happened, more often than not you have to crawl between hundred lines log files, written in a format which is all but human friendly.
 
 
