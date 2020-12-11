@@ -1,4 +1,5 @@
 <?php
+
 $objParsers = new logics\Parsers(ROOT . "config.json");
 $return = null;
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Logics;
 
 class Parsers

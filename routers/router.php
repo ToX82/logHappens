@@ -1,4 +1,5 @@
 <?php
+
 $params = splitQueryParams();
 $objParsers = new logics\Parsers(ROOT . "config.json");
 

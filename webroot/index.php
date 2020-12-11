@@ -1,4 +1,5 @@
 <?php
+
 define('ROOT', realpath('../') . '/');
 
 include ROOT . "libs/libs.php";

@@ -1,4 +1,5 @@
 <?php
+
 define('BASE_URL', baseUrl() . "/");
 
 if (!is_file(ROOT . 'vendor/autoload.php')) {
