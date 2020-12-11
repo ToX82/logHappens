@@ -1,4 +1,5 @@
 <?php
+
 $content = file($data['file']);
 
 $logs = [];
@@ -15,6 +16,7 @@ foreach ($content as $line) {
     }
 
     $line = str_replace(' -->', '', $line);
+    $line = normalizeChars($line);
     $line = trim($line);
 
     // Highlight the type of errors, using a badge

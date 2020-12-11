@@ -1,4 +1,5 @@
 <?php
+
 $content = file($data['file']);
 
 $logs = [];
@@ -13,6 +14,7 @@ foreach ($content as $line) {
 
         if ($time != '') {
             // Remove date-time and other useless informations from the log details
+            $line = normalizeChars($line);
             $line = substr($line, 34);
             $line = preg_replace('[\[:error(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[pid (.*?)\]]', '', $line, 1);

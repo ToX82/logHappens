@@ -1,4 +1,5 @@
 <?php
+
 $content = file($data['file']);
 
 $logs = [];
@@ -10,6 +11,7 @@ foreach ($content as $line) {
         $line = str_replace($time, "", $line);
         $time = date("l d-m-Y - H:i:s", strtotime($time));
     }
+    $line = normalizeChars($line);
     $line = trim($line);
 
     // Highlight the type of errors, using a badge
