@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>LogHappens</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="A log parsing tool and notifier, to keep an eye on your log files and view them in a friendly way. ">
+    <meta name="keywords" content="log,development,viewer,debug">
+
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0-rc.1/dist/css/materialize.min.css">
+    <style>
+    html {
+        font-family: -apple-system, BlinkMacSystemFont, "Futura", "Ubuntu", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    }
+    body {
+        background: #222d33;
+        color: #435672;
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    h1 {
+        color: #444;
+        font-size: 3.56rem;
+        letter-spacing: -4px;
+        line-height: 110%;
+    }
+    .logo {
+        margin-bottom: 45px;
+    }
+    .logo div {
+        font-size: 12px;
+        line-height: 1.5em;
+        letter-spacing: 1px;
+        margin-top: -20px;
+        width: 355px;
+        max-width: 100%;
+        text-align: center;
+    }
+    h1 img {
+        vertical-align: bottom;
+        height: 57px;
+    }
+    h2 {
+        color: #124761;
+        font-size: 1.64rem;
+        line-height: 110%;
+        margin: .82rem 0 .556rem 0;
+    }
+    pre {
+        background: #EEE;
+        padding-left: 30px;
+        font-size: 80%;
+    }
+    code {
+        word-break: break-word;
+    }
+    .section {
+        padding: 1.5rem;
+    }
+    .section img {
+        max-width: 100%;
+    }
+    .active .section {
+        background-color: #FFF;
+        box-shadow: 3px 3px 15px #eeeff2;
+        margin-bottom: 40px;
+    }
+    .counter {
+        padding-left: 30px;
+    }
+    .main {
+        flex: 1 0 auto;
+        background: #f7f8fb;
+        margin: 30px auto 50px;
+    }
+    .collection a {
+        display: inline-block;
+        width: 40%;
+    }
+    .accept_to_chat {
+        border-radius: 5px;
+        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+        position: fixed;
+        right: 10px;
+        bottom: 55px;
+        background-color: rgba(9, 82, 156, 0.7);
+        color: #FFF;
+        text-align: center;
+        width: 150px;
+        max-width: 90%;
+        padding: 10px;
+    }
+    .hidden {
+        display: none;
+    }
+    .page-footer {
+        background-color: #131517;
+    }
+    .footer-copyright {
+        background-color: #040404 !important;
+    }
+
+    /* Materialize tabs */
+    .tabs {
+        background-color: transparent;
+        text-align: center;
+    }
+    .tabs li.tab a {
+        color: #124761;
+        font-size: 120%;
+        text-transform: capitalize;
+    }
+    .tabs li.tab a:hover {
+        color: #039be5;
+    }
+    .tabs .tab a:hover, .tabs .tab a.active {
+        color: #039be5;
+    }
+    .tabs .indicator {
+        background-color: #124761;
+    }
+    /* Inputs */
+    .input-field label {
+        color: #456;
+    }
+    .dropdown-content li>a, .dropdown-content li>span {
+        color: #039be5;
+    }
+    .materialbox {
+        cursor: pointer;
+    }
+    .materialbox.active {
+        max-width: inherit !important;
+    }
+    #materialbox-overlay {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+    @media only screen and (max-device-width: 800px) {
+        .container {
+            width: 93%;
+        }
+        .section {
+            padding: 0.7rem;
+        }
+        .collection i {
+            display: none;
+        }
+        .collection a {
+            display: block;
+            width: 100%;
+        }
+        .accept_to_chat {
+            display: none;
+        }
+    }
+    </style>>
+</head>
+<body>
+    <div class="main container z-depth-5">
+        <div class="section white header">
+            <div class="row logo">
+                <h1>
+                    <a class="grey-text text-darken-4" href='./'>LogHappens</a>
+                </h1>
+                <div>a free &amp; easy live log viewer.</div>
+            </div>
+            <a id="why-use-loghappens"></a>
+            <h2>Bug Happens...</h2>
+            <p>Every developer knows that. The bad thing is that if you want to see what happened, more often than not 
+            you have to crawl between hundred lines log files, written in a format which is all but human friendly.</p>
+        </div>
+
+        <div class="section row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab"><a href="#loghappens">LogHappens</a></li>
+                    <li class="tab"><a href="#tracking">Tracking errors</a></li>
+                    <li class="tab"><a href="#installation">Installation</a></li>
+                </ul>
+            </div>
+
+            <br><br><br><br>
+
+            <div id="loghappens" class="col s12 m10 offset-m1">
+                <div class="section">
+                    <a id="why"></a>
+                    <h2>That's why LogHappens exists!</h2>
+                    <p>LogHappens aims to fix exactly this. It's a simple tool, it will not prevent you from writing 
+                    bugs, but it will notify you immediately when something has been logged by your web server or your 
+                    favorite framework.</p>
+                </div>
+
+                <div class="section">
+                    <a id="different-log-formats"></a>
+                    <h2>Does it handle different log formats?</h2>
+                    <p>Of course it does. Every software has its own bugs, and every software has its own way of 
+                    logging things too. This is why I have tried to make it as simple as possible to let you create 
+                    your own routine for reading log files, while still providing a few log default parsers that you 
+                    can immediately use.</p>
+                </div>
+
+                <div class="section">
+                    <a id="look"></a>
+                    <h2>What does it look like?</h2>
+                    <p>It looks like this, but you can change the appearance by using any of the bootstrap/bootswatch themes!</p>
+                    <img class="materialbox" src="https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png" alt="A screenshot of the LogHappens interface" />
+                </div>
+
+                <div class="section">
+                    <a id="its-free"></a>
+                    <h2>Did I mention it's free?</h2>
+                    <p>Because it is. Free and Open Source. I'm enjoying a lot of Open Source Software, that's why I've decided to give something back.</p>
+                </div>
+            </div>
+            
+            <div id="tracking" class="col s12 m10 offset-m1">
+                <div class="section">
+                    <a id="different-log-formats"></a>
+                    <h2>How do I add a log file to be tracked?</h2>
+                    <p>Adding a new file to be tracked is fairly simple with LogHappens. Just add a new record in your 
+                    config.json file, and set the values according to your preferences. Something like this is 
+                    enough.</p>
+                    <pre><code>
+"apache": {
+    "icon": "logos:apache",
+    "color": "#104B73",
+    "title": "Apache error",
+    "file": "/var/log/apache2/error.log",
+    "parser": "apache24"
+}
+                    </code></pre>
+                </div>
+
+                <div class="section">
+                    <a id="different-log-formats"></a>
+                    <h2>Can I track a remote file (I.E. through a URL)?</h2>
+                    <p>If you are not worried for the security issues of having an error log publicly reachable, 
+                    then yes. Just set the URL in the configuration path.</p>
+                    <pre><code>
+"myExampleSite": {
+    "icon": "wpf-online",
+    "color": "#104B73",
+    "title": "My ExampleSite Errors",
+    "file": "https://example.com/logs/error.log",
+    "parser": "cakephp3"
+}
+                    </code></pre>
+                </div>
+
+                <div class="section">
+                    <a id="different-log-formats"></a>
+                    <h2>Can I capture the browser's JavaScript errors too?</h2>
+                    <p>Yes sir! Even though it is not a LogHappens specific function you could use something 
+                    <a href="https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681">like this</a> 
+                    to capture client side JavaScript errors</p>
+                </div>
+
+                <div class="section">
+                    <a id="parser"></a>
+                    <h2>How are the log files parsed?</h2>
+                    <p>It's essentially quite simple. Take a look at the files contained in the "parsers" directory 
+                    to have a glance on how it works.</p>
+                    <p>If you need to view logs for another framework, those examples could be good 
+                    "hello world" templates too :)</p>
+                </div>
+
+                <div class="section">
+                    <a id="different-log-formats"></a>
+                    <h2>Can I share a new parser file?</h2>
+                    <p>Of course! As you can see, there are apache24, CakePHP 3.x and CodeIgniter files in the parsers 
+                    folder. If you have created your own routine, please send it to me, I will be more than happy 
+                    to add it to the provided parsers!</p>
+                </div>
+            </div>
+
+
+            <div id="installation" class="col s12 m10 offset-m1">
+                <div class="section">
+                    <a id="install"></a>
+                    <h2>Download &amp; Installation</h2>
+
+                    <p>To install LogHappens, please follow these steps:</p>
+                    <ul class="browser-default">
+                        <li>Get LogHappens (choose your favourite method):
+                            <ul class="browser-default">
+                                <li>Download the <a target="_blank" href="https://github.com/ToX82/logHappens/archive/master.zip">ZIP package</a></li>
+                                <li>Clone it from <a target="_blank" href="https://github.com/ToX82/logHappens">GitHub</a></li>
+                            </ul>
+                        </li>
+                        <li>Place LogHappens in a folder executable by apache or ngnix</li>
+                        <li>Duplicate the file "config.default.json" to "config.json"</li>
+                        <li>Open your new "config.json" and edit as you need. You can add new log files by simply adding new records there.</li>
+                        <li>Open the browser to the destination you have installed LogHappens</li>
+                        <li>Enjoy!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="page-footer">
+    <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">logHappens</h5>
+                    <div class="grey-text text-lighten-4">
+                        I hope that you will try and enjoy logHappens as much as I did writing it.
+                        <br>
+                        If so, please  consider to make a small donation using the "Sponsor" button in the 
+                        <a href='https://github.com/ToX82/logHappens'>logHappens repository</a>, as a  token of 
+                        your appreciation and to help me keep this up :)
+                    </div>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="https://github.com/ToX82/loghappens">GitHub repository</a></li>
+                        <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/emanueletoscano/en">My Linkedin page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0-rc.1/dist/js/materialize.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.tabs').tabs();
+        $('.collapsible').collapsible();
+        $('.materialbox').materialbox();
+        $('.tooltipped').tooltip();
+
+        $(".tab a").on('click', function() {
+            window.location.hash = $(this).attr('href');
+        });
+    });
+    </script>
+</body>
+</html>
