@@ -32,6 +32,11 @@ $(document).ready(function() {
             window.location.href = link;
         });
     });
+
+    // When the truncate modal opens, automatically put the focus on the yes button
+    $('body').on('shown.bs.modal', '#js-confirm', function () {
+        $('.yes-btn', this).focus();
+    });
 });
 
 /**
