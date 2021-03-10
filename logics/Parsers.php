@@ -59,7 +59,7 @@ class Parsers
      *
      * @return array
      */
-    public function list()
+    public function listLogs()
     {
         return $this->config;
     }
