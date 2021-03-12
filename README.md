@@ -4,12 +4,12 @@ logHappens!
 
 [Website](https://tox82.github.io/logHappens/)
 
-Bug happens 💩 Every developer knows that. The bad thing is that if you want to see what happened, more often than not you have to crawl between hundred lines log files, written in a format which is all but human friendly.
+Bug happens 💩 Every developer knows that. The bad thing is that if you want to see what happened you have to analyze hundreds of lines of log files, written in a format that is anything but human friendly.
 
 
 ##### That's why LogHappens exists!
 
-LogHappens aims to fix exactly this. It's a simple tool, it will not prevent you from writing bugs, but it will notify you immediately when something has been logged by your web server or your favorite framework.
+LogHappens aims to fix exactly this. It's a simple tool that will not prevent you from writing bugs, but it will notify you immediately when something has been logged by your web server, or your favorite framework.
 
 
 ##### Does it handle different log formats?
@@ -45,14 +45,14 @@ If you are not worried for the security issues of having an error log publicly r
 
 
 ##### Can I capture the browser's JavaScript errors too?
-Yes sir! Though it is not a LogHappens specific function you could use something [like this](https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681) to capture client side JavaScript errors
+Yes sir! It's not a LogHappens specific function actually, but you could use something [like this](https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681) to capture client side JavaScript errors
 
 
 ##### Can I share a new parser file?
 
-Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own routine, please send it to me, I will be more than happy to add it to the provided parsers!
+Of course! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter` files in the `parsers` folder. If you have created your own parser, please send it to me and I will be more than happy to include it!
 
 
 ##### What does it look like?
 
-![It looks like this](https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png)
+![It looks like this](https://user-images.githubusercontent.com/659492/110930874-eb544b80-8329-11eb-9877-5c86fce0e2ee.png)
