@@ -38,6 +38,13 @@ if (isPage('display')) {
     $pageTitle = "Display";
 
     $displayPage = filterString(1);
+
+    if ($displayPage === 'start') {
+        if (!empty($countAll)) {
+            reload('/display/info');
+        }
+    }
+
     $file = logics\Pages::display($displayPage);
     $views[] = ROOT . $file;
 }

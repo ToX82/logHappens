@@ -83,30 +83,10 @@ function currentUrl()
  */
 function baseUrl()
 {
-    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://';
-    $tmpURL = dirname(__FILE__);
-    $tmpURL = str_replace(chr(92), '/', $tmpURL);
-    $tmpURL = str_replace($_SERVER['DOCUMENT_ROOT'], '', $tmpURL);
+    $url = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME'];
+    $url = str_replace('/webroot/index.php', '', $url);
 
-    $tmpURL = ltrim($tmpURL, '/');
-    $tmpURL = rtrim($tmpURL, '/');
-
-    // check again if we find any slash string in value then we can assume its local machine
-    if (strpos($tmpURL, '/')) {
-        $tmpURL = explode('/', $tmpURL);
-        $tmpURL = $tmpURL[0];
-    }
-
-    if ($tmpURL !== $_SERVER['HTTP_HOST']) {
-        $baseUrl .= $_SERVER['HTTP_HOST'] . '/' . $tmpURL . '/';
-    } else {
-        $baseUrl .= $tmpURL . '/';
-    }
-
-    $baseUrl = str_replace('libs/', '', $baseUrl);
-    $baseUrl = rtrim($baseUrl, '/');
-
-    return $baseUrl;
+    return $url;
 }
 
 /**

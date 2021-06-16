@@ -39,7 +39,7 @@ function benchmark()
 /**
  * Get timestamp
  *
- * @return timestamp
+ * @return string
  */
 function getmicrotime()
 {
