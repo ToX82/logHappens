@@ -1,9 +1,13 @@
 <?php
+$logs = [];
+$time = '';
+
+if (!is_file($data['file'])) {
+    return;
+}
 
 $content = file($data['file']);
 
-$logs = [];
-$time = '';
 foreach ($content as $line) {
     // Don't print the datetime for every record
     $dateStartChr = strpos($line, " - ") + 3;
