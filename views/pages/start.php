@@ -18,15 +18,11 @@
                         record that you will already see (which is the standard apache logs).<br>
                         Beware, on some systems you might need to change the file path for this record.
                     </li>
-                    <li>That's it! Happy coding 😊</li>
+                    <li>
+                        When you're done, please click <a href='<?= buildUrl('') ?>'>here</a> to start using logHappens! 😊
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-setTimeout(function() {
-    location.reload();
-}, 5000);
-</script>
