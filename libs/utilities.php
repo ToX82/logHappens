@@ -12,9 +12,12 @@ function toDateTime($date)
         return '-';
     }
 
-    $lang = getBrowserLanguage();
-    $fmt = new \IntlDateFormatter($lang, IntlDateFormatter::FULL, IntlDateFormatter::MEDIUM);
-    return $fmt->format(strtotime($date));
+    $lang = getFullBrowserLanguage();
+
+    \Moment\Moment::setLocale($lang);
+    $m = new \Moment\Moment($date);
+
+    return $m->format('l d F Y - H:i:s');
 }
 
 /**

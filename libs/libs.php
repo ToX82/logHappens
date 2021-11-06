@@ -36,6 +36,19 @@ function getBrowserLanguage()
 }
 
 /**
+ * Detects the user's browser language
+ *
+ * @return string
+ */
+function getFullBrowserLanguage()
+{
+    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5);
+    $lang = str_replace('-', '_', $lang);
+
+    return $lang;
+}
+
+/**
  * Returns the user's language name (when available)
  *
  * @return string
