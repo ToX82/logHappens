@@ -17,7 +17,7 @@ function toDateTime($date)
     \Moment\Moment::setLocale($lang);
     $m = new \Moment\Moment($date);
 
-    return $m->format('l d F Y - H:i:s');
+    return $m->format('LLLL', new \Moment\CustomFormats\MomentJs());
 }
 
 /**
