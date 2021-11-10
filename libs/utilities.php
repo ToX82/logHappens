@@ -12,6 +12,7 @@ function toDateTime($date)
         return '-';
     }
 
+    $date = date('Y-m-d H:i:s', strtotime($date));
     $lang = getFullBrowserLanguage();
 
     \Moment\Moment::setLocale($lang);
