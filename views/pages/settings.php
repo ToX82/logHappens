@@ -8,25 +8,25 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="theme">Style</label>
-                    <select class="form-control settings-switcher" id="theme">
+                    <select class="form-select settings-switcher" id="theme">
                         <?php foreach (listSettings('theme')['options'] as $theme) { ?>
                             <option value="<?= $theme ?>" <?= (setting('theme') === $theme) ? 'selected' : '' ?>><?= ucfirst($theme) ?></option>
                         <?php } ?>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <label for="theme">Refresh interval</label>
-                    <select class="form-control settings-switcher" id="refresh">
+                    <select class="form-select settings-switcher" id="refresh">
                         <?php foreach (listSettings('refresh')['options'] as $refresh) { ?>
                             <option value="<?= $refresh ?>" <?= (setting('refresh') === $refresh) ? 'selected' : '' ?>><?= $refresh ?> sec.</option>
                         <?php } ?>
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group mt-3">
                     <label for="theme">Default page length</label>
-                    <select class="form-control settings-switcher" id="page-length">
+                    <select class="form-select settings-switcher" id="page-length">
                         <?php foreach (listSettings('page-length')['options'] as $pageLength) { ?>
                             <option value="<?= $pageLength ?>" <?= (setting('page-length') === $pageLength) ? 'selected' : '' ?>><?= $pageLength ?> items per page</option>
                         <?php } ?>

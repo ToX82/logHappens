@@ -11,9 +11,9 @@
     <link rel="icon" href="<?= buildAssetUrl("webroot/img/favicon/favicon-32x32.png") ?>" sizes="32x32">
     <link rel="apple-touch-icon-precomposed" href="<?= buildAssetUrl("webroot/img/favicon/apple-touch-icon-152x152.png") ?>">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css">
     <?php if (setting('theme') !== 'bootstrap') { ?>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4/dist/<?= setting('theme') ?>/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/<?= setting('theme') ?>/bootstrap.min.css">
     <?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= buildAssetUrl("webroot/css/layout.css") ?>">
@@ -47,7 +47,7 @@
     <div class="baseUrl d-none"><?= BASE_URL ?></div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net@1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/push.js@1/bin/push.min.js"></script>

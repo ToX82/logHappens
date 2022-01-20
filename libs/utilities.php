@@ -24,7 +24,7 @@ function toDateTime($date)
 /**
  * Time tracker
  *
- * @return float
+ * @return float|bool
  */
 function benchmark()
 {
@@ -32,6 +32,8 @@ function benchmark()
 
     if (is_null($start)) {
         $start = getmicrotime();
+
+        return true;
     } else {
         $benchmark = getmicrotime() - $start;
         $start = getmicrotime();
@@ -43,7 +45,7 @@ function benchmark()
 /**
  * Get timestamp
  *
- * @return string
+ * @return float
  */
 function getmicrotime()
 {
@@ -56,7 +58,7 @@ function getmicrotime()
  * Convert memory size in human readable format
  *
  * @param int $size Size
- * @return float
+ * @return string
  */
 function convert($size)
 {
@@ -68,8 +70,8 @@ function convert($size)
 /**
  * List settings
  *
- * @param $parameter Which parameters we need
- * @return array
+ * @param string $parameter Which parameters we need
+ * @return mixed
  */
 function listSettings($parameter)
 {
@@ -79,26 +81,30 @@ function listSettings($parameter)
             'options' => [
                 'bootstrap',
                 'cerulean',
-                'darkly',
-                'litera',
-                'materia',
-                'sandstone',
-                'slate',
-                'superhero',
                 'cosmo',
-                'flatly',
-                'lumen',
-                'minty',
-                'simplex',
-                'solar',
-                'united',
                 'cyborg',
+                'darkly',
+                'flatly',
                 'journal',
+                'litera',
+                'lumen',
                 'lux',
+                'materia',
+                'minty',
+                'morph',
                 'pulse',
+                'quartz',
+                'sandstone',
+                'simplex',
                 'sketchy',
+                'slate',
+                'solar',
                 'spacelab',
+                'superhero',
+                'united',
+                'vapor',
                 'yeti',
+                'zephyr',
             ],
         ],
         'refresh' => [
@@ -128,7 +134,8 @@ function listSettings($parameter)
 /**
  * Gets the user selected theme
  *
- * @return void
+ * @param string $parameter Which parameters we need
+ * @return mixed
  */
 function setting($parameter)
 {
@@ -144,9 +151,10 @@ function setting($parameter)
 }
 
 /**
- * Writes the user's selected theme into a cookie
+ * Writes the user's selected value into a cookie
  *
- * @param string $theme selected theme
+ * @param string $parameter parameter's name
+ * @param string $selected selected value
  * @return string
  */
 function writeSettingsCookie($parameter, $selected)
@@ -191,6 +199,12 @@ function randomError()
     return $haiku[array_rand($haiku)];
 }
 
+/**
+ * Normalize characters in an input string
+ *
+ * @param string $inputString Input string
+ * @return string
+ */
 function normalizeChars($inputString)
 {
     $fix_list = array(
@@ -205,7 +219,7 @@ function normalizeChars($inputString)
         'Ë†'  => 'ˆ', 'Ãˆ'  => 'È', 'Ã‰'  => 'É', 'ÃŠ'  => 'Ê',
         'Ã‹'  => 'Ë', 'Å’'  => 'Œ', 'ÃŒ'  => 'Ì', 'Å½'  => 'Ž',
         'ÃŽ'  => 'Î', 'Ã‘'  => 'Ñ', 'Ã’'  => 'Ò', 'Ã“'  => 'Ó',
-        'â€'  => '”', 'Ã”'  => 'Ô', 'Ã•'  => 'Õ', 'Ã–'  => 'Ö',
+        'Ã”'  => 'Ô', 'Ã•'  => 'Õ', 'Ã–'  => 'Ö', 'Ã€'  => 'À',
         'Ã—'  => '×', 'Ëœ'  => '˜', 'Ã˜'  => 'Ø', 'Ã™'  => 'Ù',
         'Å¡'  => 'š', 'Ãš'  => 'Ú', 'Ã›'  => 'Û', 'Å“'  => 'œ',
         'Ãœ'  => 'Ü', 'Å¾'  => 'ž', 'Ãž'  => 'Þ', 'Å¸'  => 'Ÿ',
@@ -224,12 +238,10 @@ function normalizeChars($inputString)
         'Ã¹'  => 'ù', 'Âº'  => 'º', 'Ãº'  => 'ú', 'Â»'  => '»',
         'Ã»'  => 'û', 'Â¼'  => '¼', 'Ã¼'  => 'ü', 'Â½'  => '½',
         'Ã½'  => 'ý', 'Â¾'  => '¾', 'Ã¾'  => 'þ', 'Â¿'  => '¿',
-        'Ã¿'  => 'ÿ', 'Ã€'  => 'À',
+        'Ã¿'  => 'ÿ',
 
         // 1 char errors last
-        'Ã' => 'Á', 'Å' => 'Š', 'Ã' => 'Í', 'Ã' => 'Ï',
-        'Ã' => 'Ð', 'Ã' => 'Ý', 'Ã' => 'à', 'Ã­' => 'í',
-        '�' => 'à'
+        'Ã' => 'Á', 'Å' => 'Š', 'Ã­' => 'í', '�' => 'à'
     );
 
     $error_chars = array_keys($fix_list);
