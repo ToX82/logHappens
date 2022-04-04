@@ -1,6 +1,6 @@
 <?php
 
-define('ROOT', realpath('../') . '/');
+define('ROOT', realpath('../') . DIRECTORY_SEPARATOR);
 
 include ROOT . "libs/libs.php";
 init();
