@@ -19,6 +19,7 @@ foreach ($content as $line) {
             $line = preg_replace('[\[:error(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[pid (.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[php7(.*?)\]]', '', $line, 1);
+            $line = preg_replace('[\[php:(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[client(.*?)\]]', '', $line, 1);
             $line = str_replace('PHP', '', $line);
             $line = str_replace('\n', '<br>', $line);
