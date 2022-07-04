@@ -170,6 +170,15 @@ function writeSettingsCookie($parameter, $selected)
     return $selected;
 }
 
+function openFileOrDie($file)
+{
+    if (is_file($file)) {
+        return file($file);
+    }
+
+    return ['Unable to open file: ' . $file . '!'];
+}
+
 /**
  * Select a random 404 error
  *

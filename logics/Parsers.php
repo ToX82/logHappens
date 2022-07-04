@@ -88,9 +88,12 @@ class Parsers
     public function count($file)
     {
         $data = $this->config[$file];
-        include ROOT . "parsers/" . $data['parser'] . ".php";
+        $file = ROOT . "parsers/" . $data['parser'] . ".php";
+        if (is_file($file)) {
+            include $file;
+        }
 
-        if (count($logs) === 0) {
+        if (!isset($logs) || count($logs) === 0) {
             return '';
         }
 

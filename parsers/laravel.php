@@ -1,6 +1,6 @@
 <?php
 
-$content = file($data['file']);
+$content = openFileOrDie($data['file']);
 
 $logs = [];
 $time = '';
