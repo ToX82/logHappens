@@ -17,6 +17,10 @@ class Parsers
             $config = file_get_contents($jsonFile);
             $config = json_decode($config, true);
 
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                reload('config_error.html');
+            }
+
             if (isset($config['parsers'])) {
                 $config = $this->checkDatedLogFiles($config['parsers']);
             }

@@ -1,0 +1,30 @@
+<!doctype html>
+<title>LogHappens</title>
+<style>
+  body { text-align: center; padding: 150px; }
+  h1 { font-size: 50px; }
+  body { font: 20px Helvetica, sans-serif; color: #333; }
+  article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+  a { color: #dc8100; text-decoration: none; }
+  a:hover { color: #333; text-decoration: none; }
+</style>
+
+<article>
+    <h1>Config error!</h1>
+    <div>
+        <p>
+            Hey there!<br>
+            It looks like your config.json file is not properly set!<br>
+            Please check that your configuration file is properly set and try again.
+        </p>
+        <p>&mdash; LogHappens</p>
+    </div>
+</article>
+
+<script>
+setTimeout(function() {
+    var url = window.location.href;
+    url = url.replace("config_error.html", "");
+    window.location.href = url;
+}, 5000);
+</script>
