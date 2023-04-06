@@ -26,6 +26,18 @@ class Parsers
             }
         }
 
+        // for each parser, let's check if the file exists, if not, let's remove it from the list
+        foreach ($config as $key => $parser) {
+            if (!is_file($parser['file'])) {
+                unset($config[$key]);
+            }
+
+            // if the config has a "disabled" key, let's remove it from the list
+            if (isset($parser['disabled']) && $parser['disabled'] === true) {
+                unset($config[$key]);
+            }
+        }
+
         $this->config = $config;
     }
 
