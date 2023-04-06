@@ -31,9 +31,9 @@ li.nav-item {
 .lh-badge {
     border-radius: 3px;
     background-color: #0D47A1;
-    clear: both;
     color: #FFF;
     font-weight: bold;
+    font-size: 120%;
     padding: 1px 5px;
 }
 .badge {
