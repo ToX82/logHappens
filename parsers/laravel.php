@@ -18,7 +18,9 @@ foreach ($content as $line) {
             $line = substr($line, 22);
             $line = str_replace('PHP', '', $line);
             $line = str_replace('\n', '<br>', $line);
-            $line = trim($line);
+
+            // remove trailing spaces at the end of the line
+            $line = preg_replace('/\s+$/m', '', $line);
 
             // Highlight the type of errors, using a badge
             $line = preg_replace("/^Debug_log: /", "<span class='lh-badge' style='background-color: #1e88e5;'>Debug_log:</span> ", $line);

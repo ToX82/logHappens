@@ -12,7 +12,9 @@ foreach ($content as $line) {
         $time = date("l d-m-Y - H:i:s", strtotime($time));
     }
     $line = normalizeChars($line);
-    $line = trim($line);
+
+    // remove trailing spaces at the end of the line
+    $line = preg_replace('/\s+$/m', '', $line);
 
     // Highlight the type of errors, using a badge
     $line = preg_replace("/^Debug_log: /i", "<span class='lh-badge' style='background-color: #1e88e5;'>Debug_log:</span> ", $line);

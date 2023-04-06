@@ -17,7 +17,9 @@ foreach ($content as $line) {
 
     $line = str_replace(' -->', '', $line);
     $line = normalizeChars($line);
-    $line = trim($line);
+
+    // remove trailing spaces at the end of the line
+    $line = preg_replace('/\s+$/m', '', $line);
 
     // Highlight the type of errors, using a badge
     $line = preg_replace("/^NOTICE - /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
