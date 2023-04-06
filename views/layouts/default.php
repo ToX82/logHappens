@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-tap-highlight" content="no">
-    <title>LogHappens</title>
+    <title><?= ($pageTitle) ? $pageTitle . " - " : '' ?>LogHappens</title>
 
     <!-- Favicons-->
     <link rel="icon" href="<?= buildAssetUrl("webroot/img/favicon/favicon-32x32.png") ?>" sizes="32x32">

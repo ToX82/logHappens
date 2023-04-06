@@ -2,7 +2,7 @@
     <i style="color: <?= $logs['color'] ?>">
         <span class="iconify" data-height="30" data-width="30" data-icon="<?= $logs['icon'] ?>" data-inline="false"></span>
     </i>
-    <?= $logs['title'] ?>
+    <span class="log-title"><?= $logs['title'] ?></span>
 
     <?php if ($logs['writable'] === true) { ?>
         <a class="truncateLink ml-4" href="<?= buildUrl("truncate/" . $logs['file']) ?>">

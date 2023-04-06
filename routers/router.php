@@ -19,7 +19,7 @@ if (empty($params)) {
 
 // Page specific actions
 if (isPage('truncate')) {
-    $pageTitle = "Parsers";
+    $pageTitle = "";
 
     $file = filterString(1);
     $logs = $objParsers->truncate($file);
@@ -27,17 +27,16 @@ if (isPage('truncate')) {
 }
 
 if (isPage('viewlog')) {
-    $pageTitle = "Parsers";
-
     $file = filterString(1);
     $logs = $objParsers->view($file);
+    $pageTitle = $logs['title'];
     $views[] = ROOT . "views/parsers/log_reader.php";
 }
 
 if (isPage('display')) {
-    $pageTitle = "Display";
 
     $displayPage = filterString(1);
+    $pageTitle = ucfirst($displayPage);
 
     if ($displayPage === 'start') {
         if (!empty($countAll)) {
@@ -62,5 +61,6 @@ if (isPage('writesettings')) {
 }
 
 if (empty($views)) {
+    $pageTitle = "Wooooops";
     $views[] = ROOT . "views/pages/404.php";
 }

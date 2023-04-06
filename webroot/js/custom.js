@@ -54,8 +54,10 @@ function recountAll() {
         url: baseUrl + 'ajax.php?countall',
         dataType: 'json'
     }).done(function(data) {
+        notificationText = '';
         $.each(data, function(file, countNew) {
             var $navLink = $sidebar.find('a[data-file="' + file + '"]');
+            var isActive = $navLink.parent().hasClass('active');
             var $badge = $navLink.find('.badge');
             var countOld = $badge.html().trim();
 
@@ -69,9 +71,13 @@ function recountAll() {
                     reloadContent();
                 }
 
+                if (isActive === true) {
+                    $('head title').text('(' + countNew + ') ' + $('.log-title').html() + ' - LogHappened!');
+                }
+
                 $badge.html(countNew);
                 $badge.addClass('badge-highlight');
-                notificationText = notificationText + file + ': ' + difference + ' new logs!     ';
+                notificationText += notificationText + file + ': ' + difference + ' new logs!     ';
             } else {
                 $badge.removeClass('badge-highlight');
             }
