@@ -7,32 +7,31 @@
             <div class="card-body">
                 <h5>Bug happens... <span class="iconify" data-icon="emojione-v1:pile-of-poo" data-inline="true" data-width="40"></span></h5>
                 <p>
-                    Every developer knows that. The bad thing is that
-                    if you want to see what happened, more often than not you have to crawl between hundred
-                    lines log files, written in a format which is all but human friendly.
+                    Every developer knows that. The frustrating part is that when you want to figure out what went
+                    wrong, you often find yourself sifting through hundreds of lines of log files, written in a
+                    format that seems to defy human comprehension.
                 </p>
 
                 <h5>That's why LogHappens exists!</h5>
                 <p>
-                    LogHappens aims to fix exactly this. It is a simple tool, it will not
-                    prevent you from writing bugs, but it will notify you immediately when
-                    something has been logged by your web server or your favorite
-                    framework.
+                    LogHappens is here to solve this very problem. It's a simple tool that won't prevent
+                    you from writing bugs, but it will promptly notify you whenever something gets logged
+                    by your web server or your favorite framework.
                 </p>
 
                 <h5>Does it handle different log formats?</h5>
                 <p>
-                    Of course it does. Every software has its own bugs, and every software has
-                    its own way of logging things too. This is why I have tried to make it as
-                    simple as possible to let you create your own routine for reading log files,
-                    while providing a few "standard" log parsers that you can immediately use.
+                    Of course it does. Every software has its own bugs, and every software has its own
+                    unique way of logging events. That's why we've made LogHappens as user-friendly as possible,
+                    allowing you to easily create your own log file reading routine. We've even included a few
+                    "standard" log parsers that you can use right away.
 
                 <h5>Any troubles?</h5>
                 <p>
-                    In order to use LogHappens you will need to configure a few things. If you
-                    have any troubles, please see the <a href="<?= buildUrl("display/start") ?>">Start</a>
-                    or the <a href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
-                    page. And if you find some technical issues, please open an issue on
+                    To start using LogHappens, you'll need to configure a few things. If you
+                    run into any issues, please refer to our <a href="<?= buildUrl("display/start") ?>">Start</a>
+                    or <a href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a> page.
+                    And if you happen to come across any technical problems, don't hesitate to open an issue on
                     <a href="https://github.com/ToX82/logHappens/issues">GitHub</a>.
                 </p>
 
