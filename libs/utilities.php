@@ -333,7 +333,7 @@ function listConfigurations($parameter)
  */
 function configuration($parameter)
 {
-    if (isset($_COOKIE[$parameter])) {
+    if (isset($_POST[$parameter])) {
         $selected = $_COOKIE[$parameter];
     } else {
         $settings = listConfigurations($parameter);
@@ -353,28 +353,72 @@ function getConfigurations($filepath) {
 
 function displayConfigurations($filepath) {
     $configurations = getConfigurations($filepath);
-    
+
     echo '<div class="card-body d-flex flex-column">';
-    foreach ($configurations as $configuration => $value) {
-        echo '<div class="card card-body mb-3 border border-danger">'.
-        '<label for="name">'.$configuration.'</label>';
-        displayOptions($value);
+    foreach ($configurations as $config => $value) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            isset($_POST['btn-modify_'.$config]) ?
+                $modify = true :
+                $modify = false;
+        }
+
+        echo 
+        '<div class="card mb-3">'.
+            '<form method="post" class="card-header d-flex justify-content-between align-items-center">
+                <label for="config">'.$config.'</label>';
+                echo $modify ? '<input type="submit" value="Save" name="btn-save_'.$config.'" class="btn btn-success btn-sm">'
+                : '<input type="submit" value="Modify" name="btn-modify_'.$config.'" class="btn btn-primary btn-sm">';
+            echo '</form>';
+        displayOptions($value, $modify);
         echo '</div>';
     }
     echo '</div>';
 }
-function displayOptions($parameter) {
-    echo '<div class="mt-3 d-flex flex-column border border-primary">';
-        foreach($parameter as $option => $value) {
-            if(is_bool($value)) {
-                if($value == false) $value = 'false';
-                else $value = 'true';
-            }
-            echo '<div class="ms-2 d-flex flex-column mb-2 align-items-start">'.
-                '<label for="name">'.$option.'</label>
-                <input class="" type="text" id="name" name="name" value="'.$value.'"/>'.
+function displayOptions($config, $modify) {
+    echo '<div class="mt-3 d-flex flex-column">'.
+            '<div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">'.
+                '<h6><label for="icon" class="form-label">Icon</label></h6>';
+                echo $modify ?
+                    '<input class="" type="text" id="name" name="name" value="'.$config->icon.'"/>'
+                    : $config->icon;
+                echo '</div>'.
+
+            '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
+                '<h6><label for="color" class="form-label">Color</label></h6>
+                    <input '; echo $modify ? '' : ' disabled readonly '; echo 'type="color" class="form-control form-control-color" id="color" value="'.$config->color.'">
+                    </div>'.
+
+            '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
+                '<h6><label for="title" class="form-label">Title</label></h6>';
+                echo $modify ?
+                    '<input type="text" class="form-control" id="title" name="title" value="'.$config->title.'"/>'
+                    : $config->title;
+                echo '</div>'.
+
+            '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
+                '<h6><label for="file" class="form-label">File</label></h6>';
+                echo $modify ?
+                    '<input type="text" class="form-control" id="file" name="file" value="'.$config->file.'"/>'
+                    : $config->file;
+                echo '</div>'.
+
+            '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
+                '<h6><label for="parser" class="form-label">Parser</label></h6>';
+                echo $modify ?
+                    '<input type="text" class="form-control" id="parser" name="parser" value="'.$config->parser.'"/>'
+                    : $config->parser;
+                echo '</div>'.
+
+            '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
+                '<h6><label for="state" class="form-label">State</label></h6>
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" ';
+                    if(!$config->disabled) {
+                        echo 'checked';
+                    }
+                    echo '>
+                </div>
+            </div>'.
             '</div>';
-        }
-        echo '</div>';
 }
 

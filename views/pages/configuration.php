@@ -1,6 +1,9 @@
 <?=
+
 $filename = "config.json";
 $filepath = ROOT . $filename;
+
+
 ?>
 <div class="row">
     <div class="col-8 offset-2">
