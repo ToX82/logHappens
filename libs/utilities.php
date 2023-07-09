@@ -265,3 +265,116 @@ function normalizeChars($inputString)
 
     return str_replace($error_chars, $real_chars, $inputString);
 }
+
+
+function listConfigurations($parameter)
+{
+    $data = [
+        'theme' => [
+            'default' => 'bootstrap',
+            'options' => [
+                'bootstrap',
+                'cerulean',
+                'cosmo',
+                'cyborg',
+                'darkly',
+                'flatly',
+                'journal',
+                'litera',
+                'lumen',
+                'lux',
+                'materia',
+                'minty',
+                'morph',
+                'pulse',
+                'quartz',
+                'sandstone',
+                'simplex',
+                'sketchy',
+                'slate',
+                'solar',
+                'spacelab',
+                'superhero',
+                'united',
+                'vapor',
+                'yeti',
+                'zephyr',
+            ],
+        ],
+        'refresh' => [
+            'default' => 5,
+            'options' => [
+                '5',
+                '15',
+                '30',
+                '60',
+                '120',
+            ],
+        ],
+        'page-length' => [
+            'default' => 10,
+            'options' => [
+                '10',
+                '25',
+                '50',
+                '100',
+            ]
+        ]
+    ];
+
+    return $data[$parameter];
+}
+
+/**
+ * Gets the user selected theme
+ *
+ * @param string $parameter Which parameters we need
+ * @return mixed
+ */
+function configuration($parameter)
+{
+    if (isset($_COOKIE[$parameter])) {
+        $selected = $_COOKIE[$parameter];
+    } else {
+        $settings = listConfigurations($parameter);
+        $selected = $settings['default'];
+        //$selected = writeSettingsCookie($parameter, $selected);
+    }
+
+    return $selected;
+}
+
+function getConfigurations($filepath) {
+    $jsonString = file_get_contents($filepath);
+    $data = json_decode($jsonString);
+
+    return $data->parsers;
+}
+
+function displayConfigurations($filepath) {
+    $configurations = getConfigurations($filepath);
+    
+    echo '<div class="card-body d-flex flex-column">';
+    foreach ($configurations as $configuration => $value) {
+        echo '<div class="card card-body mb-3 border border-danger">'.
+        '<label for="name">'.$configuration.'</label>';
+        displayOptions($value);
+        echo '</div>';
+    }
+    echo '</div>';
+}
+function displayOptions($parameter) {
+    echo '<div class="mt-3 d-flex flex-column border border-primary">';
+        foreach($parameter as $option => $value) {
+            if(is_bool($value)) {
+                if($value == false) $value = 'false';
+                else $value = 'true';
+            }
+            echo '<div class="ms-2 d-flex flex-column mb-2 align-items-start">'.
+                '<label for="name">'.$option.'</label>
+                <input class="" type="text" id="name" name="name" value="'.$value.'"/>'.
+            '</div>';
+        }
+        echo '</div>';
+}
+

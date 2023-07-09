@@ -26,6 +26,8 @@ if (isPage('truncate')) {
     reload("/viewlog/" . $file);
 }
 
+// Non ho capito perchè non ho dovuto inserire la page configuration qui
+
 if (isPage('viewlog')) {
     $file = filterString(1);
     $logs = $objParsers->view($file);
