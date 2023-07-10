@@ -21,11 +21,9 @@ if(isset($_POST['btn-close'])) {
     $configurations->$var = $config;
     //print_r($configurations);
     
-    // Convert the array of objects to JSON
-    $jsonData = json_encode($configurations);
+    $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT);
+    file_put_contents(ROOT . '/config.json', $jsonData);
 
-    // Write the JSON data to a file
-    file_put_contents($filename, $jsonData);
 
     }   
 

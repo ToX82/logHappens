@@ -11,6 +11,8 @@ function init()
     include_once __DIR__ . "/paths.php";
     include_once __DIR__ . "/security.php";
 
+    include_once ROOT . "/logics/Configurations.php";
+
     header('Content-type: text/html;charset=utf-8');
 
     ini_set('display_errors', 1);
