@@ -351,15 +351,20 @@ function getConfigurations($filepath) {
     return $data->parsers;
 }
 
-function displayConfigurations($filepath) {
-    $configurations = getConfigurations($filepath);
+function displayConfigurations($configurations) {
+    
+    $modify = false;
 
     echo '<div class="card-body d-flex flex-column">';
     foreach ($configurations as $config => $value) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            isset($_POST['btn-modify_'.$config]) ?
-                $modify = true :
+            if(isset($_POST['btn-modify_'.$config])) {
+                $modify = true;
+            }
+            else {
                 $modify = false;
+            }
+                
         }
 
         echo 
@@ -375,50 +380,61 @@ function displayConfigurations($filepath) {
     echo '</div>';
 }
 function displayOptions($config, $modify) {
-    echo '<div class="mt-3 d-flex flex-column">'.
+    if($modify) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo "ciao";
+            $input_icon = $_POST["input-icon"];
+            echo $input_icon;
+        }
+    }
+    
+    echo '<form method="post" class="mt-3 d-flex flex-column">'.
             '<div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">'.
-                '<h6><label for="icon" class="form-label">Icon</label></h6>';
-                echo $modify ?
-                    '<input class="" type="text" id="name" name="name" value="'.$config->icon.'"/>'
-                    : $config->icon;
+                '<h6><label for="icon" class="form-label">Icon</label></h6>
+                <input class="" type="text" id="input-icon" name="input-icon" ';
+                echo $modify ? '' : ' hidden ';
+                echo ' value="'.$config->icon.'"/>';
+                if(!$modify) echo $config->icon;
+                    
+                    
                 echo '</div>'.
 
             '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
                 '<h6><label for="color" class="form-label">Color</label></h6>
-                    <input '; echo $modify ? '' : ' disabled readonly '; echo 'type="color" class="form-control form-control-color" id="color" value="'.$config->color.'">
+                    <input '; echo $modify ? '' : ' disabled readonly '; echo 'type="color" class="form-control form-control-color" id="input-color" name="input-color" value="'.$config->color.'">
                     </div>'.
 
             '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
                 '<h6><label for="title" class="form-label">Title</label></h6>';
                 echo $modify ?
-                    '<input type="text" class="form-control" id="title" name="title" value="'.$config->title.'"/>'
+                    '<input type="text" class="form-control" id="input-title" name="input-title" value="'.$config->title.'"/>'
                     : $config->title;
                 echo '</div>'.
 
             '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
                 '<h6><label for="file" class="form-label">File</label></h6>';
                 echo $modify ?
-                    '<input type="text" class="form-control" id="file" name="file" value="'.$config->file.'"/>'
+                    '<input type="text" class="form-control" id="input-file" name="input-file" value="'.$config->file.'"/>'
                     : $config->file;
                 echo '</div>'.
 
             '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
                 '<h6><label for="parser" class="form-label">Parser</label></h6>';
                 echo $modify ?
-                    '<input type="text" class="form-control" id="parser" name="parser" value="'.$config->parser.'"/>'
+                    '<input type="text" class="form-control" id="input-parser" name="input-parser" value="'.$config->parser.'"/>'
                     : $config->parser;
                 echo '</div>'.
 
             '<div class="ms-2 d-flex flex-column mb-3 align-items-start">'.
                 '<h6><label for="state" class="form-label">State</label></h6>
                 <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" ';
+                    <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled" role="switch"';
                     if(!$config->disabled) {
                         echo 'checked';
                     }
                     echo '>
                 </div>
             </div>'.
-            '</div>';
+            '</form>';
 }
 
