@@ -2,9 +2,32 @@
 $filename = "config.json";
 $filepath = ROOT . $filename;
 if(file_exists($filepath)) $configurations = getConfigurations($filepath);
+
+// quando refresho la pagina la riga sovrastante viene eseguita e
+// il json viene caricato con le configurazioni non aggiornate
             
-                
-                
+if(isset($_POST['btn-close'])) {
+    $config = new stdClass();
+    $config->icon = $_POST['txt-icon'];
+    $config->color = $_POST['txt-color'];
+    $config->title = $_POST['txt-title'];
+    $config->file = $_POST['txt-file'];
+    $config->parser = $_POST['txt-parser'];
+    if(isset($_POST['txt-disabled'])) $config->disabled = false;
+    else $config->disabled = true;
+
+    $var = $_POST['txt-name']; //string
+    $$var = new stdClass(); //qui la variabile $var equivale al nome assegnato dall'utente
+    $configurations->$var = $config;
+    //print_r($configurations);
+    
+    // Convert the array of objects to JSON
+    $jsonData = json_encode($configurations);
+
+    // Write the JSON data to a file
+    file_put_contents($filename, $jsonData);
+
+    }   
 
 ?>
 <div class="row">
@@ -43,7 +66,7 @@ if(file_exists($filepath)) $configurations = getConfigurations($filepath);
 
                         <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                             <h6><label for="icon" class="form-label">Icon</label></h6>
-                            <input type="text" id="txt-icon" name="txt-icon" />
+                            <input type="text" id="txt-icon" name="txt-icon"/>
                         </div>
 
                         <div class="ms-2 d-flex flex-column mb-3 align-items-start">
@@ -77,8 +100,6 @@ if(file_exists($filepath)) $configurations = getConfigurations($filepath);
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <input type="submit" name="btn-close" class="btn btn-primary" value="Add">
-
-                
             </div>
         </form>
     </div>
