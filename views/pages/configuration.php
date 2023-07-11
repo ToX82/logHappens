@@ -3,29 +3,9 @@ $filename = "config.json";
 $filepath = ROOT . $filename;
 if(file_exists($filepath)) $configurations = getConfigurations($filepath);
 
-// quando refresho la pagina la riga sovrastante viene eseguita e
-// il json viene caricato con le configurazioni non aggiornate
+$modify = false;
             
-if(isset($_POST['btn-close'])) {
-    $config = new stdClass();
-    $config->icon = $_POST['txt-icon'];
-    $config->color = $_POST['txt-color'];
-    $config->title = $_POST['txt-title'];
-    $config->file = $_POST['txt-file'];
-    $config->parser = $_POST['txt-parser'];
-    if(isset($_POST['txt-disabled'])) $config->disabled = false;
-    else $config->disabled = true;
-
-    $var = $_POST['txt-name']; //string
-    $$var = new stdClass(); //qui la variabile $var equivale al nome assegnato dall'utente
-    $configurations->$var = $config;
-    //print_r($configurations);
-    
-    $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT);
-    file_put_contents(ROOT . '/config.json', $jsonData);
-
-
-    }   
+addConfig($configurations);
 
 ?>
 <div class="row">
@@ -40,14 +20,86 @@ if(isset($_POST['btn-close'])) {
             <div class="d-flex flex-row ms-2 mt-2 justify-content-between align-items-center">
                 <p>Total configurations: <?= count((array)$configurations) ?></p>
             </div>
-            <?php
-            $configurations ?
-                displayConfigurations($configurations) :
-                noConfigYet();
-            ?>
+            
+            <form form method="post" class="card-body d-flex flex-column">
+           
+
+            <?php 
+            foreach ($configurations as $configName => $value) { 
+                $modify = modifyAndSaveConfig($configurations, $configName, $value, $modify);
+                ?>
+
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <label for="configName"> <?= $configName ?> </label>
+                <input <?= $modify ? '' : 'hidden' ?> type="submit" value="Save" name="btn-save_<?=$configName?>" class="btn btn-success btn-sm">
+                <input <?= $modify ? 'hidden' : '' ?>  type="submit" value="Modify" name="btn-modify_<?=$configName?>" class="btn btn-primary btn-sm">
+            </div>
+        <!-- displayOptions($configurations, $configName, $value, $modify); -->
+        
+
+        <form method="post" class="mt-3 d-flex flex-column">
+            <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
+                <h6><label for="icon" class="form-label">Icon</label></h6>
+                <input class="" type="text" id="input-icon" name="input-icon"
+                <?= $modify ? '' : ' hidden ' ?>
+                value="<?=$value->icon?>"/>
+                <?php if(!$modify) echo $value->icon ?>
+                       
+            </div>
+
+            <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                <h6><label for="color" class="form-label">Color</label></h6>
+                    <input <?= $modify ? '' : 'hidden' ?> type="color" class="form-control form-control-color" id="input-color" name="input-color" value="<?=$value->color?>">
+                    <input <?= $modify ? 'hidden' : '' ?> disabled readonly type="color" class="form-control form-control-color" id="display-color" name="display-color" value="<?=$value->color?>">
+
+                    </div>
+
+            <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                <h6><label for="title" class="form-label">Title</label></h6>
+                    <input type="text" class="form-control" id="input-title" name="input-title"
+                    <?= $modify ? '' : ' hidden ' ?>
+                    value="<?=$value->title?>"/>
+                    <?php if(!$modify) echo $value->title ?>
+                </div>
+
+            <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                <h6><label for="file" class="form-label">File</label></h6>
+                    <input type="text" class="form-control" id="input-file" name="input-file"
+                    <?= $modify ? '' : ' hidden ' ?>
+                    value="<?=$value->file?>"/>
+                    <?php if(!$modify) echo $value->file ?>
+                </div>
+
+            <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                <h6><label for="parser" class="form-label">Parser</label></h6>
+                    <input type="text" class="form-control" id="input-parser" name="input-parser"
+                    <?= $modify ? '' : ' hidden ' ?>
+                    value="<?=$value->parser?>"/>
+                    <?php if(!$modify) echo $value->parser ?>
+                </div>
+
+            <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                <h6><label for="state" class="form-label">State</label></h6>
+                <div class="form-check form-switch">
+                    <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled" role="switch"
+                    <?php if(!$value->disabled) {
+                        echo 'checked';
+                    } ?>
+                    >
+                </div>
+            </div>
+                </form>
+        </div>
+        <?php } ?>
+    </form>
+
+
         </div>
     </div>
     
+
+    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form method="post" class="modal-dialog">
             <div class="modal-content">
@@ -103,7 +155,7 @@ if(isset($_POST['btn-close'])) {
     </div>
 </div>
 
-</div>
+
 <?php
 function noConfigYet()  {
     echo "no configurations yet!";
