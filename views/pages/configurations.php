@@ -24,11 +24,14 @@ $configurations = $configClass->getConfigurations();
                             </i>
                             <p class="ms-3"><?= $configName ?></p>
                         </div>
-                        <div class="col-4 d-flex justify-content-end mb-2">
-                            <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>"
-                            class="btn btn-primary py-1 px-2 me-2" >
-                                edit
+                        <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
+                            <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
+                                <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit"></div>
                             </a>
+                            <input type="submit" id="btn-openDeleteModal" name="btn-openDeleteModal"
+                            data-bs-target="#deleteModal" data-bs-toggle="modal" class="iconify me-2"
+                            width="25" height="25" color="red" data-icon="mingcute:delete-fill" />
+                            <?php $configClass->deleteConfig($configurations, $configName); ?>
                         </div>
                     </div>
                 </div>
@@ -43,6 +46,25 @@ $configurations = $configClass->getConfigurations();
                 </div>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <form method="post" class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Configuration</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this configuration?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <input type="submit" name="btn-deleteConfig_<?= $configName ?>" class="btn btn-danger" value="Delete">
+        </div>
+        </div>
+    </form>
 </div>
 
 <!--

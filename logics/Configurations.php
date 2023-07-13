@@ -31,7 +31,6 @@ class Configurations
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST['btn-addConfig'])) {
-
                 $configName = $_POST['input-name']; //string
                 $$configName = new \stdClass(); //qui la variabile $var equivale al nome assegnato dall'utente
                 $this->saveConfig($configurations, $configName);
@@ -62,6 +61,21 @@ class Configurations
         file_put_contents(ROOT . '/config.json', $jsonData);
 
         reload('configurations');
+    }
+
+    public function deleteConfig($configurations, $configName)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if (isset($_POST['btn-deleteConfig_' . $configName])) {
+                echo "ok";
+                unset($configurations->$configName);
+
+                $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+                file_put_contents(ROOT . '/config.json', $jsonData);
+
+                reload('configurations');
+            }
+        }
     }
 
     public function replaceSlash($filename)
