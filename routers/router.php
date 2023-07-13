@@ -50,6 +50,24 @@ if (isPage('display')) {
     $views[] = ROOT . $file;
 }
 
+if (isPage('configurations')) {
+    $pageTitle = "Configurations";
+
+    $views[] = ROOT . "views\pages\configurations.php";
+}
+
+if (isPage('edit_configuration')) {
+    $pageTitle = "Edit Configuration";
+
+    $views[] = ROOT . "views\pages\\edit_configuration.php";
+}
+
+if (isPage('add_configuration')) {
+    $pageTitle = "Add Configuration";
+
+    $views[] = ROOT . "views\pages\\add_configuration.php";
+}
+
 if (isPage('writesettings')) {
     $parameter = filterString(1);
     $selected = filterString(2);

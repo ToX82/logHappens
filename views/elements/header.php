@@ -11,7 +11,7 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= buildUrl("display/configuration") ?>">Configuration</a>
+                    <a class="nav-link" href="<?= buildUrl("configurations") ?>">Configuration</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= buildUrl("display/settings") ?>">Settings</a>
