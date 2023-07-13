@@ -56,7 +56,7 @@ $config = $configurations->$configName;
                         </div>
                     </div>
                     <input type="submit" name="btn-modifyConfig" value="Save" class="btn btn-primary">
-                    <?php $configClass->saveConfig($configurations, $configName); ?>
+                    <?php $configClass->modifyConfig($configurations, $configName); ?>
                 </div>
             </form>
         </div>
