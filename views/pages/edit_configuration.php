@@ -51,10 +51,7 @@ $config = $configurations->$configName;
                         <h6><label for="state" class="form-label">State</label></h6>
                         <div class="form-check form-switch ms-3">
                             <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled"
-                            role="switch"
-                            <?php if (!$config->disabled) {
-                                echo 'checked';
-                            } ?>
+                            role="switch" <?= $config->disabled ? '' : 'checked'; ?>
                             >
                         </div>
                     </div>
