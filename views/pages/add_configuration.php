@@ -1,11 +1,3 @@
-<?php
-
-$configClass = new Logics\Configurations();
-
-$configurations = $configClass->getConfigurations();
-
-?>
-
 <div class="row">
     <div class="col-8 offset-2">
         <div class="card border-secondary">

@@ -53,17 +53,29 @@ if (isPage('display')) {
 if (isPage('configurations')) {
     $pageTitle = "Configurations";
 
+    $configClass = new Logics\Configurations();
+    $configurations = $configClass->getConfigurations();
+
     $views[] = ROOT . "views\pages\configurations.php";
 }
 
 if (isPage('edit_configuration')) {
     $pageTitle = "Edit Configuration";
 
+    $configClass = new Logics\Configurations();
+    $configName = $_GET['configName'];
+
+    $configurations = $configClass->getConfigurations();
+    $config = $configurations->$configName;
+
     $views[] = ROOT . "views\pages\\edit_configuration.php";
 }
 
 if (isPage('add_configuration')) {
     $pageTitle = "Add Configuration";
+
+    $configClass = new Logics\Configurations();
+    $configurations = $configClass->getConfigurations();
 
     $views[] = ROOT . "views\pages\\add_configuration.php";
 }
