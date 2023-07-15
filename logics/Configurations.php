@@ -90,5 +90,5 @@ class Configurations
         file_put_contents($filename, $content);
 
         return $filename;
-      }
+    }
 }

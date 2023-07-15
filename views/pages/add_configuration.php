@@ -5,6 +5,9 @@
                 Add your configuration
             </div>
 
+            <script src="https://cdn.jsdelivr.net/npm/iconify-select-plugin@1/iconify-select-plugin.min.js">
+            </script>
+
             <form method="post" class="mt-3 ms-2 d-flex flex-column">
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="name" class="form-label">Name</label></h6>
@@ -14,14 +17,16 @@
 
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>
-                    <input class="form-control" type="text" id="input-icon" name="input-icon"
-                    placeholder="icon-name">
-                </div>
-
-                <div class="ms-2 d-flex flex-column mb-3 align-items-start">
-                    <h6><label for="color" class="form-label">Color</label></h6>
-                    <input type="color" class="form-control form-control-color" id="input-color" name="input-color"
-                    value="#000000">
+                    <div class="d-flex flex-row align-items-center">
+                        <i></i>
+                        <button type="button" class="iconify-open-dialog px-2 btn btn-primary"
+                        data-icon-input="iconify-select" data-color-input="iconify-color">Search it</button>
+                        <p class="mt-3 ms-2">or insert it manually</p>
+                        <input type="text" placeholder="Iconify code" class="iconify-select ms-2" size="20"
+                        id="input-icon" name="input-icon">
+                        <input type="color" class="iconify-color ms-2"
+                        id="input-color" name="input-color" value="#000000">
+                    </div>
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
