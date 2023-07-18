@@ -5,9 +5,6 @@
                 Add your configuration
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/iconify-select-plugin@1/iconify-select-plugin.min.js">
-            </script>
-
             <form method="post" class="mt-3 ms-2 d-flex flex-column">
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="name" class="form-label">Name</label></h6>
