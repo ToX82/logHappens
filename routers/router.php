@@ -36,7 +36,6 @@ if (isPage('viewlog')) {
 }
 
 if (isPage('display')) {
-
     $displayPage = filterString(1);
     $pageTitle = ucfirst($displayPage);
 
@@ -56,7 +55,7 @@ if (isPage('configurations')) {
     $configClass = new Logics\Configurations();
     $configurations = $configClass->getConfigurations();
 
-    $views[] = ROOT . "views\pages\configurations.php";
+    $views[] = ROOT . "views/pages/configurations.php";
 }
 
 if (isPage('edit_configuration')) {
@@ -68,7 +67,7 @@ if (isPage('edit_configuration')) {
     $configurations = $configClass->getConfigurations();
     $config = $configurations->$configName;
 
-    $views[] = ROOT . "views\pages\\edit_configuration.php";
+    $views[] = ROOT . "views/pages/edit_configuration.php";
 }
 
 if (isPage('add_configuration')) {
@@ -77,7 +76,7 @@ if (isPage('add_configuration')) {
     $configClass = new Logics\Configurations();
     $configurations = $configClass->getConfigurations();
 
-    $views[] = ROOT . "views\pages\\add_configuration.php";
+    $views[] = ROOT . "views/pages/add_configuration.php";
 }
 
 if (isPage('writesettings')) {
