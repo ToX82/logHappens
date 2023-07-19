@@ -5,7 +5,10 @@
                 <?= $configName ?> configuration
             </div>
 
-            <form method="post" class="mt-3 ms-2 d-flex flex-column">
+            <form method="post" action="save_configurations" class="mt-3 ms-2 d-flex flex-column me-3">
+                <input class="form-control" type="text" id="input-name" name="input-name"
+                placeholder="configuration-name" value="<?=$configName?>" hidden>
+
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>
                     <div class="d-flex flex-row align-items-center">
@@ -38,7 +41,7 @@
                     value="<?=$config->parser?>">
                 </div>
 
-                <div class="d-flex align-items-center justify-content-between m-3">
+                <div class="d-flex align-items-center justify-content-between m-3 me-0">
                     <div class="d-flex align-items-start">
                         <h6><label for="state" class="form-label">State</label></h6>
                         <div class="form-check form-switch ms-3">
@@ -47,8 +50,7 @@
                             >
                         </div>
                     </div>
-                    <input type="submit" name="btn-modifyConfig" value="Save" class="btn btn-primary">
-                    <?php $configClass->modifyConfig($configurations, $configName); ?>
+                    <input type="submit" name="btn-save-config" value="Save" class="btn btn-primary">
                 </div>
             </form>
         </div>

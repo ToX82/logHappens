@@ -5,13 +5,7 @@
                 Add your configuration
             </div>
 
-            <form method="post" class="mt-3 ms-2 d-flex flex-column">
-                <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
-                    <h6><label for="name" class="form-label">Name</label></h6>
-                    <input class="form-control" type="text" id="input-name" name="input-name"
-                    placeholder="configuration-name">
-                </div>
-
+            <form method="post" action="save_configurations" class="mt-3 ms-2 d-flex flex-column me-3">
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>
                     <div class="d-flex flex-row align-items-center">
@@ -44,7 +38,7 @@
                     placeholder="parser">
                 </div>
 
-                <div class="d-flex align-items-center justify-content-between m-3">
+                <div class="d-flex align-items-center justify-content-between m-3 me-0">
                     <div class="d-flex align-items-start">
                         <h6><label for="state" class="form-label">State</label></h6>
                         <div class="form-check form-switch ms-3">
@@ -52,8 +46,7 @@
                             role="switch" checked>
                         </div>
                     </div>
-                    <input type="submit" name="btn-addConfig" value="Add" class="btn btn-primary">
-                    <?php $configClass->addConfig($configurations); ?>
+                    <input type="submit" name="btn-save-config" value="Add" class="btn btn-primary">
                 </div>
             </form>
         </div>

@@ -16,7 +16,7 @@
                                 <span class="iconify" data-height="22" data-width="22" data-icon="<?= $value->icon ?>"
                                 data-inline="false"></span>
                             </i>
-                            <p class="ms-3"><?= $configName ?></p>
+                            <p class="ms-3"><?= $value->title ?></p>
                         </div>
                         <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
                             <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">

@@ -73,10 +73,13 @@ if (isPage('edit_configuration')) {
 if (isPage('add_configuration')) {
     $pageTitle = "Add Configuration";
 
-    $configClass = new Logics\Configurations();
-    $configurations = $configClass->getConfigurations();
-
     $views[] = ROOT . "views/pages/add_configuration.php";
+}
+
+if (isPage('save_configurations')) {
+    $configClass = new Logics\Configurations();
+
+    $configClass->saveConfig();
 }
 
 if (isPage('writesettings')) {
