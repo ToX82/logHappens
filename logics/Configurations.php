@@ -86,4 +86,17 @@ class Configurations
 
         return $filename;
     }
+    public function getAvailableParsers()
+    {
+        $dir = "../parsers/";
+        $files = scandir($dir);
+
+        $temp = array_slice($files, 2);
+        $parsers = array_map(function ($element) {
+            return str_replace(".php", "", $element);
+        }, $temp);
+
+        //print_r($parsers);
+        return $parsers;
+    }
 }

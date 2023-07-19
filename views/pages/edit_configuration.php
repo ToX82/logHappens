@@ -37,8 +37,12 @@
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="parser" class="form-label">Parser</label></h6>
-                    <input type="text" class="form-control" id="input-parser" name="input-parser"
-                    value="<?=$config->parser?>">
+                    <select class="form-control" id="input-parser" name="input-parser">
+                    <?php foreach ($parsers as $parser) { ?>
+                        <option <?= $config->parser == $parser ? 'selected' : '' ?>>
+                        <?= $parser ?></option>
+                    <?php } ?>
+                    </select>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between m-3 me-0">

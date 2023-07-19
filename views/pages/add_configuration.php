@@ -9,7 +9,6 @@
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>
                     <div class="d-flex flex-row align-items-center">
-                        <i></i>
                         <button type="button" class="iconify-open-dialog px-2 btn btn-primary"
                         data-icon-input="iconify-select" data-color-input="iconify-color">Search it</button>
                         <p class="mt-3 ms-2">or insert it manually</p>
@@ -34,8 +33,11 @@
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="parser" class="form-label">Parser</label></h6>
-                    <input type="text" class="form-control" id="input-parser" name="input-parser"
-                    placeholder="parser">
+                    <select class="form-control" id="input-parser" name="input-parser">
+                    <?php foreach ($parsers as $parser) { ?>
+                        <option><?= $parser ?></option>
+                    <?php } ?>
+                    </select>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between m-3 me-0">

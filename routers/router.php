@@ -63,6 +63,7 @@ if (isPage('edit_configuration')) {
 
     $configClass = new Logics\Configurations();
     $configName = $_GET['configName'];
+    $parsers = $configClass->getAvailableParsers();
 
     $configurations = $configClass->getConfigurations();
     $config = $configurations->$configName;
@@ -72,6 +73,9 @@ if (isPage('edit_configuration')) {
 
 if (isPage('add_configuration')) {
     $pageTitle = "Add Configuration";
+
+    $configClass = new Logics\Configurations();
+    $parsers = $configClass->getAvailableParsers();
 
     $views[] = ROOT . "views/pages/add_configuration.php";
 }
