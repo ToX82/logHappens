@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-8 offset-2">
-        <div class="card border-secondary">
+        <div class="card border-secondary-subtle">
             <div class="card-header">
                 Configurations
             </div>
@@ -9,7 +9,7 @@
                 <?php
                 foreach ($configurations as $configName => $value) {
                     ?>
-                <div class=" mb-2 card border-secondary <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
+                <div class=" mb-2 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
                     <div class="row mt-2 ms-2 align-items-center">
                         <div class="col-8 d-flex flex-row">
                             <i style="color: <?= $value->color ?>">

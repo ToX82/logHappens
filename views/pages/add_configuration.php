@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-8 offset-2">
-        <div class="card border-secondary">
+        <div class="card border-secondary-subtle">
             <div class="card-header">
                 Add your configuration
             </div>
