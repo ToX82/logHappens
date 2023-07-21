@@ -86,6 +86,12 @@ if (isPage('save_configurations')) {
     $configClass->saveConfig();
 }
 
+if (isPage('delete_configuration')) {
+    $configClass = new Logics\Configurations();
+
+    $configClass->deleteConfig();
+}
+
 if (isPage('writesettings')) {
     $parameter = filterString(1);
     $selected = filterString(2);

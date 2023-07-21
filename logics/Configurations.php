@@ -58,19 +58,17 @@ class Configurations
         }
     }
 
-    public function deleteConfig($configurations, $configName)
+    public function deleteConfig()
     {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['btn-deleteConfig_' . $configName])) {
-                echo "ok";
-                unset($configurations->$configName);
+        $configurations = $this->getConfigurations();
+        $configName = $_GET['configName'];
 
-                $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-                file_put_contents(ROOT . '/config.json', $jsonData);
+        unset($configurations->$configName);
 
-                reload('configurations');
-            }
-        }
+        $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        file_put_contents(ROOT . '/config.json', $jsonData);
+
+        reload('configurations');
     }
 
     public function replaceSlash($filename)
@@ -98,5 +96,12 @@ class Configurations
 
         //print_r($parsers);
         return $parsers;
+    }
+    public function checkFileExists($filename)
+    {
+        if (file_exists($filename)) {
+            return true;
+        }
+        return false;
     }
 }

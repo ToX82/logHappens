@@ -25,7 +25,6 @@
                             <input type="submit" id="btn-openDeleteModal" name="btn-openDeleteModal"
                             data-bs-target="#deleteModal" data-bs-toggle="modal" class="iconify me-2"
                             width="25" height="25" color="red" data-icon="mingcute:delete-fill" />
-                            <?php $configClass->deleteConfig($configurations, $configName); ?>
                         </div>
                     </div>
                 </div>
@@ -55,7 +54,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <input type="submit" name="btn-deleteConfig_<?= $configName ?>" class="btn btn-danger" value="Delete">
+                <a href="<?= buildUrl("delete_configuration?configName=$configName") ?>"
+                class="btn btn-danger">
+                    Delete
+                </a>
         </div>
         </div>
     </form>

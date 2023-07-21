@@ -1,11 +1,13 @@
 <div class="row">
     <div class="col-8 offset-2">
-        <div class="card border-secondary-subtle">
+        <div class="add_configurations card border-secondary-subtle">
             <div class="card-header">
                 Add your configuration
             </div>
 
-            <form method="post" action="save_configurations" class="mt-3 ms-2 d-flex flex-column me-3">
+            <form method="post" action="save_configurations" class="needs-validation mt-3 ms-2 d-flex flex-column me-3"
+                novalidate>
+
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>
                     <div class="d-flex flex-row align-items-center">
@@ -22,13 +24,19 @@
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="title" class="form-label">Title</label></h6>
                     <input type="text" class="form-control" id="input-title" name="input-title"
-                    placeholder="title">
+                    placeholder="title" required>
+                    <div class="invalid-feedback">
+                        Title is missing.
+                    </div>
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="file" class="form-label">File</label></h6>
                     <input type="text" class="form-control" id="input-file" name="input-file"
-                    placeholder="file-path">
+                    placeholder="file-path" required>
+                    <div class="invalid-feedback">
+                        File is missing or does not exist.
+                    </div>
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">

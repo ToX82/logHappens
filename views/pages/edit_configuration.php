@@ -5,7 +5,8 @@
                 <?= $configName ?> configuration
             </div>
 
-            <form method="post" action="save_configurations" class="mt-3 ms-2 d-flex flex-column me-3">
+            <form method="post" action="save_configurations" class="needs-validation mt-3 ms-2 d-flex flex-column me-3"
+                novalidate>
                 <input class="form-control" type="text" id="input-name" name="input-name"
                 placeholder="configuration-name" value="<?=$configName?>" hidden>
 
@@ -26,13 +27,19 @@
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="title" class="form-label">Title</label></h6>
                     <input type="text" class="form-control" id="input-title" name="input-title"
-                    value="<?=$config->title?>">
+                    value="<?=$config->title?>" required>
+                    <div class="invalid-feedback">
+                        Title is missing.
+                    </div>
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="file" class="form-label">File</label></h6>
                     <input type="text" class="form-control" id="input-file" name="input-file"
-                    value="<?=$config->file?>">
+                    value="<?=$config->file?>" required>
+                    <div class="invalid-feedback">
+                        File is missing or does not exist.
+                    </div>
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
