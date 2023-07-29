@@ -2,8 +2,7 @@
 
 namespace Logics;
 
-define('FILENAME', "config.json");
-define('FILEPATH', ROOT . FILENAME);
+define('FILEPATH', ROOT . "config.json");
 
 class Configurations
 {
@@ -86,8 +85,7 @@ class Configurations
     }
     public function getAvailableParsers()
     {
-        $dir = "../parsers/";
-        $files = scandir($dir);
+        $files = scandir(ROOT . "/parsers/");
 
         $temp = array_slice($files, 2);
         $parsers = array_map(function ($element) {
