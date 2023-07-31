@@ -88,8 +88,9 @@ if (isPage('save_configurations')) {
 
 if (isPage('delete_configuration')) {
     $configClass = new Logics\Configurations();
+    $configName = $_GET['configName'];
 
-    $configClass->deleteConfig();
+    $configClass->deleteConfig($configName);
 }
 
 if (isPage('writesettings')) {

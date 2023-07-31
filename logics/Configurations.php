@@ -57,10 +57,9 @@ class Configurations
         }
     }
 
-    public function deleteConfig()
+    public function deleteConfig($configName)
     {
         $configurations = $this->getConfigurations();
-        $configName = $_GET['configName'];
 
         unset($configurations->$configName);
 
