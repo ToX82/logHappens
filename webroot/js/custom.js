@@ -56,7 +56,7 @@ function recountAll() {
     }).done(function (data) {
         notificationText = '';
         $.each(data, function (file, countNew) {
-            var $navLink = $sidebar.find('a[data-file='' + file + '']');
+            var $navLink = $sidebar.find('a[data-file="' + file + '"]');
             var isActive = $navLink.parent().hasClass('active');
             var $badge = $navLink.find('.badge');
             var countOld = $badge.html().trim();
