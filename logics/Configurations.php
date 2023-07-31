@@ -29,13 +29,12 @@ class Configurations
                 if (isset($_POST['input-name'])) {
                     $configName = $_POST['input-name'];
                 } else {
-                    $configName = preg_replace('/[^a-z0-9\s]/', '', strtolower($_POST["input-title"]));
-                    $configName = $this->sanitizeTitle($configName);
+                    $configName = $this->slugString($_POST["input-title"]);
                 }
 
                 $config['icon'] = $_POST["input-icon"];
                 $config['color'] = $_POST["input-color"];
-                $config['title'] = $this->sanitizeTitle($_POST["input-title"]);
+                $config['title'] = $_POST["input-title"];
                 $config['file'] = $this->replaceSlash($_POST["input-file"]);
                 $config['parser'] = $_POST["input-parser"];
 
@@ -82,12 +81,13 @@ class Configurations
 
         return $filename;
     }
-    public function sanitizeTitle($title)
+    public function slugString($temp)
     {
-        $title = trim($title);
-        $title = str_replace(' ', '_', $title);
+        $temp = preg_replace('/[^a-z0-9\s]/', '', strtolower($temp));
+        $temp = trim($temp);
+        $temp = str_replace(' ', '_', $temp);
 
-        return $title;
+        return $temp;
     }
     public function getAvailableParsers()
     {
