@@ -6,56 +6,60 @@ define('FILEPATH', ROOT . "config.json");
 
 class Configurations
 {
+    /**
+     * Retrieves configurations from a JSON file.
+     *
+     * @param string $filePath The path to the JSON file.
+     * @return array Returns an array of configurations.
+     */
     public function getConfigurations()
     {
         if (file_exists(FILEPATH)) {
-            $jsonString = file_get_contents(FILEPATH);
-            $data = json_decode($jsonString);
+            $jsonData = file_get_contents(FILEPATH);
+            $data = json_decode($jsonData);
 
             return $data->parsers;
-        } else {
-            return [];
         }
+
+        return [];
     }
 
+    /**
+     * Saves the configuration data to the config.json file.
+     *
+     * @return void
+     */
     public function saveConfig()
     {
         $configurations = $this->getConfigurations();
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['btn-save-config'])) {
-                $config = [];
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-save-config'])) {
+            $config = [];
+            $configName = isset($_POST['input-name']) ? $_POST['input-name'] : $this->slugString($_POST["input-title"]);
 
-                if (isset($_POST['input-name'])) {
-                    $configName = $_POST['input-name'];
-                } else {
-                    $configName = $this->slugString($_POST["input-title"]);
-                }
+            $config['icon'] = $_POST["input-icon"];
+            $config['color'] = $_POST["input-color"];
+            $config['title'] = $_POST["input-title"];
+            $config['file'] = $this->replaceSlash($_POST["input-file"]);
+            $config['parser'] = $_POST["input-parser"];
+            $config['disabled'] = isset($_POST['input-disabled']) ? false : true;
 
-                $config['icon'] = $_POST["input-icon"];
-                $config['color'] = $_POST["input-color"];
-                $config['title'] = $_POST["input-title"];
-                $config['file'] = $this->replaceSlash($_POST["input-file"]);
-                $config['parser'] = $_POST["input-parser"];
+            $configurations->$configName = $config;
 
-                if (isset($_POST['input-disabled'])) {
-                    $config['disabled'] = false;
-                } else {
-                    $config['disabled'] = true;
-                }
+            $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            file_put_contents(ROOT . '/config.json', $jsonData);
 
-                $configurations->$configName = $config;
-                //debug($configurations);
-                //die();
-
-                $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-                file_put_contents(ROOT . '/config.json', $jsonData);
-
-                reload('configurations');
-            }
+            reload('configurations');
         }
     }
 
+    /**
+     * Deletes a configuration by name from the config file.
+     *
+     * @param string $configName The name of the configuration to delete.
+     * @throws Some_Exception_Class Description of the exception that can be thrown.
+     * @return void
+     */
     public function deleteConfig($configName)
     {
         $configurations = $this->getConfigurations();
@@ -68,44 +72,71 @@ class Configurations
         reload('configurations');
     }
 
+    /**
+     * Replaces all occurrences of '/' with '//' in the contents of a file.
+     *
+     * @param string $filename The path to the file.
+     * @throws Exception If the file cannot be read or written.
+     * @return string The path to the modified file.
+     */
     public function replaceSlash($filename)
     {
         // Read the contents of the file
         $content = file_get_contents($filename);
 
         // Replace all occurrences of '/' with '//'
-        $content = str_replace('/', '//', $content);
+        $modifiedContent = str_replace('/', '//', $content);
 
         // Write the modified content back to the file
-        file_put_contents($filename, $content);
+        file_put_contents($filename, $modifiedContent);
 
         return $filename;
     }
-    public function slugString($temp)
+    /**
+     * Slugifies a string by removing special characters,
+     * converting to lowercase, and replacing spaces with underscores.
+     *
+     * @param string $string The string to be slugified.
+     * @return string The slugified string.
+     */
+    public function slugString($string)
     {
-        $temp = preg_replace('/[^a-z0-9\s]/', '', strtolower($temp));
-        $temp = trim($temp);
-        $temp = str_replace(' ', '_', $temp);
+        $slug = preg_replace('/[^a-z0-9\s]/', '', strtolower($string));
+        $slug = trim($slug);
+        $slug = str_replace(' ', '_', $slug);
 
-        return $temp;
+        return $slug;
     }
+    /**
+     * Retrieves the list of available parsers.
+     *
+     * This function scans the "/parsers/" directory and retrieves the list
+     * of available parsers by removing the file extension from each file name.
+     *
+     * @return array The list of available parsers.
+     */
     public function getAvailableParsers()
     {
-        $files = scandir(ROOT . "/parsers/");
+        $directory = ROOT . "/parsers/";
 
-        $temp = array_slice($files, 2);
-        $parsers = array_map(function ($element) {
-            return str_replace(".php", "", $element);
-        }, $temp);
+        $files = scandir($directory);
 
-        //print_r($parsers);
+        $filteredFiles = array_slice($files, 2);
+
+        $parsers = array_map(function ($file) {
+            return str_replace(".php", "", $file);
+        }, $filteredFiles);
+
         return $parsers;
     }
+    /**
+     * Checks if a file exists.
+     *
+     * @param string $filename The name of the file to check.
+     * @return bool Returns true if the file exists, false otherwise.
+     */
     public function checkFileExists($filename)
     {
-        if (file_exists($filename)) {
-            return true;
-        }
-        return false;
+        return file_exists($filename);
     }
 }
