@@ -11,7 +11,7 @@
                     ?>
                     <div class="d-flex flex-row mb-2">
                         <i id="<?= $configName ?>" class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
-                            <span id="icon-eye-<?= $configName ?>" class="icon-eye iconify" data-height="22" data-width="22" data-icon="<?= $value->disabled ? 'mingcute:eye-close-line' : 'pajamas:eye' ?>"
+                            <span id="icon-eye-<?= $configName ?>" class="icon-eye iconify" data-height="22" data-width="22" data-icon="<?= $value->disabled ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
                             data-inline="false"></span>
                         </i>
 
