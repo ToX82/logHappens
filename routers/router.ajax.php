@@ -21,3 +21,9 @@ if (isset($_GET['check-file-exists'])) {
     $return = $objConfig->checkFileExists($filename);
     $return = json_encode($return);
 }
+if (isset($_GET['change-visibility'])) {
+    $objConfig = new logics\Configurations();
+    $return = $objConfig->changeVisibility($_POST['configName']);
+
+    $return = json_encode($return);
+}

@@ -2,8 +2,6 @@
 
 namespace Logics;
 
-define('FILEPATH', ROOT . "config.json");
-
 class Configurations
 {
     /**
@@ -14,8 +12,8 @@ class Configurations
      */
     public function getConfigurations()
     {
-        if (file_exists(FILEPATH)) {
-            $jsonData = file_get_contents(FILEPATH);
+        if (file_exists(ROOT . "config.json")) {
+            $jsonData = file_get_contents(ROOT . "config.json");
             $data = json_decode($jsonData);
 
             return $data->parsers;
@@ -138,5 +136,14 @@ class Configurations
     public function checkFileExists($filename)
     {
         return file_exists($filename);
+    }
+
+    public function changeVisibility($configName)
+    {
+        $configurations = $this->getConfigurations();
+        $configurations->$configName->disabled = !$configurations->$configName->disabled;
+
+        $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        file_put_contents(ROOT . '/config.json', $jsonData);
     }
 }

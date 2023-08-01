@@ -9,34 +9,42 @@
                 <?php
                 foreach ($configurations as $configName => $value) {
                     ?>
-                <div class=" mb-2 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
-                    <div class="row mt-2 ms-2 align-items-center">
-                        <div class="col-8 d-flex flex-row">
-                            <i style="color: <?= $value->color ?>">
-                                <span class="iconify" data-height="22" data-width="22" data-icon="<?= $value->icon ?>"
-                                data-inline="false"></span>
-                            </i>
-                            <p class="ms-3"><?= $value->title ?></p>
-                        </div>
-                        <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
-                            <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
-                                <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit"></div>
-                            </a>
-                            <input type="submit" id="btn-openDeleteModal" name="btn-openDeleteModal"
-                            data-bs-target="#deleteModal" data-bs-toggle="modal" class="iconify me-2"
-                            width="25" height="25" color="red" data-icon="mingcute:delete-fill" />
+                    <div class="d-flex flex-row mb-2">
+                        <i id="<?= $configName ?>" class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
+                            <span id="icon-eye-<?= $configName ?>" class="icon-eye iconify" data-height="22" data-width="22" data-icon="<?= $value->disabled ? 'mingcute:eye-close-line' : 'pajamas:eye' ?>"
+                            data-inline="false"></span>
+                        </i>
+
+                        <div class="w-100 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
+                            <div class="row mt-2 ms-2 align-items-center">
+                                <div class="col-8 d-flex flex-row">
+                                    <i style="color: <?= $value->color ?>">
+                                        <span class="iconify" data-height="22" data-width="22" data-icon="<?= $value->icon ?>"
+                                        data-inline="false"></span>
+                                    </i>
+                                    <p class="ms-3"><?= $value->title ?></p>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
+                                    <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
+                                        <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit">
+                                        </div>
+                                    </a>
+                                    <input type="submit" id="btn-openDeleteModal" name="btn-openDeleteModal"
+                                    data-bs-target="#deleteModal" data-bs-toggle="modal" class="iconify me-2"
+                                    width="25" height="25" color="red" data-icon="mingcute:delete-fill" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php } ?>
-                </div>
+            </div>
 
-                <div class="d-flex flex-row m-2 justify-content-between align-items-center">
-                    <p class="ms-3 mb-0">Total: <?= count((array)$configurations) ?></p>
-                    <a href="<?= buildUrl("add_configuration") ?>" class="btn btn-primary py-1 px-2">
-                        Add Configuration
-                    </a>
-                </div>
+            <div class="d-flex flex-row m-2 justify-content-between align-items-center">
+                <p class="ms-3 mb-0">Total: <?= count((array)$configurations) ?></p>
+                <a href="<?= buildUrl("add_configuration") ?>" class="btn btn-primary py-1 px-2">
+                    Add Configuration
+                </a>
+            </div>
         </div>
     </div>
 </div>

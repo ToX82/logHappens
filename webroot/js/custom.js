@@ -168,6 +168,30 @@ $('#input-file').on('change blur', function () {
     });
 });
 
+$('i.icon-visibility').on('click', function () {
+    var baseUrl = $('.baseUrl').html();
+    var configName = $(this).attr('id');
+    console.log(configName);
+
+    var span = $(this).children();
+    console.log(span);
+
+    var iconName = span.attr("data-icon");
+
+    console.log(iconName); // Stampa il valore di "data-icon" nella console
+    $.ajax({
+        url: baseUrl + 'ajax.php?change-visibility',
+        method: 'POST',
+        data: {
+            configName: configName,
+        },
+    }).done(function (result) {
+        location.reload();
+    });
+});
+
+
+
 (() => {
     'use strict';
 
