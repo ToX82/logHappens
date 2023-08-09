@@ -89,6 +89,13 @@ if (isPage('save_configurations')) {
     $configClass->saveConfig();
 }
 
+if (isPage('duplicate_configuration')) {
+    $configClass = new Logics\Configurations();
+    $configName = $_GET['configName'];
+
+    $configClass->duplicateConfig($configName);
+}
+
 if (isPage('delete_configuration')) {
     $configClass = new Logics\Configurations();
     $configName = $_GET['configName'];
