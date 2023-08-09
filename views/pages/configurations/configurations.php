@@ -30,7 +30,7 @@
                                         </div>
                                     </a>
                                     <input type="submit" name="btn-openDeleteModal"
-                                    class="btn-openDeleteModal iconify me-2"
+                                    class="btn-openModal iconify me-2"
                                     width="25" height="25" color="red" data-icon="mingcute:delete-fill"
                                     href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
                                 </div>
@@ -51,7 +51,7 @@
 </div>
 
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="js-confirm" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <form method="post" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

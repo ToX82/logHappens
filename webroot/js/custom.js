@@ -22,7 +22,7 @@ $(document).ready(function () {
      *
      * @returns {void}
      */
-    $('body').on('click', '.truncateLink', function (e) {
+    $('body').on('click', '.btn-openModal', function (e) {
         e.preventDefault();
         var link = $(this).attr('href');
         var $modal = $('#js-confirm');
@@ -36,19 +36,6 @@ $(document).ready(function () {
     // When the truncate modal opens, automatically put the focus on the yes button
     $('body').on('shown.bs.modal', '#js-confirm', function () {
         $('.yes-btn', this).focus();
-    });
-
-    $('body').on('click', '.btn-openDeleteModal', function (e) {
-        e.preventDefault();
-        var link = $(this).attr('href');
-        var $modal = $('#deleteModal');
-        $modal.modal('show');
-
-        $modal.find('.yes-btn').click(function () {
-            //alert(link);
-            window.location.href = link;
-        }
-        );
     });
 });
 
