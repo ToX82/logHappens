@@ -1,3 +1,4 @@
 vendor/**
 config.json
 composer.lock
+config.default.json

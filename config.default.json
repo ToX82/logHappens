@@ -3,33 +3,25 @@
         "apache": {
             "icon": "logos:apache",
             "color": "#104B73",
-            "title": "Apache error",
-            "file": "/var/log/apache2/error.log",
+            "title": "apache",
+            "file": "D:/Programs/Wamp64/logs/php_error.log",
             "parser": "apache24",
             "disabled": false
         },
         "cakephp": {
             "icon": "logos-cakephp",
             "color": "#1BB7A0",
-            "title": "My CakePHP app",
-            "file": "/var/www/cakephp/logs/error.log",
+            "title": "cakephp",
+            "file": "D:/Programs/Wamp64/logs/php_error.log",
             "parser": "cakephp3",
             "disabled": false
         },
         "codeigniter": {
             "icon": "logos-codeigniter",
             "color": "#002035",
-            "title": "My Codeigniter app",
-            "file": "/var/www/codeigniter/application/logs/log-{Y}-{m}-{d}.php",
+            "title": "codeigniter",
+            "file": "D:/Programs/Wamp64/logs/php_error.log",
             "parser": "codeigniter",
-            "disabled": false
-        },
-        "remote": {
-            "icon": "whh:remotemysql",
-            "color": "#7BE269",
-            "title": "Remote example",
-            "file": "http://example.com/logs/error.log",
-            "parser": "cakephp",
             "disabled": false
         }
     }

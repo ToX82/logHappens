@@ -26,6 +26,8 @@ if (isPage('truncate')) {
     reload("/viewlog/" . $file);
 }
 
+// Non ho capito perchè non ho dovuto inserire la page configuration qui
+
 if (isPage('viewlog')) {
     $file = filterString(1);
     $logs = $objParsers->view($file);
@@ -34,7 +36,6 @@ if (isPage('viewlog')) {
 }
 
 if (isPage('display')) {
-
     $displayPage = filterString(1);
     $pageTitle = ucfirst($displayPage);
 
@@ -46,6 +47,50 @@ if (isPage('display')) {
 
     $file = logics\Pages::display($displayPage);
     $views[] = ROOT . $file;
+}
+
+if (isPage('configurations')) {
+    $pageTitle = "Configurations";
+
+    $configClass = new Logics\Configurations();
+    $configurations = $configClass->getConfigurations();
+
+    $views[] = ROOT . "views/pages/configurations/configurations.php";
+}
+
+if (isPage('edit_configuration')) {
+    $pageTitle = "Edit Configuration";
+
+    $configClass = new Logics\Configurations();
+    $configName = $_GET['configName'];
+    $parsers = $configClass->getAvailableParsers();
+
+    $configurations = $configClass->getConfigurations();
+    $config = $configurations->$configName;
+
+    $views[] = ROOT . "views/pages/configurations/edit_configuration.php";
+}
+
+if (isPage('add_configuration')) {
+    $pageTitle = "Add Configuration";
+
+    $configClass = new Logics\Configurations();
+    $parsers = $configClass->getAvailableParsers();
+
+    $views[] = ROOT . "views/pages/configurations/add_configuration.php";
+}
+
+if (isPage('save_configurations')) {
+    $configClass = new Logics\Configurations();
+
+    $configClass->saveConfig();
+}
+
+if (isPage('delete_configuration')) {
+    $configClass = new Logics\Configurations();
+    $configName = $_GET['configName'];
+
+    $configClass->deleteConfig($configName);
 }
 
 if (isPage('writesettings')) {

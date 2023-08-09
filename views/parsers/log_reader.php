@@ -5,7 +5,7 @@
     <span class="log-title"><?= $logs['title'] ?></span>
 
     <?php if ($logs['writable'] === true) { ?>
-        <a class="truncateLink ml-4" href="<?= buildUrl("truncate/" . $logs['file']) ?>">
+        <a class="btn-openModal ml-4" href="<?= buildUrl("truncate/" . $logs['file']) ?>">
             <span class="iconify" data-icon="ion:trash-bin" data-inline="false" style="color: red;" data-width="30"></span>
         </a>
     <?php } else { ?>
