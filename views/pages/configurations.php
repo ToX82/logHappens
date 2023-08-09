@@ -29,9 +29,10 @@
                                         <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit">
                                         </div>
                                     </a>
-                                    <input type="submit" id="btn-openDeleteModal" name="btn-openDeleteModal"
-                                    data-bs-target="#deleteModal" data-bs-toggle="modal" class="iconify me-2"
-                                    width="25" height="25" color="red" data-icon="mingcute:delete-fill" />
+                                    <input type="submit" name="btn-openDeleteModal"
+                                    class="btn-openDeleteModal iconify me-2"
+                                    width="25" height="25" color="red" data-icon="mingcute:delete-fill"
+                                    href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
                                 </div>
                             </div>
                         </div>
@@ -62,8 +63,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="<?= buildUrl("delete_configuration?configName=$configName") ?>"
-                class="btn btn-danger">
+                <a
+                class="yes-btn btn btn-danger">
                     Delete
                 </a>
         </div>

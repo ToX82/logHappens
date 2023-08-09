@@ -37,6 +37,19 @@ $(document).ready(function () {
     $('body').on('shown.bs.modal', '#js-confirm', function () {
         $('.yes-btn', this).focus();
     });
+
+    $('body').on('click', '.btn-openDeleteModal', function (e) {
+        e.preventDefault();
+        var link = $(this).attr('href');
+        var $modal = $('#deleteModal');
+        $modal.modal('show');
+
+        $modal.find('.yes-btn').click(function () {
+            //alert(link);
+            window.location.href = link;
+        }
+        );
+    });
 });
 
 /**

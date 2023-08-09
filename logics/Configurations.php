@@ -63,6 +63,7 @@ class Configurations
         $configurations = $this->getConfigurations();
 
         unset($configurations->$configName);
+        print_r($configName);
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
