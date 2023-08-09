@@ -9,20 +9,19 @@
                 <p>Here is a quick guide to get started. Are you ready?</p>
                 <ul>
                     <li>
-                        First things first, you should create your own "config.json" file.<br>
-                        In order to do do so, please copy "config.default.json" to "config.json".
+                        First things first, I've created a config.json file for you. It contains some
+                        placeholder configurations that you can use to customize your log files.
                     </li>
                     <li>
-                        Then, open your newly created "config.json" with your favorite code editor,
-                        and add as many log files as you need, by using the same structure as the
-                        record that you will already see (which is the standard apache logs).<br>
-                        Beware, on some systems you might need to change the file path for this record.
+                        To do so, please head to the <a href='<?= buildUrl('configurations') ?>'>Configuration</a> page, and set up your configurations
+                        according to your needs.
                     </li>
                     <li>
-                        When you're done, please click <a href='<?= buildUrl('') ?>'>here</a> to start using logHappens! 😊
+                        Enjoy your programming journey using logHappens! 😊
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
+

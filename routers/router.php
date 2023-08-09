@@ -9,7 +9,7 @@ $views = [];
 // Actions to be done for every request
 $countAll = $objParsers->countall();
 
-// Se non esiste un parametro nella URL seleziono la home page
+// If there are no params in the URL, proceed
 if (empty($params)) {
     if (empty($countAll)) {
         reload('display/start');
@@ -25,8 +25,6 @@ if (isPage('truncate')) {
     $logs = $objParsers->truncate($file);
     reload("/viewlog/" . $file);
 }
-
-// Non ho capito perchè non ho dovuto inserire la page configuration qui
 
 if (isPage('viewlog')) {
     $file = filterString(1);
@@ -50,6 +48,11 @@ if (isPage('display')) {
 }
 
 if (isPage('configurations')) {
+    if (!file_exists(ROOT . "config.json")) {
+        starterConfigFile();
+        reload('/configurations');
+    }
+
     $pageTitle = "Configurations";
 
     $configClass = new Logics\Configurations();
@@ -108,4 +111,13 @@ if (isPage('writesettings')) {
 if (empty($views)) {
     $pageTitle = "Wooooops";
     $views[] = ROOT . "views/pages/404.php";
+}
+
+function starterConfigFile()
+{
+    $starterFile = fopen(ROOT . "config.json", 'w') or die("Impossibile creare il file");
+    fclose($starterFile);
+
+    $defaultConfigurations = file_get_contents(ROOT . "config.default.json");
+    file_put_contents(ROOT . "config.json", $defaultConfigurations);
 }
