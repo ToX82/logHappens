@@ -101,13 +101,15 @@ class Configurations
     public function replaceSlash($filename)
     {
         // Read the contents of the file
-        $content = file_get_contents($filename);
+        if (file_exists($filename)) {
+            $content = file_get_contents($filename);
 
-        // Replace all occurrences of '/' with '//'
-        $modifiedContent = str_replace('/', '//', $content);
+            // Replace all occurrences of '/' with '//'
+            $modifiedContent = str_replace('/', '//', $content);
 
-        // Write the modified content back to the file
-        file_put_contents($filename, $modifiedContent);
+            // Write the modified content back to the file
+            file_put_contents($filename, $modifiedContent);
+        }
 
         return $filename;
     }
