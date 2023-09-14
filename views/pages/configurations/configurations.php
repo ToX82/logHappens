@@ -23,8 +23,19 @@
                                         data-inline="false"></span>
                                     </i>
                                     <p class="ms-3"><?= $value->title ?></p>
+                                    <?php
+                                    if (!file_exists($value->file)) {
+                                        ?>
+                                        <p class="ms-3 text-danger">(File not found)</p>
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
+                                    <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>">
+                                        <div class="iconify me-2" width="25" height="25" data-icon="clarity:clone-line">
+                                        </div>
+                                    </a>
                                     <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
                                         <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit">
                                         </div>

@@ -51,6 +51,26 @@ class Configurations
         }
     }
 
+    public function duplicateConfig($configName)
+    {
+        if (preg_match('/_copy_(\d+)/', $configName, $matches)) {
+            $duplicatedTimes = $matches[1];
+            $updateNum = strval(intval($duplicatedTimes) + 1);
+
+            $duplicatedName = preg_replace('/_copy_(\d+)/', '_copy_' . $updateNum, $configName);
+        } else {
+            $duplicatedName = $configName . "_copy_0";
+        }
+
+        $configurations = $this->getConfigurations();
+        $configurations->$duplicatedName = $configurations->$configName;
+
+        $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        file_put_contents(ROOT . '/config.json', $jsonData);
+
+        reload('configurations');
+    }
+
     /**
      * Deletes a configuration by name from the config file.
      *
@@ -81,13 +101,15 @@ class Configurations
     public function replaceSlash($filename)
     {
         // Read the contents of the file
-        $content = file_get_contents($filename);
+        if (file_exists($filename)) {
+            $content = file_get_contents($filename);
 
-        // Replace all occurrences of '/' with '//'
-        $modifiedContent = str_replace('/', '//', $content);
+            // Replace all occurrences of '/' with '//'
+            $modifiedContent = str_replace('/', '//', $content);
 
-        // Write the modified content back to the file
-        file_put_contents($filename, $modifiedContent);
+            // Write the modified content back to the file
+            file_put_contents($filename, $modifiedContent);
+        }
 
         return $filename;
     }
