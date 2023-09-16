@@ -44,7 +44,7 @@
                     </div>
                     <div class="d-inline-block mx-2" title="Tweet via Twitter">
                         <a href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Floghappens.com" target="_blank">
-                        <span class="iconify" data-icon="logos:twitter" data-inline="false" data-width="36"></span>
+                            <span class="iconify" data-icon="simple-icons:x" color="#0f1419" data-inline="false" data-width="36"></span>
                         </a>
                     </div>
                     <div class="d-inline-block mx-2" title="Share via Linkedin">
@@ -54,7 +54,7 @@
                     </div>
                     <div class="d-inline-block mx-2" title="Share via Whatsapp">
                         <a href="whatsapp://send?text=%20https%3A%2F%2Floghappens.com" target="_blank">
-                            <span class="iconify" data-icon="logos:whatsapp" data-inline="false" data-width="36"></span>
+                            <span class="iconify" data-icon="logos:whatsapp-icon" data-inline="false" data-width="36"></span>
                         </a>
                     </div>
                     <div class="d-inline-block mx-2" title="Share via Email">
