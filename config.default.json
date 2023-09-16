@@ -4,24 +4,8 @@
             "icon": "logos:apache",
             "color": "#104B73",
             "title": "apache",
-            "file": "D:/Programs/Wamp64/logs/php_error.log",
+            "file": "/var/log/apache2/error.log",
             "parser": "apache24",
-            "disabled": false
-        },
-        "cakephp": {
-            "icon": "logos-cakephp",
-            "color": "#1BB7A0",
-            "title": "cakephp",
-            "file": "D:/Programs/Wamp64/logs/php_error.log",
-            "parser": "cakephp3",
-            "disabled": false
-        },
-        "codeigniter": {
-            "icon": "logos-codeigniter",
-            "color": "#002035",
-            "title": "codeigniter",
-            "file": "D:/Programs/Wamp64/logs/php_error.log",
-            "parser": "codeigniter",
             "disabled": false
         }
     }

@@ -9,7 +9,7 @@
                 <p>Here is a quick guide to get started. Are you ready?</p>
                 <ul>
                     <li>
-                        First things first, I've created a config.json file for you. It contains some
+                        First things first, I'll try to create a default config.json file for you. It contains some
                         placeholder configurations that you can use to customize your log files.
                     </li>
                     <li>

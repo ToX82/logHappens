@@ -169,4 +169,23 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
     }
+
+    public function starterConfigFile()
+    {
+        if (is_writeable(ROOT)) {
+            $starterFile = fopen(ROOT . "config.json", 'w');
+            fclose($starterFile);
+
+            $defaultConfigurations = file_get_contents(ROOT . "config.default.json");
+            file_put_contents(ROOT . "config.json", $defaultConfigurations);
+            chmod(ROOT . "config.json", 0777);
+        }
+
+        if (!is_file(ROOT . "config.json")) {
+            reload('/display/create-config');
+        } elseif (!is_writeable(ROOT . "config.json")) {
+            reload('/display/create-config-writeable');
+        }
+    }
+
 }

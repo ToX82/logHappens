@@ -48,14 +48,15 @@ if (isPage('display')) {
 }
 
 if (isPage('configurations')) {
-    if (!file_exists(ROOT . "config.json")) {
-        starterConfigFile();
+    $configClass = new Logics\Configurations();
+
+    if (!file_exists(ROOT . "config.json") || !is_writeable(ROOT . "config.json")) {
+        $configClass->starterConfigFile();
         reload('/configurations');
     }
 
     $pageTitle = "Configurations";
 
-    $configClass = new Logics\Configurations();
     $configurations = $configClass->getConfigurations();
 
     $views[] = ROOT . "views/pages/configurations/configurations.php";
@@ -118,13 +119,4 @@ if (isPage('writesettings')) {
 if (empty($views)) {
     $pageTitle = "Wooooops";
     $views[] = ROOT . "views/pages/404.php";
-}
-
-function starterConfigFile()
-{
-    $starterFile = fopen(ROOT . "config.json", 'w') or die("Impossibile creare il file");
-    fclose($starterFile);
-
-    $defaultConfigurations = file_get_contents(ROOT . "config.default.json");
-    file_put_contents(ROOT . "config.json", $defaultConfigurations);
 }
