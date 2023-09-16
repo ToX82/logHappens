@@ -4,6 +4,9 @@ pre {
 p {
     font-family: BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
+.clickable {
+    cursor: pointer;
+}
 .navbar.fixed-top {
     height: 3.6rem;
 }

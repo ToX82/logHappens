@@ -10,7 +10,8 @@
                 foreach ($configurations as $configName => $value) {
                     ?>
                     <div class="d-flex flex-row mb-2">
-                        <i id="<?= $configName ?>" class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
+                        <i id="<?= $configName ?>" class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center clickable <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>"
+                            <?= $value->disabled ? 'title="Display this element in the sidebar"' : 'title="Hide this element from the sidebar"' ?>>
                             <span id="icon-eye-<?= $configName ?>" class="icon-eye iconify" data-height="22" data-width="22" data-icon="<?= $value->disabled ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
                             data-inline="false"></span>
                         </i>
@@ -32,15 +33,15 @@
                                     <?php } ?>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
-                                    <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>">
+                                    <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>" title="Duplicate this element">
                                         <div class="iconify me-2 text-info" width="25" height="25" data-icon="clarity:clone-line">
                                         </div>
                                     </a>
-                                    <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
+                                    <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>" title="Edit this element">
                                         <div class="iconify me-2 text-warning" width="25" height="25" data-icon="ic:round-edit">
                                         </div>
                                     </a>
-                                    <input type="submit" name="btn-openDeleteModal"
+                                    <input type="submit" name="btn-openDeleteModal" title="Delete this element"
                                     class="btn-openModal iconify me-2 text-danger"
                                     width="25" height="25" data-icon="mingcute:delete-fill"
                                     href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
