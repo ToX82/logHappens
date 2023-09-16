@@ -17,34 +17,33 @@
                         </i>
 
                         <div class="w-100 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
-                            <div class="row mt-2 ms-2 align-items-center">
-                                <div class="col-8 d-flex flex-row">
-                                    <i style="color: <?= $value->color ?>">
+                            <div class="row ms-2">
+                                <div class="col-8 d-flex flex-row align-items-center">
+                                    <i class="my-2" style="color: <?= $value->color ?>">
                                         <span class="iconify" data-height="22" data-width="22" data-icon="<?= $value->icon ?>"
                                         data-inline="false"></span>
                                     </i>
-                                    <p class="ms-3"><?= $value->title ?></p>
+                                    <p class="my-2 ms-3"><?= $value->title ?></p>
+
                                     <?php if (!file_exists($value->file)) { ?>
-                                        <p class="ms-3 text-danger">File not found</p>
+                                        <p class="my-2 ms-3 text-danger">File not found</p>
                                     <?php } elseif (!is_writeable($value->file)) { ?>
-                                        <p class="ms-3 text-warning">
+                                        <p class="my-2 ms-3 text-warning">
                                             This file is read only. <a href='<?= buildUrl('display/troubleshooting') ?>'>Need help?</a>
                                         </p>
                                     <?php } ?>
                                 </div>
-                                <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
+                                <div class="col-4 my-2 d-flex justify-content-end">
                                     <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>" title="Duplicate this element">
-                                        <div class="iconify me-2 text-info" width="25" height="25" data-icon="clarity:clone-line">
-                                        </div>
+                                        <div class="iconify me-2 text-info" width="22" height="22" data-icon="clarity:clone-line"></div>
                                     </a>
                                     <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>" title="Edit this element">
-                                        <div class="iconify me-2 text-warning" width="25" height="25" data-icon="ic:round-edit">
-                                        </div>
+                                        <div class="iconify me-2 text-warning" width="22" height="22" data-icon="ic:round-edit"></div>
                                     </a>
                                     <input type="submit" name="btn-openDeleteModal" title="Delete this element"
-                                    class="btn-openModal iconify me-2 text-danger"
-                                    width="25" height="25" data-icon="mingcute:delete-fill"
-                                    href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
+                                        class="btn-openModal iconify me-2 text-danger"
+                                        width="22" height="22" data-icon="mingcute:delete-fill"
+                                        href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
                                 </div>
                             </div>
                         </div>
