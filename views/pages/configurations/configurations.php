@@ -23,26 +23,26 @@
                                         data-inline="false"></span>
                                     </i>
                                     <p class="ms-3"><?= $value->title ?></p>
-                                    <?php
-                                    if (!file_exists($value->file)) {
-                                        ?>
-                                        <p class="ms-3 text-danger">(File not found)</p>
-                                        <?php
-                                    }
-                                    ?>
+                                    <?php if (!file_exists($value->file)) { ?>
+                                        <p class="ms-3 text-danger">File not found</p>
+                                    <?php } elseif (!is_writeable($value->file)) { ?>
+                                        <p class="ms-3 text-warning">
+                                            This file is read only. <a href='<?= buildUrl('display/troubleshooting') ?>'>Need help?</a>
+                                        </p>
+                                    <?php } ?>
                                 </div>
                                 <div class="col-4 d-flex justify-content-end mb-2 align-items-center">
                                     <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>">
-                                        <div class="iconify me-2" width="25" height="25" data-icon="clarity:clone-line">
+                                        <div class="iconify me-2 text-info" width="25" height="25" data-icon="clarity:clone-line">
                                         </div>
                                     </a>
                                     <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>">
-                                        <div class="iconify me-2" width="25" height="25" data-icon="ic:round-edit">
+                                        <div class="iconify me-2 text-warning" width="25" height="25" data-icon="ic:round-edit">
                                         </div>
                                     </a>
                                     <input type="submit" name="btn-openDeleteModal"
-                                    class="btn-openModal iconify me-2"
-                                    width="25" height="25" color="red" data-icon="mingcute:delete-fill"
+                                    class="btn-openModal iconify me-2 text-danger"
+                                    width="25" height="25" data-icon="mingcute:delete-fill"
                                     href="<?= buildUrl("delete_configuration?configName=$configName") ?>" />
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="d-flex flex-row m-2 justify-content-between align-items-center">
-                <p class="ms-3 mb-0">Total: <?= count((array)$configurations) ?></p>
+                <p class="ms-3 mb-0">You have <?= count((array)$configurations) ?> tracked log files</p>
                 <a href="<?= buildUrl("add_configuration") ?>" class="btn btn-primary py-1 px-2">
                     Add Configuration
                 </a>

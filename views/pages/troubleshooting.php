@@ -36,6 +36,24 @@
                         </div>
                     </li>
                     <li class="mb-3">
+                        <strong>One of my configurations has a "This file is read only" warning</strong>
+                        <div>
+                            <p>
+                                This means that the file is read only and cannot be truncated. To fix this
+                                issue, simply change the file's permissions to 777.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="mb-3">
+                        <strong>One of my configurations has a "File not found" warning</strong>
+                        <div>
+                            <p>
+                                This means that the file path is incorrect. To fix this issue, simply change
+                                the file's path to the correct one.
+                            </p>
+                        </div>
+                    </li>
+                    <li class="mb-3">
                         <strong>How do I add a log file to be tracked?</strong>
                         <div>
                             <p>
@@ -46,7 +64,7 @@
                         </div>
                     </li>
                     <li class="mb-3">
-                        <strong>Can I share a new parser?</strong>
+                        <strong>I had to create a new parser file. Can I share it for the community?</strong>
                         <div>
                             <p>Absolutely! If you've created your own parser and want to spread the love, please send
                             it our way. We would be more than happy to include it among the other parsers and give
