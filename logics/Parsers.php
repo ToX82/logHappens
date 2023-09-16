@@ -7,7 +7,10 @@ class Parsers
     public $config = '';
 
     /**
-     * __construct
+     * Constructor for the class.
+     *
+     * @param string $jsonFile The path to the JSON file.
+     * @return void
      */
     public function __construct($jsonFile)
     {
@@ -99,17 +102,18 @@ class Parsers
      * Counts the number of entries for a given log file
      *
      * @param string $file Log file
-     * @return int
+     * @return int|string
      */
     public function count($file)
     {
+        $logs = [];
         $data = $this->config[$file];
         $file = ROOT . "parsers/" . $data['parser'] . ".php";
         if (is_file($file)) {
             include $file;
         }
 
-        if (!isset($logs) || count($logs) === 0) {
+        if (count($logs) === 0) {
             return '';
         }
 
@@ -145,11 +149,12 @@ class Parsers
      */
     public function entries($file, $offset = 0, $limit = 10, $search = '')
     {
+        $logs = [];
         $data = $this->config[$file];
         include ROOT . "parsers/" . $data['parser'] . ".php";
 
         // We want the records ordered from the newest to the oldest
-        if (!empty($logs)) {
+        if (count($logs) > 0) {
             $logs = array_reverse($logs);
         }
 

@@ -1,10 +1,10 @@
 {
     "autoload": {
-        "psr-4": {"logics\\": "logics/"}
+        "psr-4": {"Logics\\": "logics/"}
     },
     "require-dev": {
         "fig-r/psr2r-sniffer": "^0.6.3",
-        "phpstan/phpstan": "^0.12.99"
+        "phpstan/phpstan": "*"
     },
     "require": {
         "fightbulc/moment": "^1.33"

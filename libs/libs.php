@@ -22,6 +22,14 @@ function init()
     setting('refresh');
     setting('page-length');
 
+    define('BASE_URL', baseUrl() . "/");
+
+    if (!is_file(ROOT . 'vendor/autoload.php')) {
+        echo file_get_contents(ROOT . 'webroot/firstrun.html');
+        die;
+    }
+    require_once ROOT . 'vendor/autoload.php';
+
     error_reporting(E_ALL ^ E_DEPRECATED);
 }
 

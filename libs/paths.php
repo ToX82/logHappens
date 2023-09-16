@@ -1,13 +1,5 @@
 <?php
 
-define('BASE_URL', baseUrl() . "/");
-
-if (!is_file(ROOT . 'vendor/autoload.php')) {
-    echo file_get_contents(ROOT . 'webroot/firstrun.html');
-    die;
-}
-require_once ROOT . 'vendor/autoload.php';
-
 /**
  * Check if a GET variable exists
  *
@@ -125,6 +117,8 @@ function checkPage($page, $class)
     if (strpos(getPageParams(), $page) !== false) {
         return $class;
     }
+
+    return '';
 }
 
 /**

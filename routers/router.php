@@ -1,7 +1,7 @@
 <?php
 
 $params = splitQueryParams();
-$objParsers = new logics\Parsers(ROOT . "config.json");
+$objParsers = new Logics\Parsers(ROOT . "config.json");
 
 // Array con le pagine di template da includere
 $views = [];
@@ -43,7 +43,7 @@ if (isPage('display')) {
         }
     }
 
-    $file = logics\Pages::display($displayPage);
+    $file = Logics\Pages::display($displayPage);
     $views[] = ROOT . $file;
 }
 

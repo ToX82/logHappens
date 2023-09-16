@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<ruleset name="App">
+    <rule ref="PSR12"/>
+    <exclude-pattern>/vendor/*</exclude-pattern>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="150"/>
+            <property name="absoluteLineLimit" value="150"/>
+        </properties>
+     </rule>
+</ruleset>

@@ -7,8 +7,7 @@ class Configurations
     /**
      * Retrieves configurations from a JSON file.
      *
-     * @param string $filePath The path to the JSON file.
-     * @return array Returns an array of configurations.
+     * @return object Returns an array of configurations.
      */
     public function getConfigurations()
     {
@@ -51,6 +50,12 @@ class Configurations
         }
     }
 
+    /**
+     * Duplicates a configuration file with a new name.
+     *
+     * @param string $configName The name of the configuration file to be duplicated.
+     * @return void
+     */
     public function duplicateConfig($configName)
     {
         if (preg_match('/_copy_(\d+)/', $configName, $matches)) {
@@ -75,7 +80,6 @@ class Configurations
      * Deletes a configuration by name from the config file.
      *
      * @param string $configName The name of the configuration to delete.
-     * @throws Some_Exception_Class Description of the exception that can be thrown.
      * @return void
      */
     public function deleteConfig($configName)
@@ -95,7 +99,6 @@ class Configurations
      * Replaces all occurrences of '/' with '//' in the contents of a file.
      *
      * @param string $filename The path to the file.
-     * @throws Exception If the file cannot be read or written.
      * @return string The path to the modified file.
      */
     public function replaceSlash($filename)
@@ -161,6 +164,12 @@ class Configurations
         return file_exists($filename);
     }
 
+    /**
+     * Change the visibility of a configuration.
+     *
+     * @param string $configName The name of the configuration to change.
+     * @return void
+     */
     public function changeVisibility($configName)
     {
         $configurations = $this->getConfigurations();
@@ -170,6 +179,13 @@ class Configurations
         file_put_contents(ROOT . '/config.json', $jsonData);
     }
 
+    /**
+     * Generates the starter config file for the application.
+     *
+     * This function creates a new config file in the ROOT directory and
+     * populates it with the default configurations. It also sets the
+     * necessary permissions on the config file.
+     */
     public function starterConfigFile()
     {
         if (is_writeable(ROOT)) {
@@ -187,5 +203,4 @@ class Configurations
             reload('/display/create-config-writeable');
         }
     }
-
 }
