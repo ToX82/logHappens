@@ -158,7 +158,6 @@ $('#input-file').on('change blur', function () {
     }).done(function (result) {
         $input.removeClass('is-invalid');
         $input.removeClass('is-valid');
-        console.log(result);
 
         if (result === 'true') {
             $input.addClass('is-valid');
@@ -168,17 +167,21 @@ $('#input-file').on('change blur', function () {
     });
 });
 
+setInterval(function () {
+    var currentIcon = $('.iconify-preview .iconify').attr('data-icon');
+    var currentColor = $('.iconify-preview .iconify').attr('color');
+    var icon = $('#input-icon').val();
+    var color = $('#input-color').val();
+
+    if (icon !== currentIcon || color !== currentColor) {
+        $('.iconify-preview').html('<i class="iconify" data-width="32" data-icon="' + icon + '" color="' + color + '"></i>');
+    }
+}, 300);
+
 $('i.icon-visibility').on('click', function () {
     var baseUrl = $('.baseUrl').html();
     var configName = $(this).attr('id');
-    console.log(configName);
 
-    var span = $(this).children();
-    console.log(span);
-
-    var iconName = span.attr("data-icon");
-
-    console.log(iconName); // Stampa il valore di "data-icon" nella console
     $.ajax({
         url: baseUrl + 'ajax.php?change-visibility',
         method: 'POST',
@@ -189,8 +192,6 @@ $('i.icon-visibility').on('click', function () {
         location.reload();
     });
 });
-
-
 
 (() => {
     'use strict';

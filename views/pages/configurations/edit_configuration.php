@@ -25,6 +25,13 @@
                 </div>
 
                 <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                    <h6><label for="title" class="form-label">Icon preview</label></h6>
+                    <div class="iconify-preview">
+                        <span class="iconify iconify-preview" data-height="32" data-width="32" data-icon="mdi:error" data-inline="false"></span>
+                    </div>
+                </div>
+
+                <div class="ms-2 d-flex flex-column mb-3 align-items-start">
                     <h6><label for="title" class="form-label">Title</label></h6>
                     <input type="text" class="form-control" id="input-title" name="input-title"
                     value="<?=$config->title?>" required>

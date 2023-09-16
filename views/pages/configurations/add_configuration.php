@@ -9,15 +9,22 @@
                 novalidate>
 
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
-                    <h6><label for="icon" class="form-label">Icon</label></h6>
+                    <h6><label for="icon" class="form-label">Select a new icon</label></h6>
                     <div class="d-flex flex-row align-items-center">
                         <button type="button" class="iconify-open-dialog px-2 btn btn-primary"
-                        data-icon-input="iconify-select" data-color-input="iconify-color">Search it</button>
-                        <p class="mt-3 ms-2">or insert it manually</p>
-                        <input type="text" placeholder="Iconify code" class="iconify-select ms-2" size="20"
-                        id="input-icon" name="input-icon">
+                            data-icon-input="iconify-select" data-color-input="iconify-color">Find icon</button>
+                        <input type="text" value="mdi:error" placeholder="Iconify code, eg. mdi:error"
+                            class="iconify-select form-control ms-2" size="20"
+                            id="input-icon" name="input-icon" required>
                         <input type="color" class="iconify-color ms-2"
-                        id="input-color" name="input-color" value="#000000">
+                            id="input-color" name="input-color" value="#000000">
+                    </div>
+                </div>
+
+                <div class="ms-2 d-flex flex-column mb-3 align-items-start">
+                    <h6><label for="title" class="form-label">Icon preview</label></h6>
+                    <div class="iconify-preview">
+                        <span class="iconify iconify-preview" data-height="32" data-width="32" data-icon="mdi:error" data-inline="false"></span>
                     </div>
                 </div>
 
