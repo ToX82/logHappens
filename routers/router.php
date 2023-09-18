@@ -1,7 +1,12 @@
 <?php
 
 $params = splitQueryParams();
-$objParsers = new Logics\Parsers(ROOT . "config.json");
+try {
+    $objParsers = new Logics\Parsers();
+} catch (Exception $e) {
+    echo file_get_contents(ROOT . 'webroot/composer_update.html');
+    die;
+}
 
 // Array con le pagine di template da includere
 $views = [];

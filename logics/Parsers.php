@@ -12,21 +12,23 @@ class Parsers
      * @param string $jsonFile The path to the JSON file.
      * @return void
      */
-    public function __construct($jsonFile)
+    public function __construct()
     {
         $config = [];
 
-        if (is_file($jsonFile)) {
-            $config = file_get_contents($jsonFile);
-            $config = json_decode($config, true);
+        if (!is_file(ROOT . 'config.json')) {
+            reload('config_error.html');
+        }
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                reload('config_error.html');
-            }
+        $config = file_get_contents(ROOT . 'config.json');
+        $config = json_decode($config, true);
 
-            if (isset($config['parsers'])) {
-                $config = $this->checkDatedLogFiles($config['parsers']);
-            }
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            reload('config_error.html');
+        }
+
+        if (isset($config['parsers'])) {
+            $config = $this->checkDatedLogFiles($config['parsers']);
         }
 
         // for each parser, let's check if the file exists, if not, let's remove it from the list

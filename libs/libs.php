@@ -11,14 +11,6 @@ function init()
     include_once __DIR__ . "/paths.php";
     include_once __DIR__ . "/security.php";
 
-    include_once ROOT . "/logics/Configurations.php";
-
-    // if Logics\Configurations is not defined there might be a composer issue. If so, display an update page
-    if (!class_exists('Logics\Configurations')) {
-        echo file_get_contents(ROOT . 'webroot/composer_update.html');
-        die;
-    }
-
     header('Content-type: text/html;charset=utf-8');
 
     ini_set('display_errors', 1);
