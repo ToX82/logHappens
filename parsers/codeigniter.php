@@ -20,12 +20,13 @@ foreach ($content as $line) {
 
     // remove trailing spaces at the end of the line
     $line = preg_replace('/\s+$/m', '', $line);
+    $line = htmlentities($line);
 
     // Highlight the type of errors, using a badge
-    $line = preg_replace("/^NOTICE - /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
-    $line = preg_replace("/^WARNING - /", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
-    $line = preg_replace("/^INFO - /", "<span class='lh-badge' style='background-color: #a79716;'>Info:</span> ", $line);
-    $line = preg_replace("/^ERROR - /", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
+    $line = preg_replace("/^(\s*)NOTICE - /", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
+    $line = preg_replace("/^(\s*)WARNING - /", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
+    $line = preg_replace("/^(\s*)INFO - /", "<span class='lh-badge' style='background-color: #a79716;'>Info:</span> ", $line);
+    $line = preg_replace("/^(\s*)ERROR - /", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
 
     $line = str_replace("Severity: Warning", "<span class='lh-badge' style='background-color: #a79716;'>Warning</span> ", $line);
 

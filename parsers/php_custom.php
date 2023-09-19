@@ -22,19 +22,20 @@ foreach ($content as $line) {
             $line = preg_replace('[\[client(.*?)\]]', '', $line, 1);
             $line = str_replace('PHP', '', $line);
             $line = str_replace('\n', '<br>', $line);
+            $line = htmlentities($line);
             $line = normalizeChars($line);
 
             // remove trailing spaces at the end of the line
             $line = preg_replace('/\s+$/m', '', $line);
 
             // Highlight the type of errors, using a badge
-            $line = preg_replace("/^OTHER/", "<span class='lh-badge' style='background-color: #1e88e5;'>Other:</span> ", $line);
-            $line = preg_replace("/^E_NOTICE/", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
-            $line = preg_replace("/^E_WARNING/", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
-            $line = preg_replace("/^E_ERROR/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
-            $line = preg_replace("/^E_USER_NOTICE/", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
-            $line = preg_replace("/^E_USER_WARNING/", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
-            $line = preg_replace("/^E_USER_ERROR/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
+            $line = preg_replace("/^(\s*)OTHER/", "<span class='lh-badge' style='background-color: #1e88e5;'>Other:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_NOTICE/", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_WARNING/", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_ERROR/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_USER_NOTICE/", "<span class='lh-badge' style='background-color: #318418;'>Notice:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_USER_WARNING/", "<span class='lh-badge' style='background-color: #a79716;'>Warning:</span> ", $line);
+            $line = preg_replace("/^(\s*)E_USER_ERROR/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
             $line = preg_replace("/^(\w*)Exception/", "<span class='lh-badge' style='background-color: #a71616;'>Exception:</span> ", $line);
             $line = preg_replace("/^(\w*)Error/", "<span class='lh-badge' style='background-color: #a71616;'>Error:</span> ", $line);
 
