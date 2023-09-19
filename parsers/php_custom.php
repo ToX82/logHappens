@@ -21,8 +21,8 @@ foreach ($content as $line) {
             $line = preg_replace('[\[php7(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[client(.*?)\]]', '', $line, 1);
             $line = str_replace('PHP', '', $line);
-            $line = str_replace('\n', '<br>', $line);
             $line = htmlentities($line);
+            $line = str_replace('\n', '<br>', $line);
             $line = normalizeChars($line);
 
             // remove trailing spaces at the end of the line
