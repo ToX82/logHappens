@@ -210,6 +210,24 @@ function randomError()
         "Something you entered<br>transcended parameters.<br>So much is unknown.",
         "Not a pretty sight<br>When the web dies screaming loud<br>The page is not found.",
         "Errors have occurred.<br>We won't tell you where or why.<br>Lazy programmers.",
+        "Code path vanished,<br>404 error in sight,<br>Debugging my night.",
+        "Algorithmic dance,<br>404 error interrupts,<br>Bug-fix waltz begins.",
+    ];
+
+    return $haiku[array_rand($haiku)];
+}
+
+/**
+ * No errors hakus
+ *
+ * @return string
+ */
+function randomHappyness()
+{
+    $haiku = [
+        "No error logs found,<br>Troubleshooting is a maze,<br>Where did the bug hide?",
+        "The code runs just fine,<br>And the logs are empty still,<br>No errors to find.",
+        "In the land of code,<br>Where magic meets technology,<br>No error logs were found.",
     ];
 
     return $haiku[array_rand($haiku)];
