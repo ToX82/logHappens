@@ -58,17 +58,8 @@ class Configurations
      */
     public function duplicateConfig($configName)
     {
-        if (preg_match('/_copy_(\d+)/', $configName, $matches)) {
-            $duplicatedTimes = $matches[1];
-            $updateNum = strval(intval($duplicatedTimes) + 1);
-
-            $duplicatedName = preg_replace('/_copy_(\d+)/', '_copy_' . $updateNum, $configName);
-        } else {
-            $duplicatedName = $configName . "_copy_0";
-        }
-
-        $configurations = $this->getConfigurations();
-        $configurations->$duplicatedName = $configurations->$configName;
+        $configurations = (array)$this->getConfigurations();
+        $configurations[] = $configurations[$configName];
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
