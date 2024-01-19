@@ -4,15 +4,21 @@
  * Transforms the date in a localized readable format
  *
  * @param string $date Date
+ * @param bool $localized Localized date time format
  * @return string
  */
-function toDateTime($date)
+function toDateTime($date, $localized = false)
 {
     if ($date === '0000-00-00') {
         return '-';
     }
 
     $date = date('Y-m-d H:i:s', strtotime($date));
+
+    if ($localized === false) {
+        return $date;
+    }
+
     $lang = getFullBrowserLanguage();
 
     if (strpos($lang, ",") !== false) {

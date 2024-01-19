@@ -28,8 +28,9 @@ $json->data = [];
         <tr>
             <td>
                 <div class="card border-primary mb-2">
-                    <div class="card-header"><?= $time ?></div>
+                    <div class="card-header"><?= toDateTime($time, true) ?></div>
                     <div class="card-body">
+                        <span class="d-none"><?= $time ?></span>
                         <pre class="card-text"><?= implode("<br>", $log) ?></pre>
                     </div>
                 </div>

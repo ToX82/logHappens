@@ -167,6 +167,11 @@ class Parsers
         if ($search !== '') {
             foreach ($logs as $key => $log) {
                 $found = false;
+
+                if (strpos($key, $search) !== false) {
+                    $found = true;
+                }
+
                 foreach ($log as $line) {
                     if (stripos($line, $search) !== false) {
                         $found = true;
