@@ -34,7 +34,7 @@
                                     <?php } ?>
                                 </div>
                                 <div class="col-4 my-2 d-flex justify-content-end">
-                                    <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>" title="Duplicate this element">
+                                    <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>" title="Clone this element">
                                         <div class="iconify me-2 text-info" width="22" height="22" data-icon="clarity:clone-line"></div>
                                     </a>
                                     <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>" title="Edit this element">

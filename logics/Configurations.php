@@ -59,12 +59,14 @@ class Configurations
     public function duplicateConfig($configName)
     {
         $configurations = (array)$this->getConfigurations();
-        $configurations[] = $configurations[$configName];
+        $new = intval(array_key_last($configurations)) + 1;
+        $configurations[$new] = clone $configurations[$configName];
+        $configurations[$new]->title = $configurations[$new]->title . ' (Copy)';
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        reload('configurations');
+        reload('edit_configuration?configName=' . $new);
     }
 
     /**
@@ -78,7 +80,6 @@ class Configurations
         $configurations = $this->getConfigurations();
 
         unset($configurations->$configName);
-        print_r($configName);
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
@@ -144,6 +145,7 @@ class Configurations
 
         return $parsers;
     }
+
     /**
      * Checks if a file exists.
      *

@@ -2,13 +2,13 @@
     <div class="col-8 offset-2">
         <div class="card border-secondary-subtle">
             <div class="card-header">
-                <?= $configName ?> configuration
+                <?= $config->title ?>
             </div>
 
             <form method="post" action="save_configurations" class="needs-validation mt-3 ms-2 d-flex flex-column me-3"
                 novalidate>
                 <input class="form-control" type="text" id="input-name" name="input-name"
-                placeholder="configuration-name" value="<?=$configName?>" hidden>
+                placeholder="configuration-name" value="<?= $configName ?>" hidden>
 
                 <div class="ms-2 d-flex flex-column mt-1 mb-3 align-items-start">
                     <h6><label for="icon" class="form-label">Icon</label></h6>

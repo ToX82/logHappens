@@ -2,7 +2,7 @@
     <div class="col-8 offset-2">
         <div class="add_configurations card border-secondary-subtle">
             <div class="card-header">
-                Add your configuration
+                New log configuration
             </div>
 
             <form method="post" action="save_configurations" class="needs-validation mt-3 ms-2 d-flex flex-column me-3"
