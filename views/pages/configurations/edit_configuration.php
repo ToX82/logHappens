@@ -15,7 +15,7 @@
                     <div class="d-flex flex-row align-items-center">
                         <i></i>
                         <button type="button" class="iconify-open-dialog px-2 btn btn-primary"
-                        data-icon-input="iconify-select" data-color-input="iconify-color">Search it</button>
+                        data-icon-input="iconify-select" data-color-input="iconify-color">Search icon</button>
                         <p class="mt-3 ms-2">or insert it manually</p>
                         <input type="text" placeholder="Iconify code" class="iconify-select ms-2" size="20"
                         id="input-icon" name="input-icon" value="<?=$config->icon?>">
