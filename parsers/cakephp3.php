@@ -9,7 +9,7 @@ foreach ($content as $line) {
     if (substr($line, 0, 3) == "202") {
         $time = substr($line, 0, 20);
         $line = str_replace($time, "", $line);
-        $time = date("l d-m-Y - H:i:s", strtotime($time));
+        $time = toDateTime($time);
     }
     $line = normalizeChars($line);
 
