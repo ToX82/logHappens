@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Transforms the date in a localized readable format
+ * Transforms the date into a localized readable format.
  *
- * @param string $date Date
- * @param bool $localized Localized date time format
- * @return string
+ * @param string $date Date in string format.
+ * @param bool $localized If true, the date will be localized.
+ * @return string Localized date string or formatted date string.
  */
 function toDateTime($date, $localized = false)
 {
@@ -13,79 +13,64 @@ function toDateTime($date, $localized = false)
         return '-';
     }
 
-    $date = date('Y-m-d H:i:s', strtotime($date));
+    $formattedDate = date('Y-m-d H:i:s', strtotime($date));
 
-    if ($localized === false) {
-        return $date;
+    if (!$localized) {
+        return $formattedDate;
     }
 
     $lang = getFullBrowserLanguage();
 
-    if (strpos($lang, ",") !== false) {
-        $lang = substr($lang, 0, strpos($lang, ","));
-    }
-
+    $lang = explode(',', $lang)[0];
     if (strlen($lang) == 2) {
-        $lang = substr($lang, 0, 2) . '_' . strtoupper(substr($lang, 0, 2));
+        $lang = $lang . '_' . strtoupper($lang);
     }
 
     \Moment\Moment::setLocale($lang);
-    $m = new \Moment\Moment($date);
+    $moment = new \Moment\Moment($formattedDate);
 
-    return $m->format('LLLL:s', new \Moment\CustomFormats\MomentJs());
+    return $moment->format('LLLL:s', new \Moment\CustomFormats\MomentJs());
 }
 
 /**
- * Time tracker
+ * Time tracker.
  *
- * @return float|bool
+ * @return float|bool Time in seconds since last call or true on first call.
  */
 function benchmark()
 {
     static $start = null;
 
     if (is_null($start)) {
-        $start = getmicrotime();
-
+        $start = microtime(true);
         return true;
-    } else {
-        $benchmark = getmicrotime() - $start;
-        $start = getmicrotime();
-
-        return round($benchmark, 2);
     }
+
+    $benchmark = round(microtime(true) - $start, 2);
+    $start = microtime(true);
+
+    return $benchmark;
 }
 
 /**
- * Get timestamp
+ * Convert memory size to a human readable format.
  *
- * @return float
- */
-function getmicrotime()
-{
-    list($usec, $sec) = explode(" ", microtime());
-
-    return ((float)$usec + (float)$sec);
-}
-
-/**
- * Convert memory size in human readable format
- *
- * @param int $size Size
- * @return string
+ * @param int $size Size in bytes.
+ * @return string Human readable size.
  */
 function convert($size)
 {
     $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
+    $index = floor(log($size, 1024));
 
-    return round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . ' ' . $unit[$i];
+    return round($size / pow(1024, $index), 2) . ' ' . $unit[$index];
 }
 
 /**
- * List settings
+ * List settings based on parameter.
  *
- * @param string $parameter Which parameters we need
- * @return mixed
+ * @param string $parameter Which parameter to retrieve.
+ * @return mixed Settings data.
  */
 function listSettings($parameter)
 {
@@ -93,83 +78,50 @@ function listSettings($parameter)
         'theme' => [
             'default' => 'bootstrap',
             'options' => [
-                'bootstrap',
-                'cerulean',
-                'cosmo',
-                'cyborg',
-                'darkly',
-                'flatly',
-                'journal',
-                'litera',
-                'lumen',
-                'lux',
-                'materia',
-                'minty',
-                'morph',
-                'pulse',
-                'quartz',
-                'sandstone',
-                'simplex',
-                'sketchy',
-                'slate',
-                'solar',
-                'spacelab',
-                'superhero',
-                'united',
-                'vapor',
-                'yeti',
-                'zephyr',
+                'bootstrap', 'cerulean', 'cosmo', 'cyborg', 'darkly', 'flatly',
+                'journal', 'litera', 'lumen', 'lux', 'materia', 'minty', 'morph',
+                'pulse', 'quartz', 'sandstone', 'simplex', 'sketchy', 'slate',
+                'solar', 'spacelab', 'superhero', 'united', 'vapor', 'yeti',
+                'zephyr'
             ],
         ],
         'refresh' => [
             'default' => 5,
-            'options' => [
-                '5',
-                '15',
-                '30',
-                '60',
-                '120',
-            ],
+            'options' => ['5', '15', '30', '60', '120'],
         ],
         'page-length' => [
             'default' => 10,
-            'options' => [
-                '10',
-                '25',
-                '50',
-                '100',
-            ]
-        ]
+            'options' => ['10', '25', '50', '100'],
+        ],
     ];
 
-    return $data[$parameter];
+    return $data[$parameter] ?? null;
 }
 
 /**
- * Gets the user selected theme
+ * Get the user-selected theme.
  *
- * @param string $parameter Which parameters we need
- * @return mixed
+ * @param string $parameter Which parameter to retrieve.
+ * @return mixed Selected value.
  */
 function setting($parameter)
 {
     if (isset($_COOKIE[$parameter])) {
-        $selected = $_COOKIE[$parameter];
-    } else {
-        $settings = listSettings($parameter);
-        $selected = $settings['default'];
-        $selected = writeSettingsCookie($parameter, $selected);
+        return $_COOKIE[$parameter];
     }
 
-    return $selected;
+    $settings = listSettings($parameter);
+    $selected = $settings['default'] ?? null;
+
+    return writeSettingsCookie($parameter, $selected);
 }
 
 /**
- * Writes the user's selected value into a cookie
+ * Writes the user's selected value into a cookie.
  *
- * @param string $parameter parameter's name
- * @param string $selected selected value
- * @return string
+ * @param string $parameter Parameter's name.
+ * @param string $selected Selected value.
+ * @return string Selected value.
  */
 function writeSettingsCookie($parameter, $selected)
 {
@@ -184,6 +136,12 @@ function writeSettingsCookie($parameter, $selected)
     return $selected;
 }
 
+/**
+ * Opens a file or terminates execution if the file cannot be opened.
+ *
+ * @param string $file Path to the file.
+ * @return array|false File contents or an error message.
+ */
 function openFileOrDie($file)
 {
     if (is_file($file)) {
@@ -198,13 +156,13 @@ function openFileOrDie($file)
 }
 
 /**
- * Select a random 404 error
+ * Select a random 404 error haiku.
  *
- * @return string
+ * @return string Random haiku.
  */
 function randomError()
 {
-    $haiku = [
+    $haikus = [
         "A page like that?<br>It might be very useful.<br>But now it is gone.",
         "This page is not here,<br>The error message spoke clear,<br>Where could it have gone?",
         "Program aborting:<br>Close all that you have worked on.<br>You ask far too much.",
@@ -220,72 +178,55 @@ function randomError()
         "Algorithmic dance,<br>404 error interrupts,<br>Bug-fix waltz begins.",
     ];
 
-    return $haiku[array_rand($haiku)];
+    return $haikus[array_rand($haikus)];
 }
 
 /**
- * No errors hakus
+ * Select a random haiku for when no errors are found.
  *
- * @return string
+ * @return string Random haiku.
  */
 function randomHappyness()
 {
-    $haiku = [
+    $haikus = [
         "No error logs found,<br>Troubleshooting is a maze,<br>Where did the bug hide?",
         "The code runs just fine,<br>And the logs are empty still,<br>No errors to find.",
         "In the land of code,<br>Where magic meets technology,<br>No error logs were found.",
     ];
 
-    return $haiku[array_rand($haiku)];
+    return $haikus[array_rand($haikus)];
 }
 
 /**
- * Normalize characters in an input string
+ * Normalize characters in an input string.
  *
- * @param string $inputString Input string
- * @return string
+ * @param string $inputString Input string.
+ * @return string Normalized string.
  */
 function normalizeChars($inputString)
 {
-    $fix_list = array(
-        // 3 char errors first
-        'â€š' => '‚', 'â€ž' => '„', 'â€¦' => '…', 'â€¡' => '‡',
-        'â€°' => '‰', 'â€¹' => '‹', 'â€˜' => '‘', 'â€™' => '’',
-        'â€œ' => '“', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
-        'â„¢' => '™', 'â€º' => '›', 'â‚¬' => '€',
-        // 2 char errors
-        'Ã‚'  => 'Â', 'Æ’'  => 'ƒ', 'Ãƒ'  => 'Ã', 'Ã„'  => 'Ä',
-        'Ã…'  => 'Å', 'â€'  => '†', 'Ã†'  => 'Æ', 'Ã‡'  => 'Ç',
-        'Ë†'  => 'ˆ', 'Ãˆ'  => 'È', 'Ã‰'  => 'É', 'ÃŠ'  => 'Ê',
-        'Ã‹'  => 'Ë', 'Å’'  => 'Œ', 'ÃŒ'  => 'Ì', 'Å½'  => 'Ž',
-        'ÃŽ'  => 'Î', 'Ã‘'  => 'Ñ', 'Ã’'  => 'Ò', 'Ã“'  => 'Ó',
-        'Ã”'  => 'Ô', 'Ã•'  => 'Õ', 'Ã–'  => 'Ö', 'Ã€'  => 'À',
-        'Ã—'  => '×', 'Ëœ'  => '˜', 'Ã˜'  => 'Ø', 'Ã™'  => 'Ù',
-        'Å¡'  => 'š', 'Ãš'  => 'Ú', 'Ã›'  => 'Û', 'Å“'  => 'œ',
-        'Ãœ'  => 'Ü', 'Å¾'  => 'ž', 'Ãž'  => 'Þ', 'Å¸'  => 'Ÿ',
-        'ÃŸ'  => 'ß', 'Â¡'  => '¡', 'Ã¡'  => 'á', 'Â¢'  => '¢',
-        'Ã¢'  => 'â', 'Â£'  => '£', 'Ã£'  => 'ã', 'Â¤'  => '¤',
-        'Ã¤'  => 'ä', 'Â¥'  => '¥', 'Ã¥'  => 'å', 'Â¦'  => '¦',
-        'Ã¦'  => 'æ', 'Â§'  => '§', 'Ã§'  => 'ç', 'Â¨'  => '¨',
-        'Ã¨'  => 'è', 'Â©'  => '©', 'Ã©'  => 'é', 'Âª'  => 'ª',
-        'Ãª'  => 'ê', 'Â«'  => '«', 'Ã«'  => 'ë', 'Â¬'  => '¬',
-        'Ã¬'  => 'ì', 'Â®'  => '®', 'Ã®'  => 'î', 'Â¯'  => '¯',
-        'Ã¯'  => 'ï', 'Â°'  => '°', 'Ã°'  => 'ð', 'Â±'  => '±',
-        'Ã±'  => 'ñ', 'Â²'  => '²', 'Ã²'  => 'ò', 'Â³'  => '³',
-        'Ã³'  => 'ó', 'Â´'  => '´', 'Ã´'  => 'ô', 'Âµ'  => 'µ',
-        'Ãµ'  => 'õ', 'Â¶'  => '¶', 'Ã¶'  => 'ö', 'Â·'  => '·',
-        'Ã·'  => '÷', 'Â¸'  => '¸', 'Ã¸'  => 'ø', 'Â¹'  => '¹',
-        'Ã¹'  => 'ù', 'Âº'  => 'º', 'Ãº'  => 'ú', 'Â»'  => '»',
-        'Ã»'  => 'û', 'Â¼'  => '¼', 'Ã¼'  => 'ü', 'Â½'  => '½',
-        'Ã½'  => 'ý', 'Â¾'  => '¾', 'Ã¾'  => 'þ', 'Â¿'  => '¿',
-        'Ã¿'  => 'ÿ',
+    $fixList = [
+        'â€š' => '‚', 'â€ž' => '„', 'â€¦' => '…', 'â€¡' => '‡', 'â€°' => '‰', 'â€¹' => '‹',
+        'â€˜' => '‘', 'â€™' => '’', 'â€œ' => '“', 'â€¢' => '•', 'â€“' => '–', 'â€”' => '—',
+        'â„¢' => '™', 'â€º' => '›', 'â‚¬' => '€', 'Ã‚' => 'Â', 'Æ’' => 'ƒ', 'Ãƒ' => 'Ã',
+        'Ã„' => 'Ä', 'Ã…' => 'Å', 'â€' => '†', 'Ã†' => 'Æ', 'Ã‡' => 'Ç', 'Ë†' => 'ˆ',
+        'Ãˆ' => 'È', 'Ã‰' => 'É', 'ÃŠ' => 'Ê', 'Ã‹' => 'Ë', 'Å’' => 'Œ', 'ÃŒ' => 'Ì',
+        'Å½' => 'Ž', 'ÃŽ' => 'Î', 'Ã‘' => 'Ñ', 'Ã’' => 'Ò', 'Ã“' => 'Ó', 'Ã”' => 'Ô',
+        'Ã•' => 'Õ', 'Ã–' => 'Ö', 'Ã€' => 'À', 'Ã—' => '×', 'Ëœ' => '˜', 'Ã˜' => 'Ø',
+        'Ã™' => 'Ù', 'Å¡' => 'š', 'Ãš' => 'Ú', 'Ã›' => 'Û', 'Å“' => 'œ', 'Ãœ' => 'Ü',
+        'Å¾' => 'ž', 'Ãž' => 'Þ', 'Å¸' => 'Ÿ', 'ÃŸ' => 'ß', 'Â¡' => '¡', 'Ã¡' => 'á',
+        'Â¢' => '¢', 'Ã¢' => 'â', 'Â£' => '£', 'Ã£' => 'ã', 'Â¤' => '¤', 'Ã¤' => 'ä',
+        'Â¥' => '¥', 'Ã¥' => 'å', 'Â¦' => '¦', 'Ã¦' => 'æ', 'Â§' => '§', 'Ã§' => 'ç',
+        'Â¨' => '¨', 'Ã¨' => 'è', 'Â©' => '©', 'Ã©' => 'é', 'Âª' => 'ª', 'Ãª' => 'ê',
+        'Â«' => '«', 'Ã«' => 'ë', 'Â¬' => '¬', 'Ã¬' => 'ì', 'Â®' => '®', 'Ã®' => 'î',
+        'Â¯' => '¯', 'Ã¯' => 'ï', 'Â°' => '°', 'Ã°' => 'ð', 'Â±' => '±', 'Ã±' => 'ñ',
+        'Â²' => '²', 'Ã²' => 'ò', 'Â³' => '³', 'Ã³' => 'ó', 'Â´' => '´', 'Ã´' => 'ô',
+        'Âµ' => 'µ', 'Ãµ' => 'õ', 'Â¶' => '¶', 'Ã¶' => 'ö', 'Â·' => '·', 'Ã·' => '÷',
+        'Â¸' => '¸', 'Ã¸' => 'ø', 'Â¹' => '¹', 'Ã¹' => 'ù', 'Âº' => 'º', 'Ãº' => 'ú',
+        'Â»' => '»', 'Ã»' => 'û', 'Â¼' => '¼', 'Ã¼' => 'ü', 'Â½' => '½', 'Ã½' => 'ý',
+        'Â¾' => '¾', 'Ã¾' => 'þ', 'Â¿' => '¿', 'Ã¿' => 'ÿ', 'Ã' => 'Á', 'Å' => 'Š',
+        'Ã­' => 'í', '�' => 'à'
+    ];
 
-        // 1 char errors last
-        'Ã' => 'Á', 'Å' => 'Š', 'Ã­' => 'í', '�' => 'à'
-    );
-
-    $error_chars = array_keys($fix_list);
-    $real_chars  = array_values($fix_list);
-
-    return str_replace($error_chars, $real_chars, $inputString);
+    return str_replace(array_keys($fixList), array_values($fixList), $inputString);
 }

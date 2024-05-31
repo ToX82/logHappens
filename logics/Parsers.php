@@ -4,70 +4,50 @@ namespace Logics;
 
 class Parsers
 {
-    public $config = '';
+    private $config = [];
+    private const CONFIG_PATH = ROOT . 'config.json';
 
     /**
      * Constructor for the class.
-     *
-     * @param string $jsonFile The path to the JSON file.
-     * @return void
      */
     public function __construct()
     {
-        $config = [];
-
-        if (!is_file(ROOT . 'config.json')) {
+        if (!is_file(self::CONFIG_PATH)) {
             reload('config_error.html');
         }
 
-        $config = file_get_contents(ROOT . 'config.json');
-        $config = json_decode($config, true);
+        $configContent = file_get_contents(self::CONFIG_PATH);
+        $config = json_decode($configContent, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             reload('config_error.html');
         }
 
         if (isset($config['parsers'])) {
-            $config = $this->checkDatedLogFiles($config['parsers']);
+            $config['parsers'] = $this->checkDatedLogFiles($config['parsers']);
         }
 
-        // for each parser, let's check if the file exists, if not, let's remove it from the list
-        foreach ($config as $key => $parser) {
-            if (!is_file($parser['file'])) {
-                unset($config[$key]);
-            }
-
-            // if the config has a "disabled" key, let's remove it from the list
-            if (isset($parser['disabled']) && $parser['disabled'] === true) {
-                unset($config[$key]);
-            }
-        }
-
-        $this->config = $config;
+        $this->config = array_filter($config['parsers'], function ($parser) {
+            return is_file($parser['file']) && !(isset($parser['disabled']) && $parser['disabled'] === true);
+        });
     }
 
     /**
-     * Checks for dated log files (eg. the ones used in codeigniter) and returns the compiled today's log path
+     * Checks for dated log files (eg. the ones used in codeigniter) and returns the compiled today's log path.
      *
      * @param array $parsers Parsers
      * @return array
      */
-    public function checkDatedLogFiles($parsers)
+    private function checkDatedLogFiles(array $parsers): array
     {
         $placeholders = [
-            'Y', // A full numeric representation of a year, 4 digits
-            'y', // A two digit representation of a year
-            'm', // Numeric representation of a month, with leading zeros
-            'n', // Numeric representation of a month, without leading zeros
-            'd', // Day of the month, 2 digits with leading zeros
-            'j' // Day of the month without leading zeros
+            'Y', 'y', 'm', 'n', 'd', 'j'
         ];
 
-        // For each placeholder, for each parser file, let's check if there is something to replace
-        foreach ($placeholders as $placeholder) {
-            foreach ($parsers as $key => $parser) {
-                if (strpos($parser['file'], '{' . $placeholder . '}') !== false) {
-                    $parsers[$key]['file'] = str_replace('{' . $placeholder . '}', date($placeholder), $parsers[$key]['file']);
+        foreach ($parsers as $key => $parser) {
+            foreach ($placeholders as $placeholder) {
+                if (strpos($parser['file'], "{{$placeholder}}") !== false) {
+                    $parsers[$key]['file'] = str_replace("{{$placeholder}}", date($placeholder), $parser['file']);
                 }
             }
         }
@@ -76,21 +56,21 @@ class Parsers
     }
 
     /**
-     * List available logs from the configuration file
+     * List available logs from the configuration file.
      *
      * @return array
      */
-    public function listLogs()
+    public function listLogs(): array
     {
         return $this->config;
     }
 
     /**
-     * Recount all of the tracked log files
+     * Recount all of the tracked log files.
      *
      * @return array
      */
-    public function countAll()
+    public function countAll(): array
     {
         $counts = [];
         foreach ($this->config as $key => $config) {
@@ -101,34 +81,28 @@ class Parsers
     }
 
     /**
-     * Counts the number of entries for a given log file
+     * Counts the number of entries for a given log file.
      *
      * @param string $file Log file
      * @return int|string
      */
-    public function count($file)
+    public function count(string $file)
     {
-        $logs = [];
-        $data = $this->config[$file];
-        $file = ROOT . "parsers/" . $data['parser'] . ".php";
-        if (is_file($file)) {
-            include $file;
-        }
-
-        if (count($logs) === 0) {
+        if (!isset($this->config[$file])) {
             return '';
         }
 
-        return count($logs);
+        $logs = $this->getLogs($file);
+        return count($logs) ? count($logs) : '';
     }
 
     /**
-     * Returns the entries for a given log file
+     * Returns the entries for a given log file.
      *
      * @param string $file Log file
      * @return array
      */
-    public function view($file)
+    public function view(string $file): array
     {
         $data = $this->config[$file];
 
@@ -142,46 +116,34 @@ class Parsers
     }
 
     /**
-     * Returns the entries for a given log file
+     * Returns the entries for a given log file with optional search and pagination.
      *
      * @param string $file Log file
      * @param int $offset Offset
      * @param int $limit Limit
+     * @param string $search Search term
      * @return array
      */
-    public function entries($file, $offset = 0, $limit = 10, $search = '')
+    public function entries(string $file, int $offset = 0, int $limit = 10, string $search = ''): array
     {
-        $logs = [];
-        $data = $this->config[$file];
-        include ROOT . "parsers/" . $data['parser'] . ".php";
+        $logs = $this->getLogs($file);
 
         // We want the records ordered from the newest to the oldest
-        if (count($logs) > 0) {
-            $logs = array_reverse($logs);
-        }
+        $logs = array_reverse($logs);
 
         // Setting the total records count
         $recordsTotal = count($logs);
 
         // Is there anything to search?
         if ($search !== '') {
-            foreach ($logs as $key => $log) {
-                $found = false;
-
-                if (strpos($key, $search) !== false) {
-                    $found = true;
-                }
-
+            $logs = array_filter($logs, function ($log) use ($search) {
                 foreach ($log as $line) {
                     if (stripos($line, $search) !== false) {
-                        $found = true;
+                        return true;
                     }
                 }
-
-                if ($found === false) {
-                    unset($logs[$key]);
-                }
-            }
+                return false;
+            });
         }
 
         // The filtered records could be different from the total, if we are searching for something
@@ -194,12 +156,12 @@ class Parsers
     }
 
     /**
-     * Truncates a log file
+     * Truncates a log file.
      *
      * @param string $file Log file to truncate
      * @return void
      */
-    public function truncate($file)
+    public function truncate(string $file): void
     {
         if (!isset($this->config[$file])) {
             reload('404');
@@ -207,5 +169,24 @@ class Parsers
 
         $data = $this->config[$file];
         file_put_contents($data['file'], "");
+    }
+
+    /**
+     * Gets the logs for a given file.
+     *
+     * @param string $file Log file
+     * @return array
+     */
+    private function getLogs(string $file): array
+    {
+        $logs = [];
+        if (isset($this->config[$file])) {
+            $data = $this->config[$file];
+            $parserFile = ROOT . "parsers/" . $data['parser'] . ".php";
+            if (is_file($parserFile)) {
+                include $parserFile;
+            }
+        }
+        return $logs;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Check if a GET variable exists
+ * Checks if a GET variable exists in the parameters
  *
  * @param string $name GET Variable's name
- * @return string variable's value
+ * @return bool True if the variable exists, false otherwise
  */
 function isPage($name)
 {
@@ -15,7 +15,7 @@ function isPage($name)
 /**
  * Splits the GET parameters into an array
  *
- * @return array
+ * @return array Split parameters
  */
 function splitQueryParams()
 {
@@ -36,9 +36,9 @@ function splitQueryParams()
 }
 
 /**
- * REDIRECT OR RELOAD
+ * Redirects to a specified destination or reloads the current page
  *
- * @param string $destination Destinazione
+ * @param string $destination Destination URL
  * @return void
  */
 function reload($destination = '')
@@ -55,13 +55,13 @@ function reload($destination = '')
     }
     header('Location: ' . $destination);
     echo "<meta http-equiv='refresh' content=\"0;URL='{$destination}'\">";
-    die;
+    die();
 }
 
 /**
- * RETURNS THE CURRENT FULL URL
+ * Returns the current full URL
  *
- * @return string
+ * @return string Current URL
  */
 function currentUrl()
 {
@@ -69,9 +69,9 @@ function currentUrl()
 }
 
 /**
- * RETURNS THE CURRENT BASE URL
+ * Returns the base URL
  *
- * @return string
+ * @return string Base URL
  */
 function baseUrl()
 {
@@ -82,10 +82,10 @@ function baseUrl()
 }
 
 /**
- * Builds a complete url
+ * Builds a complete URL with specified parameters
  *
- * @param string $params Desired url parameters
- * @return string
+ * @param string $params Desired URL parameters
+ * @return string Complete URL
  */
 function buildUrl($params)
 {
@@ -93,10 +93,10 @@ function buildUrl($params)
 }
 
 /**
- * Builds an asset url
+ * Builds an asset URL with cache busting
  *
- * @param string $asset Desired asset url
- * @return string
+ * @param string $asset Desired asset URL
+ * @return string Asset URL with file modification time as query string
  */
 function buildAssetUrl($asset)
 {
@@ -106,11 +106,11 @@ function buildAssetUrl($asset)
 }
 
 /**
- * CHECK IF THE PASSED PAGE MATCHES WITH THE CURRENT URL
+ * Checks if the passed page matches with the current URL and returns the specified class if it does
  *
- * @param string $page  Url to match
- * @param string $class Return class (eg. active)
- * @return string
+ * @param string $page URL to match
+ * @param string $class Return class (e.g., active)
+ * @return string The class if the page matches, otherwise an empty string
  */
 function checkPage($page, $class)
 {
@@ -122,9 +122,9 @@ function checkPage($page, $class)
 }
 
 /**
- * RETURN THE CURRENT URL PARAMS
+ * Returns the current URL parameters
  *
- * @return string
+ * @return string Current URL parameters
  */
 function getPageParams()
 {

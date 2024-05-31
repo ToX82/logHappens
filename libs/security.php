@@ -9,7 +9,7 @@
 function filterString($key)
 {
     $params = splitQueryParams();
-    return filter_var($params[$key], FILTER_SANITIZE_STRING);
+    return filter_var($params[$key], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 }
 
 /**

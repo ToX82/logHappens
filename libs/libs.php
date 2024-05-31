@@ -15,20 +15,20 @@ function init()
 
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL ^ E_DEPRECATED);
 
     setting('theme');
     setting('refresh');
     setting('page-length');
 
-    define('BASE_URL', baseUrl() . "/");
+    define('BASE_URL', rtrim(baseUrl(), '/') . "/");
 
     if (!is_file(ROOT . 'vendor/autoload.php')) {
         echo file_get_contents(ROOT . 'webroot/firstrun.html');
-        die;
+        die();
     }
-    require_once ROOT . 'vendor/autoload.php';
 
-    error_reporting(E_ALL ^ E_DEPRECATED);
+    require_once ROOT . 'vendor/autoload.php';
 }
 
 /**
@@ -38,22 +38,17 @@ function init()
  */
 function getBrowserLanguage()
 {
-    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
-    return $lang;
+    return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 }
 
 /**
- * Detects the user's browser language
+ * Detects the user's full browser language
  *
  * @return string
  */
 function getFullBrowserLanguage()
 {
-    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5);
-    $lang = str_replace('-', '_', $lang);
-
-    return $lang;
+    return str_replace('-', '_', substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5));
 }
 
 /**
@@ -63,21 +58,16 @@ function getFullBrowserLanguage()
  */
 function getUserLanguage()
 {
+    $languages = [
+        'nl' => 'Dutch',
+        'fr' => 'French',
+        'de' => 'German',
+        'it' => 'Italian',
+        'sp' => 'Spanish',
+    ];
+
     $lang = getBrowserLanguage();
-    switch ($lang) {
-        case 'nl':
-            return 'Dutch';
-        case 'fr':
-            return 'French';
-        case 'de':
-            return 'German';
-        case 'it':
-            return 'Italian';
-        case 'sp':
-            return 'Spanish';
-        default:
-            return 'English';
-    }
+    return $languages[$lang] ?? 'English';
 }
 
 /**
@@ -89,6 +79,6 @@ function getUserLanguage()
 function debug($var)
 {
     echo "<pre>";
-        print_r($var);
+    print_r($var);
     echo "</pre>";
 }
