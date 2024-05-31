@@ -116,22 +116,13 @@ function recountAll() {
             const $navLink = $sidebar.find(`a[data-file="${file}"]`);
             const isActive = $navLink.parent().hasClass('active');
             const $badge = $navLink.find('.badge');
-            let countOld = parseInt($badge.html().trim(), 10) || 0;
-            countNew = parseInt(countNew, 10) || 0;
+            const countOld = parseInt($badge.html().trim(), 10) || 0;
+            const countNewValue = parseInt(countNew, 10) || 0;
 
-            if (countNew !== countOld) {
-                const difference = countNew - countOld;
+            handleCountChange(file, countOld, countNewValue, currentPage, $badge, isActive);
 
-                if (currentPage === file && datatable.page.info().page === 0) {
-                    reloadContent();
-                }
-
-                if (isActive) {
-                    $('head title').text(`(${countNew}) ${$('.log-title').html()} - LogHappened!`);
-                }
-
-                $badge.html(countNew).addClass('badge-highlight');
-                notificationText += `${file}: ${difference} new logs!     `;
+            if (countNewValue !== countOld) {
+                notificationText += buildNotificationText(file, countNewValue - countOld);
             } else {
                 $badge.removeClass('badge-highlight');
             }
@@ -141,6 +132,41 @@ function recountAll() {
             pushNotification(notificationText, baseUrl);
         }
     });
+}
+
+/**
+ * Updates the count display and triggers a reload if the count has changed and the current page is active.
+ *
+ * @param {string} file - The file whose count has changed.
+ * @param {number} countOld - The old count value.
+ * @param {number} countNew - The new count value.
+ * @param {string} currentPage - The current active page.
+ * @param {jQuery} $badge - The badge element to update.
+ * @param {boolean} isActive - Whether the current page is active.
+ */
+function handleCountChange(file, countOld, countNew, currentPage, $badge, isActive) {
+    if (countNew !== countOld) {
+        if (currentPage === file && datatable.page.info().page === 0) {
+            reloadContent();
+        }
+
+        if (isActive) {
+            $('head title').text(`(${countNew}) ${$('.log-title').html()} - LogHappened!`);
+        }
+
+        $badge.html(countNew).addClass('badge-highlight');
+    }
+}
+
+/**
+ * Builds a notification text with the file name and the number of new logs.
+ *
+ * @param {string} file - The name of the file.
+ * @param {number} difference - The number of new logs.
+ * @return {string} The notification text.
+ */
+function buildNotificationText(file, difference) {
+    return `${file}: ${difference} new logs!`;
 }
 
 /**
