@@ -10,12 +10,12 @@
 </style>
 
 <article>
-    <h1>Config error!</h1>
+    <h1>The config file is missing!</h1>
     <div>
         <p>
             Hey there!<br>
-            It looks like your config.json file contains some errors!<br>
-            Please check that the json is valid and try again.
+            It looks like your config.json file is missing!<br>
+            Please create the file and try again.
         </p>
         <p>&mdash; LogHappens</p>
     </div>
@@ -24,7 +24,7 @@
 <script>
 setTimeout(function() {
     var url = window.location.href;
-    url = url.replace("config_error.html", "");
+    url = url.replace("config_missing.html", "");
     window.location.href = url;
 }, 5000);
 </script>

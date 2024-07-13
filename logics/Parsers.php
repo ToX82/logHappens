@@ -13,7 +13,11 @@ class Parsers
     public function __construct()
     {
         if (!is_file(self::CONFIG_PATH)) {
-            reload('config_error.html');
+            reload('config_missing.html');
+        }
+
+        if (!is_writeable(self::CONFIG_PATH)) {
+            reload('config_readonly.html');
         }
 
         $configContent = file_get_contents(self::CONFIG_PATH);
