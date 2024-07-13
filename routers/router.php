@@ -64,7 +64,7 @@ if (isPage('configurations')) {
 
     $configurations = $configClass->getConfigurations();
 
-    $views[] = ROOT . "views/pages/configurations/configurations.php";
+    $views[] = ROOT . "views/configurations/index.php";
 }
 
 if (isPage('edit_configuration')) {
@@ -77,7 +77,7 @@ if (isPage('edit_configuration')) {
     $configurations = $configClass->getConfigurations();
     $config = $configurations->$configName;
 
-    $views[] = ROOT . "views/pages/configurations/edit_configuration.php";
+    $views[] = ROOT . "views/configurations/edit.php";
 }
 
 if (isPage('add_configuration')) {
@@ -86,7 +86,7 @@ if (isPage('add_configuration')) {
     $configClass = new Logics\Configurations();
     $parsers = $configClass->getAvailableParsers();
 
-    $views[] = ROOT . "views/pages/configurations/add_configuration.php";
+    $views[] = ROOT . "views/configurations/add.php";
 }
 
 if (isPage('save_configurations')) {

@@ -25,11 +25,19 @@
                     unique way of logging events. That's why we've made LogHappens as user-friendly as possible,
                     allowing you to easily create your own log file reading routine. We've even included a few
                     "standard" log parsers that you can use right away.
+                </p>
+
+                <h5>How do I start tracking my logs?</h5>
+                <p>
+                    To start tracking your logs, you'll need to configure a few things. 
+                    You can do this by going to the <a href="<?= buildUrl("configurations") ?>">Configurations</a> page
+                    and adding your first configuration.
+                    You can customize some settings as well, like the UI theme, in the <a href="<?= buildUrl("settings") ?>">Settings</a> page.
+                </p>
 
                 <h5>Any troubles?</h5>
                 <p>
-                    To start using LogHappens, you'll need to configure a few things. If you
-                    run into any issues, please refer to our <a href="<?= buildUrl("display/start") ?>">Start</a>
+                    If you run into any issues, please refer to our <a href="<?= buildUrl("display/start") ?>">Start</a>
                     or <a href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a> page.
                     And if you happen to come across any technical problems, don't hesitate to open an issue on
                     <a href="https://github.com/ToX82/logHappens/issues">GitHub</a>.
@@ -42,7 +50,7 @@
                             <span class="iconify" data-icon="logos:facebook" data-inline="false" data-width="36"></span>
                         </a>
                     </div>
-                    <div class="d-inline-block mx-2" title="Tweet via Twitter">
+                    <div class="d-inline-block mx-2" title="Share via X">
                         <a href="https://twitter.com/intent/tweet/?text=&amp;url=https%3A%2F%2Floghappens.com" target="_blank">
                             <span class="iconify" data-icon="simple-icons:x" color="#0f1419" data-inline="false" data-width="36"></span>
                         </a>
