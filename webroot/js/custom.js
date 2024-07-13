@@ -34,7 +34,7 @@ $(document).ready(function () {
     });
 
     // Input file change event
-    $('#input-file').on('change blur', function () {
+    $('#input-file').on('keyup change', function () {
         const $input = $(this);
         const filename = $input.val();
 
@@ -48,6 +48,10 @@ $(document).ready(function () {
         });
     });
 
+    $('#input-title').on('keyup', function () {
+        $('.title-preview').html($(this).val());
+    });
+
     // Icon preview updater
     if ($('#input-icon').length > 0) {
         setInterval(function () {
@@ -57,7 +61,7 @@ $(document).ready(function () {
             const color = $('#input-color').val();
 
             if (icon !== currentIcon || color !== currentColor) {
-                $('.iconify-preview').html(`<i class="iconify" data-width="32" data-icon="${icon}" color="${color}"></i>`);
+                $('.iconify-preview').html(`<i class="iconify" data-inline="false" data-width="24" data-icon="${icon}" color="${color}"></i>`);
             }
         }, 300);
     }

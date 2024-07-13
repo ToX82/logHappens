@@ -35,7 +35,11 @@
                 <div class="row my-4">
                     <div class="col-12 log-container">
                         <?php foreach ($views as $view) { ?>
-                            <?php include($view); ?>
+                            <?php if (is_file($view)) { ?>
+                                <?php include($view); ?>
+                            <?php } else { ?>
+                                <p class="w-100 text-center">The template <?= $view ?> does not exist.</p>
+                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>

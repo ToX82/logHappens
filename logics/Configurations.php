@@ -154,7 +154,7 @@ class Configurations
      */
     public function checkFileExists($filename)
     {
-        return file_exists($filename);
+        return file_exists($filename) && is_file($filename);
     }
 
     /**
