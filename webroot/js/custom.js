@@ -164,13 +164,13 @@ $(document).ready(function () {
             const color = $('#input-color').val();
 
             if (icon !== currentIcon || color !== currentColor) {
-                $('.iconify-preview').html(`<i class="iconify" data-inline="false" data-width="24" data-icon="${icon}" color="${color}"></i>`);
+                $('.iconify-preview').html(`<i class="iconify" data-inline="false" data-icon="${icon}" color="${color}"></i>`);
             }
         }, 300);
     }
 
     // Icon visibility toggle
-    $('i.icon-visibility').on('click', function () {
+    $('.icon-visibility').on('click', function () {
         const configName = $(this).attr('id');
 
         $.ajax({
