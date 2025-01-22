@@ -33,8 +33,8 @@ li.nav-item {
 }
 .lh-badge {
     border-radius: 3px;
-    background-color: #0d47a1;
-    color: #fff;
+    background-color: #0D47A1;
+    color: #FFF;
     font-weight: bold;
     font-size: 100%;
     padding: 1px 5px;
@@ -44,7 +44,7 @@ li.nav-item {
 }
 .badge-highlight {
     background: firebrick;
-    color: #fff;
+    color: #FFF;
 }
 table.datatable th {
     height: 1px;
@@ -57,4 +57,90 @@ table.datatable th {
 
 .has-error {
     border-color: red;
+}
+
+/* Drag and drop styles */
+.sortable-item {
+    cursor: move;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+}
+
+.sortable-item.dragging {
+    opacity: 0.8;
+    background: #F8F9FA;
+    z-index: 10;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sortable-item.shift-down {
+    transform: translateY(56px);
+}
+
+.sortable-item.shift-up {
+    transform: translateY(-56px);
+}
+
+.sortable-item:not(.dragging) {
+    transform-origin: center center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s ease-in-out,
+                box-shadow 0.2s ease-in-out;
+}
+
+.sortable-item.drop-target {
+    transform: scale(1.01);
+    z-index: 5;
+}
+
+.sortable-item.drop-above::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #0D47A1;
+    z-index: 1;
+    box-shadow: 0 -2px 4px rgba(13, 71, 161, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+.sortable-item.drop-below::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #0D47A1;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(13, 71, 161, 0.3);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1.5);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scaleY(1);
+    }
+}
+
+.icon-drag {
+    cursor: move;
+    transition: transform 0.2s ease-in-out;
+}
+
+.icon-drag:hover {
+    transform: scale(1.1);
 }

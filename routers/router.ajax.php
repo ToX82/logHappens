@@ -27,3 +27,11 @@ if (isset($_GET['change-visibility'])) {
 
     $return = json_encode($return);
 }
+
+if (isset($_GET['update-order'])) {
+    $objConfig = new Logics\Configurations();
+    $order = json_decode($_POST['order'], true);
+    $return = $objConfig->updateOrder($order);
+
+    $return = json_encode($return);
+}

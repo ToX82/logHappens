@@ -5,15 +5,26 @@
                 Configurations
             </div>
 
-            <div class="card-body d-flex flex-column ms-2 mt-2">
+            <div class="card-body d-flex flex-column ms-2 mt-2" id="configurations-list">
                 <?php
                 foreach ($configurations as $configName => $value) {
                     ?>
-                    <div class="d-flex flex-row mb-2">
-                        <i id="<?= $configName ?>" class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center clickable <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>"
-                            <?= $value->disabled ? 'title="Display this element in the sidebar"' : 'title="Hide this element from the sidebar"' ?>>
-                            <span id="icon-eye-<?= $configName ?>" class="icon-eye iconify" data-height="22" data-width="22" data-icon="<?= $value->disabled ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
-                            data-inline="false"></span>
+                    <div class="d-flex flex-row mb-2 sortable-item" draggable="true" data-id="<?= $configName ?>">
+                        <i class="icon-drag p-2 my-auto card border-secondary-subtle me-2 align-items-center">
+                            <span class="iconify" data-height="22" data-width="22" data-icon="mdi:drag" data-inline="false"></span>
+                        </i>
+                        <i id="<?= $configName ?>"
+                            class="icon-visibility p-2 my-auto card border-secondary-subtle me-2 align-items-center
+                                clickable<?= $value->disabled ? ' bg-secondary-subtle' : '' ?>"
+                            <?= $value->disabled ?
+                                'title="Display this element in the sidebar"' :
+                                'title="Hide this element from the sidebar"' ?>>
+                            <span id="icon-eye-<?= $configName ?>"
+                                class="icon-eye iconify"
+                                data-height="22"
+                                data-width="22"
+                                data-icon="<?= $value->disabled ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
+                                data-inline="false"></span>
                         </i>
 
                         <div class="w-100 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">

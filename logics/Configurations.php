@@ -196,4 +196,29 @@ class Configurations
             reload('/display/create-config-writeable');
         }
     }
+
+    /**
+     * Updates the order of configurations based on the provided order array.
+     *
+     * @param array $order Array containing the configuration names in the new order
+     * @return bool Returns true if successful, false otherwise
+     */
+    public function updateOrder($order)
+    {
+        $configurations = (array)$this->getConfigurations();
+        $newConfigurations = [];
+
+        foreach ($order as $configName) {
+            if (isset($configurations[$configName])) {
+                $newConfigurations[$configName] = $configurations[$configName];
+            }
+        }
+
+        if (count($newConfigurations) === count($configurations)) {
+            $jsonData = json_encode(['parsers' => (object)$newConfigurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            return file_put_contents(ROOT . '/config.json', $jsonData) !== false;
+        }
+
+        return false;
+    }
 }

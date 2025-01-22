@@ -6,6 +6,109 @@ $(document).ready(function () {
 
     bootstrap();
 
+    // Initialize drag and drop for configurations
+    if ($('#configurations-list').length) {
+        const list = document.getElementById('configurations-list');
+        let draggedItem = null;
+        let lastDirection = null;
+
+        // Aggiungi gli event listener a tutti gli elementi draggable
+        document.querySelectorAll('.sortable-item').forEach(item => {
+            item.addEventListener('dragstart', function(e) {
+                draggedItem = this;
+                this.classList.add('dragging');
+                // Aggiungi un delay per rendere visibile l'effetto di scaling
+                setTimeout(() => {
+                    this.classList.add('dragging');
+                }, 0);
+                e.dataTransfer.effectAllowed = 'move';
+            });
+
+            item.addEventListener('dragend', function() {
+                this.classList.remove('dragging');
+                document.querySelectorAll('.sortable-item').forEach(item => {
+                    item.classList.remove('drop-above', 'drop-below', 'shift-down', 'shift-up', 'drop-target');
+                });
+                draggedItem = null;
+                lastDirection = null;
+            });
+
+            item.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                if (this !== draggedItem) {
+                    const rect = this.getBoundingClientRect();
+                    const midY = rect.top + rect.height / 2;
+                    const direction = e.clientY < midY ? 'above' : 'below';
+
+                    // Se la direzione è cambiata, aggiorna l'animazione
+                    if (direction !== lastDirection) {
+                        // Rimuovi tutte le classi di animazione
+                        document.querySelectorAll('.sortable-item').forEach(item => {
+                            item.classList.remove('drop-above', 'drop-below', 'shift-down', 'shift-up', 'drop-target');
+                        });
+
+                        // Aggiungi la classe drop-target all'elemento target
+                        this.classList.add('drop-target');
+
+                        // Trova tutti gli elementi tra la posizione corrente e la destinazione
+                        const items = Array.from(document.querySelectorAll('.sortable-item'));
+                        const currentIndex = items.indexOf(draggedItem);
+                        const targetIndex = items.indexOf(this);
+
+                        if (direction === 'above') {
+                            this.classList.add('drop-above');
+                            // Sposta in giù gli elementi tra target e current
+                            for (let i = targetIndex; i < currentIndex; i++) {
+                                items[i].classList.add('shift-down');
+                            }
+                        } else {
+                            this.classList.add('drop-below');
+                            // Sposta in su gli elementi tra current e target
+                            for (let i = currentIndex + 1; i <= targetIndex; i++) {
+                                items[i].classList.add('shift-up');
+                            }
+                        }
+
+                        // Aggiorna la posizione dell'elemento trascinato con un leggero delay
+                        setTimeout(() => {
+                            if (direction === 'above') {
+                                this.parentNode.insertBefore(draggedItem, this);
+                            } else {
+                                this.parentNode.insertBefore(draggedItem, this.nextSibling);
+                            }
+                        }, 150);
+
+                        lastDirection = direction;
+                    }
+                }
+            });
+
+            item.addEventListener('dragleave', function(event) {
+                if (!draggedItem) return;
+                const relatedTarget = event.relatedTarget;
+                // Rimuovi le classi solo se usciamo dall'area di drop
+                if (!this.contains(relatedTarget) && !relatedTarget?.classList.contains('sortable-item')) {
+                    document.querySelectorAll('.sortable-item').forEach(item => {
+                        item.classList.remove('drop-above', 'drop-below', 'shift-down', 'shift-up', 'drop-target');
+                    });
+                }
+            });
+
+            item.addEventListener('dragend', function() {
+                const order = [];
+                document.querySelectorAll('.sortable-item').forEach(item => {
+                    order.push(item.dataset.id);
+                });
+
+                $.ajax({
+                    url: `${baseUrl}ajax.php?update-order`,
+                    method: 'POST',
+                    data: { order: JSON.stringify(order) }
+                });
+            });
+        });
+    }
+
     // Theme switcher
     $('.settings-switcher').on('change', function () {
         const parameter = $(this).attr('id');
