@@ -329,4 +329,10 @@ function bootstrap() {
             url: `https://cdn.datatables.net/plug-ins/1.10.20/i18n/${dataTablesLang}.json`,
         },
     });
+
+    // Highlight the search term in the datatable
+    datatable.on('draw', function () {
+        const body = $(datatable.table().body());
+        body.mark(datatable.search());
+    });
 }
