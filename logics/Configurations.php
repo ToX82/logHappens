@@ -37,7 +37,7 @@ class Configurations
             $config['icon'] = $_POST["input-icon"];
             $config['color'] = $_POST["input-color"];
             $config['title'] = $_POST["input-title"];
-            $config['file'] = $this->replaceSlash($_POST["input-file"]);
+            $config['file'] = $_POST["input-file"];
             $config['parser'] = $_POST["input-parser"];
             $config['disabled'] = isset($_POST['input-disabled']) ? false : true;
 
@@ -88,27 +88,6 @@ class Configurations
     }
 
     /**
-     * Replaces all occurrences of '/' with '//' in the contents of a file.
-     *
-     * @param string $filename The path to the file.
-     * @return string The path to the modified file.
-     */
-    public function replaceSlash($filename)
-    {
-        // Read the contents of the file
-        if (file_exists($filename)) {
-            $content = file_get_contents($filename);
-
-            // Replace all occurrences of '/' with '//'
-            $modifiedContent = str_replace('/', '//', $content);
-
-            // Write the modified content back to the file
-            file_put_contents($filename, $modifiedContent);
-        }
-
-        return $filename;
-    }
-    /**
      * Slugifies a string by removing special characters,
      * converting to lowercase, and replacing spaces with underscores.
      *
@@ -123,6 +102,7 @@ class Configurations
 
         return $slug;
     }
+
     /**
      * Retrieves the list of available parsers.
      *

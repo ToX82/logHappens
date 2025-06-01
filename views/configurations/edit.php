@@ -12,11 +12,6 @@
                     </span>
                     <span class="title-preview h5 mb-0"><?= htmlspecialchars($config->title) ?></span>
                 </div>
-                <div class="form-check form-switch">
-                    <label class="form-check-label me-2" for="input-disabled">Active</label>
-                    <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled"
-                           role="switch" <?= $config->disabled ? '' : 'checked'; ?>>
-                </div>
             </div>
 
             <form method="post" action="save_configurations" class="needs-validation p-4" novalidate>
@@ -65,8 +60,14 @@
                             <label class="form-label fw-bold">Icon & Color</label>
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="text-center mb-3">
-                                        <span class="iconify-preview iconify" data-height="42" data-width="42" data-icon="<?= $config->icon ?>" data-inline="false" style="color: <?= $config->color ?>"></span>
+                                    <div class="text-center mb-1">
+                                        <span class="iconify-preview iconify"
+                                              data-height="80"
+                                              data-width="80"
+                                              data-icon="<?= $config->icon ?>"
+                                              data-inline="false"
+                                              style="color: <?= $config->color ?>">
+                                        </span>
                                     </div>
                                     <div class="row g-3">
                                         <div class="col-md-6">
@@ -99,6 +100,12 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="form-check form-switch">
+                    <label class="form-check-label me-2" for="input-disabled">Show this configuration in the sidebar</label>
+                    <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled"
+                        role="switch" <?= $config->disabled === true ? '' : 'checked'; ?>>
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
