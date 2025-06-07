@@ -158,13 +158,18 @@ $(document).ready(function () {
     // Icon preview updater
     if ($('#input-icon').length > 0) {
         setInterval(function () {
-            const currentIcon = $('.iconify-preview .iconify').attr('data-icon');
-            const currentColor = $('.iconify-preview .iconify').attr('color');
+            const currentIcon = $('.iconify-preview.iconify').data('icon');
+            const currentColor = rgbToHex($('.iconify-preview.iconify').css('color'));
             const icon = $('#input-icon').val();
             const color = $('#input-color').val();
 
             if (icon !== currentIcon || color !== currentColor) {
-                $('.iconify-preview').html(`<i class="iconify" data-inline="false" data-icon="${icon}" color="${color}"></i>`);
+                $('.iconify-preview').each(function () {
+                    const $this = $(this);
+                    const width = $this.data('width');
+                    const height = $this.data('height');
+                    $this.replaceWith(`<span class="iconify-preview iconify" data-inline="false" data-icon="${icon}" style="color: ${color}" data-width="${width}" data-height="${height}"></span>`);
+                });
             }
         }, 300);
     }
@@ -303,6 +308,20 @@ function pushNotification(text, baseUrl) {
 function reloadContent() {
     const table = $('.datatable').DataTable();
     table.ajax.reload();
+}
+
+/**
+ * Converts an RGB color string to a hexadecimal color string.
+ * @param {string} rgb The RGB color string (e.g., "rgb(255, 0, 0)").
+ * @returns {string|null} The hexadecimal color string or null if the input is invalid.
+ */
+function rgbToHex(rgb) {
+    const result = rgb.match(/\d+/g);
+    if (!result) return null;
+    return `#${result.map(function(x) {
+        const hex = parseInt(x).toString(16);
+        return hex.length === 1 ? `0${hex}` : hex;
+    }).join('')}`;
 }
 
 /**
