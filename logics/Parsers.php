@@ -115,6 +115,7 @@ class Parsers
             'icon' => $data['icon'],
             'color' => $data['color'],
             'writable' => is_writable($data['file']),
+            'truncatable' => $data['truncatable'] ?? true,
             'title' => $data['title'],
         ];
     }

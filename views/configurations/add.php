@@ -60,6 +60,14 @@
                             </select>
                             <div class="form-text">Select the parser that matches your log format</div>
                         </div>
+
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label me-2" for="input-truncatable">Should it be allowed to truncate the log file?</label>
+                                <input type="checkbox" class="form-check-input" id="input-truncatable" name="input-truncatable"
+                                    role="switch" checked>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Colonna destra -->

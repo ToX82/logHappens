@@ -4,16 +4,18 @@
     </i>
     <span class="log-title"><?= $logs['title'] ?></span>
 
-    <?php if ($logs['writable'] === true) { ?>
-        <a class="btn-openModal ml-4" href="<?= buildUrl("truncate/" . $logs['file']) ?>">
-            <span class="iconify" data-icon="ion:trash-bin" data-inline="false" style="color: red;" data-width="30"></span>
-        </a>
-    <?php } else { ?>
-        <a class="ml-4" href="<?= buildUrl("display/troubleshooting") ?>">
-            <small>
-                You don't have write permissions on this file. Why?
-            </small>
-        </a>
+    <?php if ($logs['truncatable'] === true) { ?>
+        <?php if ($logs['writable'] === true) { ?>
+            <a class="btn-openModal ml-4" href="<?= buildUrl("truncate/" . $logs['file']) ?>">
+                <span class="iconify" data-icon="ion:trash-bin" data-inline="false" style="color: red;" data-width="30"></span>
+            </a>
+        <?php } else { ?>
+            <a class="ml-4" href="<?= buildUrl("display/troubleshooting") ?>">
+                <small>
+                    You don't have write permissions on this file. Why?
+                </small>
+            </a>
+        <?php } ?>
     <?php } ?>
 </h4>
 

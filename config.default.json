@@ -6,7 +6,8 @@
             "title": "apache",
             "file": "/var/log/apache2/error.log",
             "parser": "apache24",
-            "disabled": false
+            "disabled": false,
+            "truncatable": true
         }
     }
 }
