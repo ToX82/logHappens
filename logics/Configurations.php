@@ -40,6 +40,7 @@ class Configurations
             $config['file'] = $_POST["input-file"];
             $config['parser'] = $_POST["input-parser"];
             $config['disabled'] = isset($_POST['input-disabled']) ? false : true;
+            $config['truncatable'] = isset($_POST['input-truncatable']) ? true : false;
 
             $configurations->$configName = $config;
 
