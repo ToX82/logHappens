@@ -56,6 +56,7 @@
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/push.js@1/bin/push.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-select-plugin@1/iconify-select-plugin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mark.js@8/dist/jquery.mark.min.js"></script>
     <script type="text/javascript" src="<?= buildAssetUrl("webroot/js/custom.js") ?>"></script>
 </body>
 </html>
