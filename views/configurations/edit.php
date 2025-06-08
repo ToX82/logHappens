@@ -102,10 +102,16 @@
                     </div>
                 </div>
 
-                <div class="form-check form-switch">
+                <div class="form-check form-switch mb-4">
                     <label class="form-check-label me-2" for="input-disabled">Show this configuration in the sidebar</label>
                     <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled"
                         role="switch" <?= $config->disabled === true ? '' : 'checked'; ?>>
+                </div>
+
+                <div class="form-check form-switch mb-4">
+                    <label class="form-check-label me-2" for="input-truncatable">Should it be allowed to truncate the log file?</label>
+                    <input type="checkbox" class="form-check-input" id="input-truncatable" name="input-truncatable"
+                        role="switch" <?= ($config->truncatable ?? true) === true ? 'checked' : ''; ?>>
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
