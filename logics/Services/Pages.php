@@ -1,6 +1,6 @@
 <?php
 
-namespace Logics;
+namespace Logics\Services;
 
 class Pages
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Logics;
+namespace Logics\Services;
 
 class Parsers
 {
@@ -13,18 +13,18 @@ class Parsers
     public function __construct()
     {
         if (!is_file(self::CONFIG_PATH)) {
-            reload('config_missing.html');
+            reload(buildUrl('config_missing.html'));
         }
 
         if (!is_writeable(self::CONFIG_PATH)) {
-            reload('config_readonly.html');
+            reload(buildUrl('config_readonly.html'));
         }
 
         $configContent = file_get_contents(self::CONFIG_PATH);
         $config = json_decode($configContent, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            reload('config_error.html');
+            reload(buildUrl('config_error.html'));
         }
 
         if (isset($config['parsers'])) {
@@ -169,7 +169,7 @@ class Parsers
     public function truncate(string $file): void
     {
         if (!isset($this->config[$file])) {
-            reload('404');
+            reload(buildUrl('404'));
         }
 
         $data = $this->config[$file];

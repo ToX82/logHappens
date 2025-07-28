@@ -1,6 +1,6 @@
 <?php
 
-namespace Logics;
+namespace Logics\Services;
 
 class Configurations
 {
@@ -47,7 +47,7 @@ class Configurations
             $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             file_put_contents(ROOT . '/config.json', $jsonData);
 
-            reload('configurations');
+            reload(buildUrl('edit_configuration/' . $configName));
         }
     }
 
@@ -67,7 +67,7 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        reload('edit_configuration?configName=' . $new);
+        reload(buildUrl('edit_configuration/' . $new));
     }
 
     /**
@@ -85,7 +85,7 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        reload('configurations');
+        reload(buildUrl('configurations'));
     }
 
     /**
@@ -142,7 +142,7 @@ class Configurations
      * Change the visibility of a configuration.
      *
      * @param string $configName The name of the configuration to change.
-     * @return void
+     * @return object Returns the configuration object.
      */
     public function changeVisibility($configName)
     {
@@ -151,6 +151,8 @@ class Configurations
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
+
+        return $configurations->$configName;
     }
 
     /**
@@ -172,9 +174,9 @@ class Configurations
         }
 
         if (!is_file(ROOT . "config.json")) {
-            reload('/display/create-config');
+            reload(buildUrl('/display/create-config'));
         } elseif (!is_writeable(ROOT . "config.json")) {
-            reload('/display/create-config-writeable');
+            reload(buildUrl('/display/create-config-writeable'));
         }
     }
 

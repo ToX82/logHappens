@@ -1,127 +1,78 @@
 <?php
 
+use Logics\Services\Parsers;
+use Logics\Services\Configurations;
+use Logics\Controllers\LogsController;
+use Logics\Controllers\PagesController;
+use Logics\Controllers\SettingsController;
+use Logics\Controllers\ConfigurationsController;
+
 $params = splitQueryParams();
 try {
-    $objParsers = new Logics\Parsers();
+    $parsers = new Parsers();
+    // Keep backward compatibility for views
+    $objParsers = $parsers;
 } catch (Exception $e) {
     echo file_get_contents(ROOT . 'webroot/composer_update.html');
     die;
 }
 
-// Array con le pagine di template da includere
+$configurationsService = new Configurations();
+$logsController = new LogsController($parsers);
+$configsController = new ConfigurationsController($configurationsService);
+$pagesController = new PagesController();
+$settingsController = new SettingsController();
+
 $views = [];
 
-// Actions to be done for every request
-$countAll = $objParsers->countall();
+$logsController->countAll($countAll);
 
-// If there are no params in the URL, proceed
 if (empty($params)) {
-    if (empty($countAll)) {
-        reload('display/start');
-    }
-    reload('display/info');
+    $logsController->handleDefault($countAll);
 }
 
-// Page specific actions
-if (isPage('truncate')) {
-    $pageTitle = "";
-
-    $file = filterString(1);
-    $logs = $objParsers->truncate($file);
-    reload("/viewlog/" . $file);
-}
-
-if (isPage('viewlog')) {
-    $file = filterString(1);
-    $logs = $objParsers->view($file);
-    $pageTitle = $logs['title'];
-    $views[] = ROOT . "views/parsers/log_reader.php";
-}
-
-if (isPage('display')) {
-    $displayPage = filterString(1);
-    $pageTitle = ucfirst($displayPage);
-
-    if ($displayPage === 'start') {
-        if (!empty($countAll)) {
-            reload('/display/info');
-        }
-    }
-
-    $file = Logics\Pages::display($displayPage);
-    $views[] = ROOT . $file;
-}
-
-if (isPage('configurations')) {
-    $configClass = new Logics\Configurations();
-
-    if (!file_exists(ROOT . "config.json") || !is_writeable(ROOT . "config.json")) {
-        $configClass->starterConfigFile();
-        reload('/configurations');
-    }
-
-    $pageTitle = "Configurations";
-
-    $configurations = $configClass->getConfigurations();
-
-    $views[] = ROOT . "views/configurations/index.php";
-}
-
-if (isPage('edit_configuration')) {
-    $pageTitle = "Edit Configuration";
-
-    $configClass = new Logics\Configurations();
-    $configName = $_GET['configName'];
-    $parsers = $configClass->getAvailableParsers();
-
-    $configurations = $configClass->getConfigurations();
-    $config = $configurations->$configName;
-
-    $views[] = ROOT . "views/configurations/edit.php";
-}
-
-if (isPage('add_configuration')) {
-    $pageTitle = "Add Configuration";
-
-    $configClass = new Logics\Configurations();
-    $parsers = $configClass->getAvailableParsers();
-
-    $views[] = ROOT . "views/configurations/add.php";
-}
-
-if (isPage('save_configurations')) {
-    $configClass = new Logics\Configurations();
-
-    $configClass->saveConfig();
-}
-
-if (isPage('duplicate_configuration')) {
-    $configClass = new Logics\Configurations();
-    $configName = $_GET['configName'];
-
-    $configClass->duplicateConfig($configName);
-}
-
-if (isPage('delete_configuration')) {
-    $configClass = new Logics\Configurations();
-    $configName = $_GET['configName'];
-
-    $configClass->deleteConfig($configName);
-}
-
-if (isPage('writesettings')) {
-    $parameter = filterString(1);
-    $selected = filterString(2);
-    writeSettingsCookie($parameter, $selected);
-
-    if (isset($_SERVER['HTTP_REFERER'])) {
-        reload($_SERVER['HTTP_REFERER']);
-    }
-
-    reload('/');
-}
-
-if (empty($views)) {
-    $pageTitle = "Wooooops";
-    $views[] = ROOT . "views/pages/404.php";
+$action = $params[0] ?? '';
+switch ($action) {
+    case 'truncate':
+        $file = filterString(1);
+        $logsController->truncate($file);
+        break;
+    case 'viewlog':
+        $file = filterString(1);
+        $logs = $logsController->view($pageTitle, $views, $file);
+        break;
+    case 'display':
+        $displayPage = filterString(1);
+        $pagesController->display($pageTitle, $views, $displayPage, $countAll);
+        break;
+    case 'configurations':
+        $configsController->index($pageTitle, $views, $configurations);
+        break;
+    case 'edit_configuration':
+        $configName = filterString(1);
+        $configsController->edit($pageTitle, $views, $parsers, $config, $configName);
+        break;
+    case 'add_configuration':
+        $configsController->add($pageTitle, $views, $parsers);
+        break;
+    case 'save_configurations':
+        $configsController->save();
+        break;
+    case 'duplicate_configuration':
+        $configName = filterString(1);
+        $configsController->duplicate($configName);
+        break;
+    case 'delete_configuration':
+        $configName = filterString(1);
+        $configsController->delete($configName);
+        break;
+    case 'writesettings':
+        $parameter = filterString(1);
+        $selected = filterString(2);
+        $settingsController->write($parameter, $selected);
+        break;
+    default:
+        $pageTitle = "Wooooops";
+        $views[] = ROOT . "views/pages/404.php";
+        break;
 }

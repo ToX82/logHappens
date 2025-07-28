@@ -1,7 +1,7 @@
 <!-- Breadcrumb -->
 <nav aria-label="breadcrumb" class="mb-4">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="configurations">Configurations</a></li>
+        <li class="breadcrumb-item"><a href="<?= buildUrl('configurations') ?>">Configurations</a></li>
         <li class="breadcrumb-item active">New Configuration</li>
     </ol>
 </nav>
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <form method="post" action="save_configurations" class="needs-validation p-4" novalidate>
+            <form method="post" action="<?= buildUrl('save_configurations') ?>" class="needs-validation p-4" novalidate>
                 <div class="row mb-4">
                     <!-- Colonna sinistra -->
                     <div class="col-md-6">
@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="configurations" class="btn btn-outline-secondary">Cancel</a>
+                    <a href="<?= buildUrl('configurations') ?>" class="btn btn-outline-secondary">Cancel</a>
                     <button type="submit" name="btn-save-config" class="btn btn-primary">
                         <span class="iconify me-1" data-icon="mdi:content-save"></span>
                         Add Configuration

@@ -1,6 +1,6 @@
 <?php
 
-$objParsers = new Logics\Parsers(ROOT . "config.json");
+$objParsers = new Logics\Services\Parsers();
 $return = null;
 
 if (isset($_GET['countall'])) {
@@ -16,20 +16,20 @@ if (isset($_GET['viewlog'])) {
     $return = include(ROOT . 'views/parsers/getdata.php');
 }
 if (isset($_GET['check-file-exists'])) {
-    $objConfig = new Logics\Configurations();
+    $objConfig = new Logics\Services\Configurations();
     $filename = filter_var($_POST['filename'], FILTER_DEFAULT);
     $return = $objConfig->checkFileExists($filename);
     $return = json_encode($return);
 }
 if (isset($_GET['change-visibility'])) {
-    $objConfig = new Logics\Configurations();
+    $objConfig = new Logics\Services\Configurations();
     $return = $objConfig->changeVisibility($_POST['configName']);
 
     $return = json_encode($return);
 }
 
 if (isset($_GET['update-order'])) {
-    $objConfig = new Logics\Configurations();
+    $objConfig = new Logics\Services\Configurations();
     $order = json_decode($_POST['order'], true);
     $return = $objConfig->updateOrder($order);
 

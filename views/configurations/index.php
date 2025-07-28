@@ -69,13 +69,13 @@
                                                 </span>
                                             </button>
 
-                                            <a href="<?= buildUrl("edit_configuration?configName=$configName") ?>"
+                                            <a href="<?= buildUrl("edit_configuration/$configName") ?>"
                                                class="btn btn-link text-primary p-1 me-2"
                                                title="Edit">
                                                 <span class="iconify" data-icon="mdi:pencil" data-width="18" data-height="18"></span>
                                             </a>
 
-                                            <a href="<?= buildUrl("duplicate_configuration?configName=$configName") ?>"
+                                            <a href="<?= buildUrl("duplicate_configuration/$configName") ?>"
                                                class="btn btn-link text-success p-1 me-2"
                                                title="Clone">
                                                 <span class="iconify" data-icon="mdi:content-copy" data-width="18" data-height="18"></span>
@@ -84,7 +84,7 @@
                                             <button type="button"
                                                     class="btn btn-link text-danger p-1 btn-openModal"
                                                     title="Delete"
-                                                    href="<?= buildUrl("delete_configuration?configName=$configName") ?>">
+                                                    href="<?= buildUrl("delete_configuration/$configName") ?>">
                                                 <span class="iconify" data-icon="mdi:delete" data-width="18" data-height="18"></span>
                                             </button>
                                         </div>
