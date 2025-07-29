@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     bootstrap();
     initPWA();
+    initPerplexityButton();
 
     // Initialize drag and drop for configurations
     if ($('#configurations-list').length) {
@@ -209,6 +210,75 @@ $(document).ready(function () {
         });
     })();
 });
+
+/**
+ * Initialize Perplexity button functionality
+ */
+function initPerplexityButton() {
+    // Show button on hover over log entries
+    $(document).on('mouseenter', '.datatable tbody tr', function() {
+        const $row = $(this);
+        const $card = $row.find('.card');
+        showPerplexityButton($card);
+    });
+
+    // Hide button when leaving log entry
+    $(document).on('mouseleave', '.datatable tbody tr', function() {
+        const $row = $(this);
+        const $card = $row.find('.card');
+        hidePerplexityButton($card);
+    });
+
+    // Handle Perplexity button click
+    $(document).on('click', '.perplexity-button', function(e) {
+        e.preventDefault();
+        const errorText = $(this).data('error');
+
+        if (errorText) {
+            openPerplexityWithError(errorText);
+        }
+    });
+}
+
+/**
+ * Show the Perplexity button in the card header
+ * @param {jQuery} $card - The card element
+ */
+function showPerplexityButton($card) {
+    const $button = $card.find('.perplexity-button');
+    if ($button.length) {
+        $button.addClass('show');
+    }
+}
+
+/**
+ * Hide the Perplexity button
+ * @param {jQuery} $card - The card element
+ */
+function hidePerplexityButton($card) {
+    const $button = $card.find('.perplexity-button');
+    if ($button.length) {
+        $button.removeClass('show');
+    }
+}
+
+/**
+ * Open Perplexity with the error text
+ * @param {string} errorText - The error text to send to Perplexity
+ */
+function openPerplexityWithError(errorText) {
+    const decodedError = decodeURIComponent(errorText);
+
+    // Create a comprehensive query for Perplexity
+    const query = `I have this error in my logs: ${decodedError}. Can you help me understand what this error means and how to fix it? Please keep it short and easy to understand.`;
+
+    // Encode the query for URL
+    const encodedQuery = encodeURIComponent(query);
+
+    // Open Perplexity in a new tab
+    const perplexityUrl = `https://www.perplexity.ai/?q=${encodedQuery}`;
+    window.open(perplexityUrl, '_blank');
+}
 
 /**
  * Recount logs and trigger warnings when something happens

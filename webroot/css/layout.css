@@ -230,7 +230,7 @@ table.datatable th {
 .pwa-loading .spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid #f3f3f3;
+    border: 4px solid #F3F3F3;
     border-top: 4px solid #0D47A1;
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -239,4 +239,38 @@ table.datatable th {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Perplexity Button Styles */
+.perplexity-button-container {
+    transition: opacity 0.3s ease;
+    min-width: 80px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.perplexity-button {
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateX(10px);
+    pointer-events: none;
+}
+.perplexity-button.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+.perplexity-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(13, 71, 161, 0.2);
+}
+.perplexity-button .iconify {
+    font-size: 1rem;
+}
+.perplexity-button-container:empty {
+    display: none;
 }

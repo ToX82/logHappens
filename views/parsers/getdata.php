@@ -28,7 +28,18 @@ $json->data = [];
         <tr>
             <td>
                 <div class="card border-primary mb-2">
-                    <div class="card-header"><?= toDateTime($time, true) ?></div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><?= toDateTime($time, true) ?></span>
+                        <div class="perplexity-button-container">
+                            <button class="perplexity-button btn btn-outline-primary btn-sm"
+                                    data-error="<?= htmlspecialchars(json_encode(implode("\n", $log))) ?>"
+                                    data-time="<?= htmlspecialchars($time) ?>"
+                                    title="Help me understand this error">
+                                <span class="iconify me-1" data-icon="mdi:robot" data-inline="true"></span>
+                                Help me
+                            </button>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <span class="d-none"><?= $time ?></span>
                         <pre class="card-text"><?= implode("<br>", $log) ?></pre>

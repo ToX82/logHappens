@@ -56,3 +56,14 @@ Absolutely! As you can see, there are `apache24`, `CakePHP 3.x` and `CodeIgniter
 ##### What does it look like?
 
 ![It looks like this](https://user-images.githubusercontent.com/659492/110930874-eb544b80-8329-11eb-9877-5c86fce0e2ee.png)
+
+## Perplexity Integration
+
+LogHappens now includes integration with Perplexity AI to help you understand and debug log errors:
+
+### How it works
+
+1. **Hover over any log entry** in the log viewer
+2. **"Help me" button appears** in the card header of that specific log entry
+3. **Click the button** to open Perplexity with a pre-filled query about the error
+4. **Get AI-powered insights** about what the error means and how to fix it
