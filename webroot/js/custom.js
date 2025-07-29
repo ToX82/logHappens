@@ -1,10 +1,12 @@
 let datatable;
+let deferredPrompt;
 
 $(document).ready(function () {
     const baseUrl = $('.baseUrl').html();
     const refresh = parseInt($('.logs-list').attr('data-refresh'), 10);
 
     bootstrap();
+    initPWA();
 
     // Initialize drag and drop for configurations
     if ($('#configurations-list').length) {
@@ -354,4 +356,99 @@ function bootstrap() {
         const body = $(datatable.table().body());
         body.mark(datatable.search());
     });
+}
+
+// PWA Initialization
+function initPWA() {
+    // Handle install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+
+        // Show install prompt after a delay
+        setTimeout(() => {
+            showInstallPrompt();
+        }, 3000);
+    });
+
+    // Handle offline/online events
+    window.addEventListener('offline', () => {
+        showOfflineIndicator();
+    });
+
+    window.addEventListener('online', () => {
+        hideOfflineIndicator();
+    });
+
+    // Install button click
+    $('#install-btn').on('click', () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                } else {
+                    console.log('User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+                hideInstallPrompt();
+            });
+        }
+    });
+
+    // Close install prompt
+    $('#install-close').on('click', () => {
+        hideInstallPrompt();
+    });
+
+    // Check if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('App is running in standalone mode');
+    }
+}
+
+function showInstallPrompt() {
+    if (!localStorage.getItem('installPromptDismissed')) {
+        $('#install-prompt').addClass('show');
+    }
+}
+
+function hideInstallPrompt() {
+    $('#install-prompt').removeClass('show');
+    localStorage.setItem('installPromptDismissed', 'true');
+}
+
+function showOfflineIndicator() {
+    $('#offline-indicator').addClass('show');
+}
+
+function hideOfflineIndicator() {
+    $('#offline-indicator').removeClass('show');
+}
+
+// Request notification permission
+function requestNotificationPermission() {
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then((permission) => {
+            if (permission === 'granted') {
+                console.log('Notification permission granted');
+            }
+        });
+    }
+}
+
+// Show notification
+function showNotification(title, options = {}) {
+    if ('Notification' in window && Notification.permission === 'granted') {
+        const notification = new Notification(title, {
+            icon: '/img/favicon/icon-192x192.png',
+            badge: '/img/favicon/icon-72x72.png',
+            ...options
+        });
+
+        notification.onclick = function() {
+            window.focus();
+            notification.close();
+        };
+    }
 }
