@@ -28,11 +28,11 @@ class Configurations
      */
     public function saveConfig()
     {
-        $configurations = $this->getConfigurations();
+        $configurations = (array)$this->getConfigurations();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-save-config'])) {
             $config = [];
-            $configName = isset($_POST['input-name']) ? $_POST['input-name'] : $this->slugString($_POST["input-title"]);
+            $configKey = count($configurations) + 1;
 
             $config['icon'] = $_POST["input-icon"];
             $config['color'] = $_POST["input-color"];
@@ -42,12 +42,12 @@ class Configurations
             $config['disabled'] = isset($_POST['input-disabled']) ? false : true;
             $config['truncatable'] = isset($_POST['input-truncatable']) ? true : false;
 
-            $configurations->$configName = $config;
+            $configurations[$configKey] = $config;
 
             $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             file_put_contents(ROOT . '/config.json', $jsonData);
 
-            reload(buildUrl('edit_configuration/' . $configName));
+            reload(buildUrl('edit_configuration/' . $configKey));
         }
     }
 
@@ -60,7 +60,7 @@ class Configurations
     public function duplicateConfig($configName)
     {
         $configurations = (array)$this->getConfigurations();
-        $new = intval(array_key_last($configurations)) + 1;
+        $new = count($configurations) + 1;
         $configurations[$new] = clone $configurations[$configName];
         $configurations[$new]->title = $configurations[$new]->title . ' (Copy)';
 
