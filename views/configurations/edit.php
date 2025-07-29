@@ -13,11 +13,11 @@ if ($config === null) {
                     <span class="iconify-preview iconify me-2"
                           data-height="24"
                           data-width="24"
-                          style="color: <?=$config->color?>"
-                          data-icon="<?=$config->icon?>"
+                          style="color: <?=$config['color']?>"
+                          data-icon="<?=$config['icon']?>"
                           data-inline="false">
                     </span>
-                    <span class="title-preview h5 mb-0"><?= htmlspecialchars($config->title) ?></span>
+                    <span class="title-preview h5 mb-0"><?= htmlspecialchars($config['title']) ?></span>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@ if ($config === null) {
                         <div class="mb-4">
                             <label for="input-title" class="form-label fw-bold">Configuration Name</label>
                             <input type="text" class="form-control" id="input-title" name="input-title"
-                                   value="<?= htmlspecialchars($config->title) ?>" required>
+                                   value="<?= htmlspecialchars($config['title']) ?>" required>
                             <div class="invalid-feedback">Please enter a configuration name</div>
                         </div>
 
@@ -38,7 +38,7 @@ if ($config === null) {
                             <label for="input-file" class="form-label fw-bold">Log File Path</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" id="input-file" name="input-file"
-                                       value="<?= htmlspecialchars($config->file) ?>"
+                                       value="<?= htmlspecialchars($config['file']) ?>"
                                        placeholder="/var/log/myapp.log" required>
                                 <button class="btn btn-outline-secondary" type="button" id="browse-file">
                                     <span class="iconify" data-icon="mdi:folder-open"></span>
@@ -52,7 +52,7 @@ if ($config === null) {
                             <label for="input-parser" class="form-label fw-bold">Log Parser</label>
                             <select class="form-select" id="input-parser" name="input-parser">
                                 <?php foreach ($parsers as $parser) { ?>
-                                    <option <?= $config->parser == $parser ? 'selected' : '' ?>>
+                                    <option <?= $config['parser'] == $parser ? 'selected' : '' ?>>
                                         <?= htmlspecialchars($parser) ?>
                                     </option>
                                 <?php } ?>
@@ -71,9 +71,9 @@ if ($config === null) {
                                         <span class="iconify-preview iconify"
                                               data-height="80"
                                               data-width="80"
-                                              data-icon="<?= $config->icon ?>"
+                                              data-icon="<?= $config['icon'] ?>"
                                               data-inline="false"
-                                              style="color: <?= $config->color ?>">
+                                              style="color: <?= $config['color'] ?>">
                                         </span>
                                     </div>
                                     <div class="row g-3">
@@ -83,13 +83,13 @@ if ($config === null) {
                                                    class="iconify-color form-control form-control-color w-100"
                                                    id="input-color"
                                                    name="input-color"
-                                                   value="<?=$config->color?>">
+                                                   value="<?=$config['color']?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="input-icon" class="form-label">Icon</label>
                                             <div class="input-group">
                                                 <input type="text"
-                                                       value="<?=$config->icon?>"
+                                                       value="<?=$config['icon']?>"
                                                        class="iconify-select form-control"
                                                        id="input-icon"
                                                        name="input-icon"
@@ -112,13 +112,13 @@ if ($config === null) {
                 <div class="form-check form-switch mb-4">
                     <label class="form-check-label me-2" for="input-disabled">Show this configuration in the sidebar</label>
                     <input type="checkbox" class="form-check-input" id="input-disabled" name="input-disabled"
-                        role="switch" <?= $config->disabled === true ? '' : 'checked'; ?>>
+                        role="switch" <?= $config['disabled'] === true ? '' : 'checked'; ?>>
                 </div>
 
                 <div class="form-check form-switch mb-4">
                     <label class="form-check-label me-2" for="input-truncatable">Should it be allowed to truncate the log file?</label>
                     <input type="checkbox" class="form-check-input" id="input-truncatable" name="input-truncatable"
-                        role="switch" <?= ($config->truncatable ?? true) === true ? 'checked' : ''; ?>>
+                        role="switch" <?= ($config['truncatable'] ?? true) === true ? 'checked' : ''; ?>>
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">

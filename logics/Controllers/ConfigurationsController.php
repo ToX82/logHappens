@@ -30,7 +30,7 @@ class ConfigurationsController
         $pageTitle = "Edit Configuration";
         $parsers = $this->configService->getAvailableParsers();
         $configurations = $this->configService->getConfigurations();
-        $config = $configurations->$configName ?? null;
+        $config = $configurations[$configName] ?? null;
 
         // Check if configuration exists
         if ($config === null) {

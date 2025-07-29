@@ -7,15 +7,15 @@ class Configurations
     /**
      * Retrieves configurations from a JSON file.
      *
-     * @return object Returns an array of configurations.
+     * @return array Returns an array of configurations.
      */
-    public function getConfigurations()
+    public function getConfigurations(): array
     {
         if (file_exists(ROOT . "config.json")) {
             $jsonData = file_get_contents(ROOT . "config.json");
-            $data = json_decode($jsonData);
+            $data = json_decode($jsonData, true);
 
-            return $data->parsers;
+            return $data['parsers'] ?? [];
         }
 
         return [];
@@ -28,11 +28,15 @@ class Configurations
      */
     public function saveConfig()
     {
-        $configurations = (array)$this->getConfigurations();
+        $configurations = $this->getConfigurations();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-save-config'])) {
             $config = [];
+
             $configKey = count($configurations) + 1;
+            if (isset($_POST['input-name']) && is_numeric($_POST['input-name'])) {
+                $configKey = intval($_POST['input-name']);
+            }
 
             $config['icon'] = $_POST["input-icon"];
             $config['color'] = $_POST["input-color"];
@@ -59,10 +63,10 @@ class Configurations
      */
     public function duplicateConfig($configName)
     {
-        $configurations = (array)$this->getConfigurations();
+        $configurations = $this->getConfigurations();
         $new = count($configurations) + 1;
-        $configurations[$new] = clone $configurations[$configName];
-        $configurations[$new]->title = $configurations[$new]->title . ' (Copy)';
+        $configurations[$new] = $configurations[$configName];
+        $configurations[$new]['title'] = $configurations[$new]['title'] . ' (Copy)';
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
@@ -80,7 +84,7 @@ class Configurations
     {
         $configurations = $this->getConfigurations();
 
-        unset($configurations->$configName);
+        unset($configurations[$configName]);
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
@@ -147,12 +151,12 @@ class Configurations
     public function changeVisibility($configName)
     {
         $configurations = $this->getConfigurations();
-        $configurations->$configName->disabled = !$configurations->$configName->disabled;
+        $configurations[$configName]['disabled'] = !$configurations[$configName]['disabled'];
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        return $configurations->$configName;
+        return $configurations[$configName];
     }
 
     /**
@@ -188,7 +192,7 @@ class Configurations
      */
     public function updateOrder($order)
     {
-        $configurations = (array)$this->getConfigurations();
+        $configurations = $this->getConfigurations();
         $newConfigurations = [];
 
         foreach ($order as $configName) {
@@ -198,7 +202,7 @@ class Configurations
         }
 
         if (count($newConfigurations) === count($configurations)) {
-            $jsonData = json_encode(['parsers' => (object)$newConfigurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            $jsonData = json_encode(['parsers' => $newConfigurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             return file_put_contents(ROOT . '/config.json', $jsonData) !== false;
         }
 

@@ -3,7 +3,7 @@
         <div class="card border-secondary-subtle">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Log Files</h4>
-                <span class="text-muted"><?= count((array)$configurations) ?> tracked files</span>
+                <span class="text-muted"><?= count($configurations) ?> tracked files</span>
                 <a href="<?= buildUrl("add_configuration") ?>" class="btn btn-primary">
                     <span class="iconify me-2" data-icon="mdi:plus"></span>
                     Add Configuration
@@ -26,7 +26,7 @@
                             </div>
 
                             <!-- Main card -->
-                            <div class="flex-grow-1 card border-secondary-subtle <?= $value->disabled ? 'bg-secondary-subtle' : '' ?>">
+                            <div class="flex-grow-1 card border-secondary-subtle <?= $value['disabled'] ? 'bg-secondary-subtle' : '' ?>">
                                 <div class="card-body py-2 px-3">
                                     <div class="row align-items-center">
                                         <!-- Icon and title -->
@@ -34,20 +34,20 @@
                                             <span class="iconify me-2"
                                                   data-height="24"
                                                   data-width="24"
-                                                  data-icon="<?= $value->icon ?>"
-                                                  style="color: <?= $value->color ?>">
+                                                  data-icon="<?= $value['icon'] ?>"
+                                                  style="color: <?= $value['color'] ?>">
                                             </span>
-                                            <span class="h6 mb-0"><?= htmlspecialchars($value->title) ?></span>
+                                            <span class="h6 mb-0"><?= htmlspecialchars($value['title']) ?></span>
                                         </div>
 
                                         <!-- Status -->
                                         <div class="col-md-4">
-                                            <?php if (!file_exists($value->file)) { ?>
+                                            <?php if (!file_exists($value['file'])) { ?>
                                                 <span class="text-danger">
                                                     <span class="iconify me-1" data-icon="mdi:alert"></span>
                                                     File not found
                                                 </span>
-                                            <?php } elseif (!is_writeable($value->file)) { ?>
+                                            <?php } elseif (!is_writeable($value['file'])) { ?>
                                                 <span class="text-warning">
                                                     <span class="iconify me-1" data-icon="mdi:alert"></span>
                                                     Read only - <a href='<?= buildUrl('display/troubleshooting') ?>'>Need help?</a>
@@ -58,12 +58,13 @@
                                         <!-- Actions -->
                                         <div class="col-md-3 d-flex justify-content-end align-items-center">
                                             <button type="button"
-                                                    class="btn btn-link text-secondary p-1 me-2 icon-visibility clickable <?= $value->disabled ? 'opacity-50' : '' ?>"
+                                                    class="btn btn-link text-secondary p-1 me-2 icon-visibility clickable
+                                                           <?= $value['disabled'] ? 'opacity-50' : '' ?>"
                                                     id="<?= $configName ?>"
-                                                    title="<?= $value->disabled ? 'Show in sidebar' : 'Hide from sidebar' ?>">
+                                                    title="<?= $value['disabled'] ? 'Show in sidebar' : 'Hide from sidebar' ?>">
                                                 <span class="iconify"
                                                       id="icon-eye-<?= $configName ?>"
-                                                      data-icon="<?= $value->disabled ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
+                                                      data-icon="<?= $value['disabled'] ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
                                                       data-width="18"
                                                       data-height="18">
                                                 </span>
