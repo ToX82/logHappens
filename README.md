@@ -67,3 +67,22 @@ LogHappens now includes integration with Perplexity AI to help you understand an
 2. **"Help me" button appears** in the card header of that specific log entry
 3. **Click the button** to open Perplexity with a pre-filled query about the error
 4. **Get AI-powered insights** about what the error means and how to fix it
+
+## Version Check System
+
+LogHappens includes an automatic version check system that notifies you when updates are available:
+
+### Features
+
+- **Automatic checks**: Version is checked every 24 hours
+- **Console logging**: Version information is logged to browser console
+- **Smart notifications**: Shows update notification in header
+- **Visual indicators**: Version info is displayed in the header with update status
+- **GitHub integration**: Direct links to the GitHub repository for updates
+
+### How it works
+
+1. **Version display**: Current commit hash is shown in the header
+2. **Automatic checking**: System checks GitHub API for latest commit
+3. **Update notifications**: Header notification appears when a newer version is available
+4. **Manual control**: Users can force a version check anytime

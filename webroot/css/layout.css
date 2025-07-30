@@ -274,3 +274,32 @@ table.datatable th {
 .perplexity-button-container:empty {
     display: none;
 }
+
+/* Update Notification Styles */
+.update-notification {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+    margin-left: 1rem;
+}
+.update-notification:hover {
+    opacity: 1;
+}
+.update-notification a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.update-notification a:hover {
+    color: #FFD700 !important;
+    text-decoration: underline;
+}
+.update-notification .iconify {
+    margin-right: 0.25rem;
+    animation: pulse-update 2s infinite;
+}
+
+@keyframes pulse-update {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}

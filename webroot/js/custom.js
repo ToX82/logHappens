@@ -8,6 +8,7 @@ $(document).ready(function () {
     bootstrap();
     initPWA();
     initPerplexityButton();
+    initVersionCheck();
 
     // Initialize drag and drop for configurations
     if ($('#configurations-list').length) {
@@ -520,5 +521,48 @@ function showNotification(title, options = {}) {
             window.focus();
             notification.close();
         };
+    }
+}
+
+/**
+ * Initialize version check functionality
+ */
+function initVersionCheck() {
+    const baseUrl = $('.baseUrl').html();
+    checkForUpdates(baseUrl);
+}
+
+/**
+ * Check for updates and show notification if available
+ * @param {string} baseUrl - The application base URL
+ */
+function checkForUpdates(baseUrl) {
+    console.log('Checking for updates...');
+    $.ajax({
+        url: `${baseUrl}ajax.php?check-version`,
+        method: 'GET',
+        dataType: 'json',
+        timeout: 10000
+    }).done(function(data) {
+        if (data.has_update) {
+            showUpdateNotification();
+        } else {
+            console.log('No updates available');
+        }
+    }).fail(function() {
+        console.log('Version check failed');
+    });
+}
+
+/**
+ * Show update notification in header
+ */
+function showUpdateNotification() {
+    console.log(`There is an update available!`);
+
+    const $headerNotification = $('#header-update-notification');
+
+    if ($headerNotification.length) {
+        $headerNotification.fadeIn();
     }
 }

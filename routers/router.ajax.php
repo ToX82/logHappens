@@ -35,3 +35,8 @@ if (isset($_GET['update-order'])) {
 
     $return = json_encode($return);
 }
+
+if (isset($_GET['check-version'])) {
+    $versionInfo = getVersionInfo();
+    $return = json_encode($versionInfo);
+}

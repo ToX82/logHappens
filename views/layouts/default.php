@@ -91,29 +91,11 @@
                 navigator.serviceWorker.register('<?= buildAssetUrl("webroot/sw.js") ?>')
                     .then(function(registration) {
                         console.log('SW registered: ', registration);
-
-                        // Check for updates
-                        registration.addEventListener('updatefound', function() {
-                            const newWorker = registration.installing;
-                            newWorker.addEventListener('statechange', function() {
-                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                    // New content is available, show update notification
-                                    showUpdateNotification();
-                                }
-                            });
-                        });
                     })
                     .catch(function(registrationError) {
                         console.log('SW registration failed: ', registrationError);
                     });
             });
-        }
-
-        // Show update notification
-        function showUpdateNotification() {
-            if (confirm('A new version of LogHappens is available. Would you like to update now?')) {
-                window.location.reload();
-            }
         }
 
         // Handle offline/online events
