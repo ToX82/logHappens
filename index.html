@@ -3,343 +3,534 @@
 <head>
     <meta charset="utf-8">
     <title>LogHappens</title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="A log parsing tool and notifier, to keep an eye on your log files and view them in a friendly way. ">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="LogHappens is a lightweight, real-time log viewer and notifier. Parse, normalize, and watch your logs with a friendly UI.">
     <meta name="keywords" content="log,development,viewer,debug">
 
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0-rc.1/dist/css/materialize.min.css">
     <style>
-    html {
-        font-family: -apple-system, BlinkMacSystemFont, "Futura", "Ubuntu", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-    }
-    body {
-        background: #222d33;
-        color: #435672;
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
-    h1 {
-        color: #444;
-        font-size: 3.56rem;
-        letter-spacing: -4px;
-        line-height: 110%;
-    }
-    .logo {
-        margin-bottom: 45px;
-    }
-    .logo div {
-        font-size: 12px;
-        line-height: 1.5em;
-        letter-spacing: 1px;
-        margin-top: -20px;
-        width: 355px;
-        max-width: 100%;
-        text-align: center;
-    }
-    h1 img {
-        vertical-align: bottom;
-        height: 57px;
-    }
-    h2 {
-        color: #124761;
-        font-size: 1.64rem;
-        line-height: 110%;
-        margin: .82rem 0 .556rem 0;
-    }
-    pre {
-        background: #EEE;
-        padding-left: 30px;
-        font-size: 80%;
-    }
-    code {
-        word-break: break-word;
-    }
-    .section {
-        padding: 1.5rem;
-    }
-    .section img {
-        max-width: 100%;
-    }
-    .active .section {
-        background-color: #FFF;
-        box-shadow: 3px 3px 15px #eeeff2;
-        margin-bottom: 40px;
-    }
-    .counter {
-        padding-left: 30px;
-    }
-    .main {
-        flex: 1 0 auto;
-        background: #f7f8fb;
-        margin: 30px auto 50px;
-    }
-    .collection a {
-        display: inline-block;
-        width: 40%;
-    }
-    .accept_to_chat {
-        border-radius: 5px;
-        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
-        position: fixed;
-        right: 10px;
-        bottom: 55px;
-        background-color: rgba(9, 82, 156, 0.7);
-        color: #FFF;
-        text-align: center;
-        width: 150px;
-        max-width: 90%;
-        padding: 10px;
-    }
-    .hidden {
-        display: none;
-    }
-    .page-footer {
-        background-color: #131517;
-    }
-    .footer-copyright {
-        background-color: #040404 !important;
-    }
+        /* CSS Reset and Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
 
-    /* Materialize tabs */
-    .tabs {
-        background-color: transparent;
-        text-align: center;
-    }
-    .tabs li.tab a {
-        color: #124761;
-        font-size: 120%;
-        text-transform: capitalize;
-    }
-    .tabs li.tab a:hover {
-        color: #039be5;
-    }
-    .tabs .tab a:hover, .tabs .tab a.active {
-        color: #039be5;
-    }
-    .tabs .indicator {
-        background-color: #124761;
-    }
-    /* Inputs */
-    .input-field label {
-        color: #456;
-    }
-    .dropdown-content li>a, .dropdown-content li>span {
-        color: #039be5;
-    }
-    .materialbox {
-        cursor: pointer;
-    }
-    .materialbox.active {
-        max-width: inherit !important;
-    }
-    #materialbox-overlay {
-        background-color: rgba(0,0,0,0.8);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-    @media only screen and (max-device-width: 800px) {
-        .container {
-            width: 93%;
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            scroll-behavior: smooth;
         }
-        .section {
-            padding: 0.7rem;
+
+        :root {
+            --anchor-offset: 88px;
         }
-        .collection i {
-            display: none;
+
+        body {
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        .collection a {
+
+        /* Header */
+        header {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: #64748b;
+            font-weight: 500;
             display: block;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+            background: #f1f5f9;
+        }
+
+        .nav-link.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
             width: 100%;
         }
-        .accept_to_chat {
-            display: none;
+
+        .intro {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            text-align: center;
         }
-    }
-    </style>>
+
+        .intro h2 {
+            color: #1e293b;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Section Grid */
+        .sections-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-card h3 {
+            color: #1e293b;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-card p {
+            margin-bottom: 1rem;
+            color: #64748b;
+        }
+
+        .section-card img {
+            max-width: 100%;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        pre {
+            background: #1e293b;
+            color: #f1f5f9;
+            padding: 1.2rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Anchor offset for sticky nav */
+        main [id] {
+            scroll-margin-top: var(--anchor-offset);
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        .footer-section p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .sections-container {
+                grid-template-columns: 1fr;
+            }
+
+            .intro, .section-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="main container z-depth-5">
-        <div class="section white header">
-            <div class="row logo">
-                <h1>
-                    <a class="grey-text text-darken-4" href='./'>LogHappens</a>
-                </h1>
-                <div>a free &amp; easy live log viewer.</div>
-            </div>
-            <a id="why-use-loghappens"></a>
-            <h2>Bug Happens...</h2>
-            <p>Every developer knows that. The bad thing is that if you want to see what happened, more often than not 
-            you have to crawl between hundred lines log files, written in a format which is all but human friendly.</p>
+    <header>
+        <div class="header-content">
+            <h1><a href="./">LogHappens</a></h1>
+            <div class="tagline">Real-time log viewer &amp; notifier</div>
+            <p>Stop digging through endless log files. See issues as they happen and get instant alerts.</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#loghappens" class="nav-link active" data-section="loghappens">LogHappens</a>
+            <a href="#tracking" class="nav-link" data-section="tracking">Tracking Errors</a>
+            <a href="#installation" class="nav-link" data-section="installation">Installation</a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="intro">
+            <h2 id="why-use-loghappens">Bugs happen.</h2>
+            <p>Every developer knows it. The problem is that, when something breaks, you often end up digging through
+            hundreds of log lines written in formats that are anything but human‑friendly.</p>
         </div>
 
-        <div class="section row">
-            <div class="col s12">
-                <ul class="tabs">
-                    <li class="tab"><a href="#loghappens">LogHappens</a></li>
-                    <li class="tab"><a href="#tracking">Tracking errors</a></li>
-                    <li class="tab"><a href="#installation">Installation</a></li>
-                </ul>
+        <div id="loghappens" class="sections-container">
+            <div class="section-card">
+                <h3 id="why">Why LogHappens</h3>
+                <p>LogHappens watches your logs in real time, parses entries into a readable format, highlights
+                errors and exceptions, and helps you focus on what matters—fast.</p>
             </div>
 
-            <br><br><br><br>
-
-            <div id="loghappens" class="col s12 m10 offset-m1">
-                <div class="section">
-                    <a id="why"></a>
-                    <h2>That's why LogHappens exists!</h2>
-                    <p>LogHappens aims to fix exactly this. It's a simple tool, it will not prevent you from writing 
-                    bugs, but it will notify you immediately when something has been logged by your web server or your 
-                    favorite framework.</p>
-                </div>
-
-                <div class="section">
-                    <a id="different-log-formats"></a>
-                    <h2>Does it handle different log formats?</h2>
-                    <p>Of course it does. Every software has its own bugs, and every software has its own way of 
-                    logging things too. This is why I have tried to make it as simple as possible to let you create 
-                    your own routine for reading log files, while still providing a few log default parsers that you 
-                    can immediately use.</p>
-                </div>
-
-                <div class="section">
-                    <a id="look"></a>
-                    <h2>What does it look like?</h2>
-                    <p>It looks like this, but you can change the appearance by using any of the bootstrap/bootswatch themes!</p>
-                    <img class="materialbox" src="https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png" alt="A screenshot of the LogHappens interface" />
-                </div>
-
-                <div class="section">
-                    <a id="its-free"></a>
-                    <h2>Did I mention it's free?</h2>
-                    <p>Because it is. Free and Open Source. I'm enjoying a lot of Open Source Software, that's why I've decided to give something back.</p>
-                </div>
+            <div class="section-card">
+                <h3 id="different-log-formats">Does it handle different log formats?</h3>
+                <p>Yes. Different systems log in different ways. LogHappens ships with ready‑to‑use parsers and
+                makes it easy to add your own. Start with the provided examples and tailor them to your needs.</p>
             </div>
-            
-            <div id="tracking" class="col s12 m10 offset-m1">
-                <div class="section">
-                    <a id="different-log-formats"></a>
-                    <h2>How do I add a log file to be tracked?</h2>
-                    <p>Adding a new file to be tracked is fairly simple with LogHappens. Just add a new record in your 
-                    config.json file, and set the values according to your preferences. Something like this is 
-                    enough.</p>
-                    <pre><code>
-"apache": {
+
+            <div class="section-card">
+                <h3 id="look">What does it look like?</h3>
+                <p>Here is the default UI. You can customize the look with any Bootstrap/Bootswatch theme.</p>
+                <img src="https://user-images.githubusercontent.com/659492/74713643-4439d900-5229-11ea-938d-63ce808ea6fd.png" alt="A screenshot of the LogHappens interface" />
+            </div>
+        </div>
+
+        <div id="tracking" class="sections-container" style="display: none;">
+            <div class="section-card">
+                <h3>How do I add a log to track?</h3>
+                <p>Add a new record to your <code>config.json</code> and set the values you need. For example:</p>
+                <pre><code>{
+  "apache": {
     "icon": "logos:apache",
     "color": "#104B73",
     "title": "Apache error",
     "file": "/var/log/apache2/error.log",
     "parser": "apache24"
-}
-                    </code></pre>
-                </div>
+  }
+}</code></pre>
+            </div>
 
-                <div class="section">
-                    <a id="different-log-formats"></a>
-                    <h2>Can I track a remote file (I.E. through a URL)?</h2>
-                    <p>If you are not worried for the security issues of having an error log publicly reachable, 
-                    then yes. Just set the URL in the configuration path.</p>
-                    <pre><code>
-"myExampleSite": {
+            <div class="section-card">
+                <h3>Can I track a remote log (URL)?</h3>
+                <p>If exposing an error log publicly is acceptable in your environment, yes—just set the URL in the configuration.</p>
+                <pre><code>{
+  "myExampleSite": {
     "icon": "wpf-online",
     "color": "#104B73",
     "title": "My ExampleSite Errors",
     "file": "https://example.com/logs/error.log",
     "parser": "cakephp3"
-}
-                    </code></pre>
-                </div>
-
-                <div class="section">
-                    <a id="different-log-formats"></a>
-                    <h2>Can I capture the browser's JavaScript errors too?</h2>
-                    <p>Yes sir! Even though it is not a LogHappens specific function you could use something 
-                    <a href="https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681">like this</a> 
-                    to capture client side JavaScript errors</p>
-                </div>
-
-                <div class="section">
-                    <a id="parser"></a>
-                    <h2>How are the log files parsed?</h2>
-                    <p>It's essentially quite simple. Take a look at the files contained in the "parsers" directory 
-                    to have a glance on how it works.</p>
-                    <p>If you need to view logs for another framework, those examples could be good 
-                    "hello world" templates too :)</p>
-                </div>
-
-                <div class="section">
-                    <a id="different-log-formats"></a>
-                    <h2>Can I share a new parser file?</h2>
-                    <p>Of course! As you can see, there are apache24, CakePHP 3.x and CodeIgniter files in the parsers 
-                    folder. If you have created your own routine, please send it to me, I will be more than happy 
-                    to add it to the provided parsers!</p>
-                </div>
+  }
+}</code></pre>
             </div>
 
+            <div class="section-card">
+                <h3>Can I capture browser JavaScript errors too?</h3>
+                <p>Yes. While it’s not a LogHappens‑specific feature, you can use
+                <a href="https://gist.github.com/ToX82/20134e5006823360f87ee2b54b95b681">a snippet like this</a>
+                to capture client‑side JavaScript errors.</p>
+            </div>
 
-            <div id="installation" class="col s12 m10 offset-m1">
-                <div class="section">
-                    <a id="install"></a>
-                    <h2>Download &amp; Installation</h2>
-
-                    <p>To install LogHappens, please follow these steps:</p>
-                    <ul class="browser-default">
-                        <li>Get LogHappens (choose your favourite method):
-                            <ul class="browser-default">
-                                <li>Download the <a target="_blank" href="https://github.com/ToX82/logHappens/archive/refs/heads/master.zip">ZIP package</a></li>
-                                <li>Clone it from <a target="_blank" href="https://github.com/ToX82/logHappens">GitHub</a></li>
-                            </ul>
-                        </li>
-                        <li>Place LogHappens in a folder executable by apache or ngnix</li>
-                        <li>Duplicate the file "config.default.json" to "config.json"</li>
-                        <li>Open your new "config.json" and edit as you need. You can add new log files by simply adding new records there.</li>
-                        <li>Open the browser to the destination you have installed LogHappens</li>
-                        <li>Enjoy!</li>
-                    </ul>
-                </div>
+            <div class="section-card">
+                <h3 id="parser">How does parsing work?</h3>
+                <p>It’s simple. Check the files in the <code>parsers</code> directory to see how formats are read.</p>
+                <p>If you need to support another format, the examples are great “hello world” templates to start from.</p>
             </div>
         </div>
-    </div>
 
-
-    <footer class="page-footer">
-    <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">logHappens</h5>
-                    <div class="grey-text text-lighten-4">
-                        I hope that you will try and enjoy logHappens as much as I did writing it.
-                        <br>
-                        If so, please  consider to make a small donation using the "Sponsor" button in the 
-                        <a href='https://github.com/ToX82/logHappens'>logHappens repository</a>, as a  token of 
-                        your appreciation and to help me keep this up :)
-                    </div>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="https://github.com/ToX82/loghappens">GitHub repository</a></li>
-                        <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/emanueletoscano/en">My Linkedin page</a></li>
-                    </ul>
-                </div>
+        <div id="installation" class="sections-container" style="display: none;">
+            <div class="section-card">
+                <h3 id="install">Download &amp; installation</h3>
+                <p>Install LogHappens in a few steps:</p>
+                <ol>
+                    <li>Get LogHappens (choose your favourite method):
+                        <ul>
+                            <li>Download the <a href="https://github.com/ToX82/logHappens/archive/refs/heads/master.zip">ZIP package</a></li>
+                            <li>Clone it from <a href="https://github.com/ToX82/logHappens">GitHub</a></li>
+                        </ul>
+                    </li>
+                    <li>Place LogHappens in a directory served by Apache or Nginx</li>
+                    <li>Copy <code>config.default.json</code> to <code>config.json</code></li>
+                    <li>Edit your new <code>config.json</code> as needed. Add logs by adding new records.</li>
+                    <li>Open your browser at the URL where you installed LogHappens</li>
+                    <li>Enjoy!</li>
+                </ol>
             </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>LogHappens is Free and Open Source</h3>
+                <p>I benefit from Open Source every day, so this is my way to give back.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Sponsor</h3>
+                <p>I hope you’ll try and enjoy LogHappens as much as I enjoyed building it.</p>
+                <p>If you find it useful, please consider making a small donation using the “Sponsor” button in the
+                <a href='https://github.com/ToX82/logHappens'>LogHappens repository</a> as a token of appreciation and to help me keep this up :)</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Links</h3>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/ToX82/loghappens">GitHub repository</a></li>
+                    <li><a href="https://www.linkedin.com/in/emanueletoscano/en">My LinkedIn page</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2025 LogHappens. All rights reserved.
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/materialize-css@1.0.0-rc.1/dist/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('.tabs').tabs();
-        $('.collapsible').collapsible();
-        $('.materialbox').materialbox();
-        $('.tooltipped').tooltip();
+        $(document).ready(function() {
+            function updateAnchorOffset() {
+                const nav = document.querySelector('nav');
+                const extra = 16; // breathing room
+                const offset = ((nav && nav.offsetHeight) ? nav.offsetHeight : 0) + extra;
+                document.documentElement.style.setProperty('--anchor-offset', offset + 'px');
+            }
 
-        $(".tab a").on('click', function() {
-            window.location.hash = $(this).attr('href');
+            function showSectionByHash(rawHash) {
+                if (!rawHash) {
+                    return;
+                }
+                const hash = rawHash.replace(/^#/, '');
+                if (['loghappens', 'tracking', 'installation'].includes(hash)) {
+                    $('.nav-link').removeClass('active');
+                    $('.nav-link[data-section="' + hash + '"]').addClass('active');
+                    $('#loghappens, #tracking, #installation').hide();
+                    const $section = $('#' + hash).show();
+                    if ($section.length) {
+                        $section[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    return;
+                }
+
+                const $target = $('#' + hash);
+                if ($target.length) {
+                    const $container = $target.closest('.sections-container');
+                    if ($container.length) {
+                        $('#loghappens, #tracking, #installation').hide();
+                        $container.show();
+                        $('.nav-link').removeClass('active');
+                        $('.nav-link[data-section="' + $container.attr('id') + '"]').addClass('active');
+                    }
+                    $target[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+
+            // Initialize dynamic offset and listeners
+            updateAnchorOffset();
+            $(window).on('resize', updateAnchorOffset);
+
+            // Navigation functionality
+            $('.nav-link').on('click', function(e) {
+                e.preventDefault();
+
+                // Update active class
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+
+                // Hide all sections
+                $('#loghappens, #tracking, #installation').hide();
+
+                // Show selected section
+                const section = $(this).data('section');
+                const $section = $('#' + section).show();
+
+                // Smooth scroll to the revealed section taking offset into account
+                if ($section.length) {
+                    $section[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+
+                // Update URL hash
+                window.location.hash = section;
+            });
+
+            // Handle direct URL access
+            if (window.location.hash) {
+                showSectionByHash(window.location.hash);
+            }
+
+            // React to back/forward navigation between hashes
+            $(window).on('hashchange', function() {
+                showSectionByHash(window.location.hash);
+            });
+
+            // In-content anchor links (e.g., #parser) should reveal the right section and scroll nicely
+            $('a[href^="#"]').not('.nav-link').on('click', function(e) {
+                const href = this.getAttribute('href');
+                const id = href ? href.replace(/^#/, '') : '';
+                if (!id) {
+                    return;
+                }
+                const $target = $('#' + id);
+                if (!$target.length) {
+                    return;
+                }
+                e.preventDefault();
+                const $container = $target.closest('.sections-container');
+                if ($container.length) {
+                    $('#loghappens, #tracking, #installation').hide();
+                    $container.show();
+                    $('.nav-link').removeClass('active');
+                    $('.nav-link[data-section="' + $container.attr('id') + '"]').addClass('active');
+                }
+                $target[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                window.location.hash = id;
+            });
         });
-    });
     </script>
 </body>
 </html>
