@@ -1,0 +1,18 @@
+parameters:
+  level: 5
+  bootstrapFiles:
+    - phpstan-bootstrap.php
+  treatPhpDocTypesAsCertain: false
+  paths:
+    - libs
+    - logics
+    - routers
+    - views
+    - parsers
+  ignoreErrors:
+    - message: '#Variable \$data might not be defined#'
+      paths:
+        - parsers/*
+    - message: '#Variable \$[a-zA-Z0-9_]+ might not be defined#'
+      paths:
+        - views/*

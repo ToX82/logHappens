@@ -13,7 +13,7 @@
                         placeholder configurations that you can use to customize your log files.
                     </li>
                     <li>
-                        To do so, please head to the <a href='<?= buildUrl('configurations') ?>'>Configuration</a> page, and set up your configurations
+                        To do so, please head to the <a href='<?= \Libs\UrlHelper::buildUrl('configurations') ?>'>Configuration</a> page, and set up your configurations
                         according to your needs.
                     </li>
                     <li>
@@ -24,4 +24,3 @@
         </div>
     </div>
 </div>
-

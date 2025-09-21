@@ -21,7 +21,7 @@ if ($config === null) {
                 </div>
             </div>
 
-            <form method="post" action="<?= buildUrl('save_configurations') ?>" class="needs-validation p-4" novalidate>
+            <form method="post" action="<?= \Libs\UrlHelper::buildUrl('save_configurations') ?>" class="needs-validation p-4" novalidate>
                 <input type="text" id="input-name" name="input-name" value="<?= htmlspecialchars($configName) ?>" hidden>
 
                 <div class="row mb-4">
@@ -122,7 +122,7 @@ if ($config === null) {
                 </div>
 
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="<?= buildUrl('configurations') ?>" class="btn btn-outline-secondary">Cancel</a>
+                    <a href="<?= \Libs\UrlHelper::buildUrl('configurations') ?>" class="btn btn-outline-secondary">Cancel</a>
                     <button type="submit" name="btn-save-config" class="btn btn-primary">
                         <span class="iconify me-1" data-icon="mdi:content-save"></span>
                         Save Configuration

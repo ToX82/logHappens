@@ -1,9 +1,11 @@
 <?php
-// get operating system's directory separator
-define('ROOT', realpath('../') . DIRECTORY_SEPARATOR);
 
-include ROOT . "libs/libs.php";
-init();
+define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+
+require_once ROOT . 'vendor/autoload.php';
+require_once ROOT . 'libs/libs.php';
+
+\Libs\init();
 
 include ROOT . "routers/router.ajax.php";
 

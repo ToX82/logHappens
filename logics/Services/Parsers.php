@@ -13,18 +13,18 @@ class Parsers
     public function __construct()
     {
         if (!is_file(self::CONFIG_PATH)) {
-            reload(buildUrl('config_missing.html'));
+            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_missing.html'));
         }
 
         if (!is_writeable(self::CONFIG_PATH)) {
-            reload(buildUrl('config_readonly.html'));
+            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_readonly.html'));
         }
 
         $configContent = file_get_contents(self::CONFIG_PATH);
         $config = json_decode($configContent, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            reload(buildUrl('config_error.html'));
+            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_error.html'));
         }
 
         if (isset($config['parsers'])) {
@@ -169,7 +169,7 @@ class Parsers
     public function truncate(string $file): void
     {
         if (!isset($this->config[$file])) {
-            reload(buildUrl('404'));
+            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('404'));
         }
 
         $data = $this->config[$file];

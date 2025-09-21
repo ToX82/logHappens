@@ -4,7 +4,7 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Log Files</h4>
                 <span class="text-muted"><?= count($configurations) ?> tracked files</span>
-                <a href="<?= buildUrl("add_configuration") ?>" class="btn btn-primary">
+                <a href="<?= \Libs\UrlHelper::buildUrl("add_configuration") ?>" class="btn btn-primary">
                     <span class="iconify me-2" data-icon="mdi:plus"></span>
                     Add Configuration
                 </a>
@@ -50,7 +50,7 @@
                                             <?php } elseif (!is_writeable($value['file'])) { ?>
                                                 <span class="text-warning">
                                                     <span class="iconify me-1" data-icon="mdi:alert"></span>
-                                                    Read only - <a href='<?= buildUrl('display/troubleshooting') ?>'>Need help?</a>
+                                                    Read only - <a href='<?= \Libs\UrlHelper::buildUrl('display/troubleshooting') ?>'>Need help?</a>
                                                 </span>
                                             <?php } ?>
                                         </div>
@@ -70,13 +70,13 @@
                                                 </span>
                                             </button>
 
-                                            <a href="<?= buildUrl("edit_configuration/$configName") ?>"
+                                            <a href="<?= \Libs\UrlHelper::buildUrl("edit_configuration/$configName") ?>"
                                                class="btn btn-link text-primary p-1 me-2"
                                                title="Edit">
                                                 <span class="iconify" data-icon="mdi:pencil" data-width="18" data-height="18"></span>
                                             </a>
 
-                                            <a href="<?= buildUrl("duplicate_configuration/$configName") ?>"
+                                            <a href="<?= \Libs\UrlHelper::buildUrl("duplicate_configuration/$configName") ?>"
                                                class="btn btn-link text-success p-1 me-2"
                                                title="Clone">
                                                 <span class="iconify" data-icon="mdi:content-copy" data-width="18" data-height="18"></span>
@@ -85,7 +85,7 @@
                                             <button type="button"
                                                     class="btn btn-link text-danger p-1 btn-openModal"
                                                     title="Delete"
-                                                    href="<?= buildUrl("delete_configuration/$configName") ?>">
+                                                    href="<?= \Libs\UrlHelper::buildUrl("delete_configuration/$configName") ?>">
                                                 <span class="iconify" data-icon="mdi:delete" data-width="18" data-height="18"></span>
                                             </button>
                                         </div>

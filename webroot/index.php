@@ -1,13 +1,15 @@
 <?php
 
-define('ROOT', realpath('../') . DIRECTORY_SEPARATOR);
+define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
-include ROOT . "libs/libs.php";
-init();
-benchmark();
+require_once ROOT . 'vendor/autoload.php';
+require_once ROOT . 'libs/libs.php';
+
+\Libs\init();
+\Libs\Utilities::benchmark();
 
 include ROOT . "routers/router.php";
 include ROOT . "views/layouts/default.php";
 ?>
 
-<!-- <?= benchmark(); ?> sec. <?= convert(memory_get_usage()) ?> mem. -->
+<!-- <?= \Libs\Utilities::benchmark(); ?> sec. <?= \Libs\Utilities::convert(memory_get_usage()) ?> mem. -->

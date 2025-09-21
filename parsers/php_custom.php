@@ -1,6 +1,6 @@
 <?php
 
-$content = openFileOrDie($data['file']);
+$content = \Libs\Utilities::openFileOrDie($data['file']);
 
 $logs = [];
 $time = '';
@@ -10,7 +10,7 @@ foreach ($content as $line) {
     } else {
         // Grab the log's time and group logs by time
         $time = substr($line, 1, 20);
-        $time = toDateTime($time);
+        $time = \Libs\Utilities::toDateTime($time);
 
         if ($time != '') {
             // Remove date-time and other useless informations from the log details
@@ -23,7 +23,7 @@ foreach ($content as $line) {
             $line = str_replace('PHP', '', $line);
             $line = htmlentities($line);
             $line = str_replace('\n', '<br>', $line);
-            $line = normalizeChars($line);
+            $line = \Libs\Utilities::normalizeChars($line);
 
             // remove trailing spaces at the end of the line
             $line = preg_replace('/\s+$/m', '', $line);

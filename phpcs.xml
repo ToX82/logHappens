@@ -2,6 +2,8 @@
 <ruleset name="App">
     <rule ref="PSR12"/>
     <exclude-pattern>/vendor/*</exclude-pattern>
+    <exclude-pattern>/webroot/js/*</exclude-pattern>
+    <exclude-pattern>/webroot/sw.js</exclude-pattern>
 
     <rule ref="Generic.Files.LineLength">
         <properties>

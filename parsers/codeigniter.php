@@ -1,6 +1,6 @@
 <?php
 
-$content = openFileOrDie($data['file']);
+$content = \Libs\Utilities::openFileOrDie($data['file']);
 
 $logs = [];
 $time = '';
@@ -16,7 +16,7 @@ foreach ($content as $line) {
     }
 
     $line = str_replace(' -->', '', $line);
-    $line = normalizeChars($line);
+    $line = \Libs\Utilities::normalizeChars($line);
 
     // remove trailing spaces at the end of the line
     $line = preg_replace('/\s+$/m', '', $line);

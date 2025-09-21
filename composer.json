@@ -1,6 +1,9 @@
 {
     "autoload": {
-        "psr-4": {"Logics\\": "logics/"}
+        "psr-4": {
+            "Logics\\": "logics/",
+            "Libs\\": "libs/"
+        }
     },
     "require-dev": {
         "fig-r/psr2r-sniffer": "^0.6.3",

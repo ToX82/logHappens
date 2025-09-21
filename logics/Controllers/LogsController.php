@@ -2,6 +2,7 @@
 
 namespace Logics\Controllers;
 
+use Libs\UrlHelper;
 use Logics\Services\Parsers;
 
 class LogsController
@@ -21,22 +22,22 @@ class LogsController
     public function handleDefault(&$countAll)
     {
         if (empty($countAll)) {
-            reload(buildUrl('display/start'));
+            UrlHelper::reload(UrlHelper::buildUrl('display/start'));
         }
-        reload(buildUrl('display/info'));
+        UrlHelper::reload(UrlHelper::buildUrl('display/info'));
     }
 
     public function view(&$pageTitle, &$views, $file)
     {
         $logs = $this->parsersService->view($file);
         $pageTitle = $logs['title'] ?? '';
-        $views[] = ROOT . "views/parsers/log_reader.php";
+        $views[] = ROOT . 'views/parsers/log_reader.php';
         return $logs;
     }
 
     public function truncate($file)
     {
         $this->parsersService->truncate($file);
-        reload(buildUrl("viewlog/" . $file));
+        UrlHelper::reload(UrlHelper::buildUrl('viewlog/' . $file));
     }
 }

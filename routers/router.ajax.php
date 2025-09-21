@@ -1,6 +1,18 @@
 <?php
 
-$objParsers = new Logics\Services\Parsers();
+// Get container instance
+$container = \Libs\getContainer();
+
+try {
+    // Resolve services from container
+    $objParsers = $container->resolve('parsers');
+    $objConfig = $container->resolve('configurations');
+} catch (Exception $e) {
+    http_response_code(500);
+    echo json_encode(['error' => 'Service initialization failed']);
+    exit;
+}
+
 $return = null;
 
 if (isset($_GET['countall'])) {
@@ -16,27 +28,22 @@ if (isset($_GET['viewlog'])) {
     $return = include(ROOT . 'views/parsers/getdata.php');
 }
 if (isset($_GET['check-file-exists'])) {
-    $objConfig = new Logics\Services\Configurations();
     $filename = filter_var($_POST['filename'], FILTER_DEFAULT);
     $return = $objConfig->checkFileExists($filename);
     $return = json_encode($return);
 }
 if (isset($_GET['change-visibility'])) {
-    $objConfig = new Logics\Services\Configurations();
     $return = $objConfig->changeVisibility($_POST['configName']);
-
     $return = json_encode($return);
 }
 
 if (isset($_GET['update-order'])) {
-    $objConfig = new Logics\Services\Configurations();
     $order = json_decode($_POST['order'], true);
     $return = $objConfig->updateOrder($order);
-
     $return = json_encode($return);
 }
 
 if (isset($_GET['check-version'])) {
-    $versionInfo = getVersionInfo();
+    $versionInfo = \Libs\Version::getVersionInfo();
     $return = json_encode($versionInfo);
 }

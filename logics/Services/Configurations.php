@@ -2,6 +2,8 @@
 
 namespace Logics\Services;
 
+use Libs\UrlHelper;
+
 class Configurations
 {
     /**
@@ -51,7 +53,7 @@ class Configurations
             $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
             file_put_contents(ROOT . '/config.json', $jsonData);
 
-            reload(buildUrl('edit_configuration/' . $configKey));
+            UrlHelper::reload(UrlHelper::buildUrl('edit_configuration/' . $configKey));
         }
     }
 
@@ -71,7 +73,7 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        reload(buildUrl('edit_configuration/' . $new));
+        UrlHelper::reload(UrlHelper::buildUrl('edit_configuration/' . $new));
     }
 
     /**
@@ -89,7 +91,7 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        reload(buildUrl('configurations'));
+        UrlHelper::reload(UrlHelper::buildUrl('configurations'));
     }
 
     /**
@@ -178,9 +180,9 @@ class Configurations
         }
 
         if (!is_file(ROOT . "config.json")) {
-            reload(buildUrl('/display/create-config'));
+            UrlHelper::reload(UrlHelper::buildUrl('/display/create-config'));
         } elseif (!is_writeable(ROOT . "config.json")) {
-            reload(buildUrl('/display/create-config-writeable'));
+            UrlHelper::reload(UrlHelper::buildUrl('/display/create-config-writeable'));
         }
     }
 

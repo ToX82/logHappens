@@ -1,85 +1,127 @@
 <?php
 
 /**
- * Initialization instructions
- *
- * @return void
+ * Main library file
  */
-function init()
+
+namespace Libs;
+
+use Libs\Container;
+use Libs\Initializer;
+use Libs\LanguageDetector;
+use Libs\DebugHelper;
+use Libs\ServiceProvider;
+
+// Short class aliases for templates (shorthand helpers)
+if (!class_exists('Url')) {
+    class_alias(UrlHelper::class, 'Url');
+}
+if (!class_exists('Util')) {
+    class_alias(Utilities::class, 'Util');
+}
+
+// Global container instance
+$container = null;
+
+/**
+ * Get the global container instance
+ *
+ * @return Container
+ */
+function getContainer(): Container
 {
-    include_once __DIR__ . "/utilities.php";
-    include_once __DIR__ . "/paths.php";
-    include_once __DIR__ . "/security.php";
-    include_once __DIR__ . "/version_check.php";
+    global $container;
 
-    header('Content-type: text/html;charset=utf-8');
-
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL ^ E_DEPRECATED);
-
-    setting('theme');
-    setting('refresh');
-    setting('page-length');
-
-    define('BASE_URL', rtrim(baseUrl(), '/') . "/");
-
-    if (!is_file(ROOT . 'vendor/autoload.php')) {
-        echo file_get_contents(ROOT . 'webroot/firstrun.html');
-        die();
+    if ($container === null) {
+        $container = new Container();
+        $serviceProvider = new ServiceProvider($container);
+        $serviceProvider->register();
     }
 
-    require_once ROOT . 'vendor/autoload.php';
+    return $container;
 }
 
 /**
- * Detects the user's browser language
+ * Initialize the application
  *
- * @return string
- */
-function getBrowserLanguage()
-{
-    return substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-}
-
-/**
- * Detects the user's full browser language
- *
- * @return string
- */
-function getFullBrowserLanguage()
-{
-    return str_replace('-', '_', substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 5));
-}
-
-/**
- * Returns the user's language name (when available)
- *
- * @return string
- */
-function getUserLanguage()
-{
-    $languages = [
-        'nl' => 'Dutch',
-        'fr' => 'French',
-        'de' => 'German',
-        'it' => 'Italian',
-        'sp' => 'Spanish',
-    ];
-
-    $lang = getBrowserLanguage();
-    return $languages[$lang] ?? 'English';
-}
-
-/**
- * Debug function
- *
- * @param mixed $var Variable to be printed (string or array)
  * @return void
  */
-function debug($var)
+function init(): void
 {
-    echo "<pre>";
-    print_r($var);
-    echo "</pre>";
+    $container = getContainer();
+    $initializer = new Initializer($container);
+    $initializer->initialize();
+}
+
+/**
+ * Get language detector instance
+ *
+ * @return LanguageDetector
+ */
+function getLanguageDetector(): LanguageDetector
+{
+    static $detector = null;
+
+    if ($detector === null) {
+        $detector = new LanguageDetector();
+    }
+
+    return $detector;
+}
+
+/**
+ * Get debug helper instance
+ *
+ * @return DebugHelper
+ */
+function getDebugHelper(): DebugHelper
+{
+    static $helper = null;
+
+    if ($helper === null) {
+        $helper = new DebugHelper();
+    }
+
+    return $helper;
+}
+
+// Backward compatibility functions
+function getBrowserLanguage(): string
+{
+    return getLanguageDetector()->getBrowserLanguage();
+}
+
+function getFullBrowserLanguage(): string
+{
+    return getLanguageDetector()->getFullBrowserLanguage();
+}
+
+function getUserLanguage(): string
+{
+    return getLanguageDetector()->getUserLanguage();
+}
+
+function debug($var): void
+{
+    DebugHelper::debug($var);
+}
+
+function dump($var): void
+{
+    DebugHelper::dump($var);
+}
+
+function debugLog($data, string $level = 'debug'): void
+{
+    DebugHelper::log($data, $level);
+}
+
+function getMemoryUsage(): array
+{
+    return DebugHelper::getMemoryUsage();
+}
+
+function getExecutionTime(): float
+{
+    return DebugHelper::getExecutionTime();
 }

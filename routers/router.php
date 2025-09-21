@@ -7,9 +7,15 @@ use Logics\Controllers\PagesController;
 use Logics\Controllers\SettingsController;
 use Logics\Controllers\ConfigurationsController;
 
-$params = splitQueryParams();
+// Use namespaced helpers explicitly
+$params = \Libs\UrlHelper::splitQueryParams();
+
+// Get container instance
+$container = \Libs\getContainer();
+
 try {
-    $parsers = new Parsers();
+    // Resolve services from container
+    $parsers = $container->resolve('parsers');
     // Keep backward compatibility for views
     $objParsers = $parsers;
 } catch (Exception $e) {
@@ -17,13 +23,17 @@ try {
     die;
 }
 
-$configurationsService = new Configurations();
-$logsController = new LogsController($parsers);
-$configsController = new ConfigurationsController($configurationsService);
-$pagesController = new PagesController();
-$settingsController = new SettingsController();
+// Resolve controllers from container
+$logsController = $container->resolve('logs.controller');
+$configsController = $container->resolve('configurations.controller');
+$pagesController = $container->resolve('pages.controller');
+$settingsController = $container->resolve('settings.controller');
 
 $views = [];
+$pageTitle = $pageTitle ?? '';
+$countAll = $countAll ?? null;
+$configurations = $configurations ?? null;
+$config = $config ?? null;
 
 $logsController->countAll($countAll);
 
@@ -34,22 +44,22 @@ if (empty($params)) {
 $action = $params[0] ?? '';
 switch ($action) {
     case 'truncate':
-        $file = filterString(1);
+        $file = \Libs\Security::filterString(1);
         $logsController->truncate($file);
         break;
     case 'viewlog':
-        $file = filterString(1);
+        $file = \Libs\Security::filterString(1);
         $logs = $logsController->view($pageTitle, $views, $file);
         break;
     case 'display':
-        $displayPage = filterString(1);
+        $displayPage = \Libs\Security::filterString(1);
         $pagesController->display($pageTitle, $views, $displayPage, $countAll);
         break;
     case 'configurations':
         $configsController->index($pageTitle, $views, $configurations);
         break;
     case 'edit_configuration':
-        $configName = filterString(1);
+        $configName = \Libs\Security::filterString(1);
         $configsController->edit($pageTitle, $views, $parsers, $config, $configName);
         break;
     case 'add_configuration':
@@ -59,16 +69,16 @@ switch ($action) {
         $configsController->save();
         break;
     case 'duplicate_configuration':
-        $configName = filterString(1);
+        $configName = \Libs\Security::filterString(1);
         $configsController->duplicate($configName);
         break;
     case 'delete_configuration':
-        $configName = filterString(1);
+        $configName = \Libs\Security::filterString(1);
         $configsController->delete($configName);
         break;
     case 'writesettings':
-        $parameter = filterString(1);
-        $selected = filterString(2);
+        $parameter = \Libs\Security::filterString(1);
+        $selected = \Libs\Security::filterString(2);
         $settingsController->write($parameter, $selected);
         break;
     default:

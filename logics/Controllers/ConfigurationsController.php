@@ -2,6 +2,7 @@
 
 namespace Logics\Controllers;
 
+use Libs\UrlHelper;
 use Logics\Services\Configurations;
 
 class ConfigurationsController
@@ -17,7 +18,7 @@ class ConfigurationsController
     {
         if (!file_exists(ROOT . "config.json") || !is_writeable(ROOT . "config.json")) {
             $this->configService->starterConfigFile();
-            reload(buildUrl('/configurations'));
+            UrlHelper::reload(UrlHelper::buildUrl('/configurations'));
         }
 
         $pageTitle = "Configurations";
@@ -27,7 +28,7 @@ class ConfigurationsController
 
     public function edit(&$pageTitle, &$views, &$parsers, &$config, &$configName)
     {
-        $pageTitle = "Edit Configuration";
+        $pageTitle = 'Edit Configuration';
         $parsers = $this->configService->getAvailableParsers();
         $configurations = $this->configService->getConfigurations();
         $config = $configurations[$configName] ?? null;
@@ -35,18 +36,18 @@ class ConfigurationsController
         // Check if configuration exists
         if ($config === null) {
             $pageTitle = "Configuration Not Found";
-            $views[] = ROOT . "views/pages/404.php";
+            $views[] = ROOT . 'views/pages/404.php';
             return;
         }
 
-        $views[] = ROOT . "views/configurations/edit.php";
+        $views[] = ROOT . 'views/configurations/edit.php';
     }
 
     public function add(&$pageTitle, &$views, &$parsers)
     {
-        $pageTitle = "Add Configuration";
+        $pageTitle = 'Add Configuration';
         $parsers = $this->configService->getAvailableParsers();
-        $views[] = ROOT . "views/configurations/add.php";
+        $views[] = ROOT . 'views/configurations/add.php';
     }
 
     public function save()

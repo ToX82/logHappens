@@ -2,6 +2,7 @@
 
 namespace Logics\Controllers;
 
+use Libs\UrlHelper;
 use Logics\Services\Pages;
 
 class PagesController
@@ -12,7 +13,7 @@ class PagesController
 
         if ($displayPage === 'start') {
             if (!empty($countAll)) {
-                reload(buildUrl('/display/info'));
+                UrlHelper::reload(UrlHelper::buildUrl('/display/info'));
             }
         }
 

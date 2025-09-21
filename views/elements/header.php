@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="<?= buildUrl('') ?>">LogHappens</a>
+        <a class="navbar-brand" href="<?= \Libs\UrlHelper::buildUrl('') ?>">LogHappens</a>
         <div class="navbar-brand update-notification" id="header-update-notification" style="display: none;">
             <small class="text-light">
                 <i class="iconify" data-icon="mdi:update" style="font-size: 0.8em;"></i>
@@ -19,13 +19,13 @@
 
             <ul class="navbar-nav d-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= buildUrl("configurations") ?>">Configuration</a>
+                    <a class="nav-link" href="<?= \Libs\UrlHelper::buildUrl("configurations") ?>">Configuration</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= buildUrl("display/settings") ?>">Settings</a>
+                    <a class="nav-link" href="<?= \Libs\UrlHelper::buildUrl("display/settings") ?>">Settings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
+                    <a class="nav-link" href="<?= \Libs\UrlHelper::buildUrl("display/troubleshooting") ?>">Troubleshooting</a>
                 </li>
                 <li class="nav-item">
                     <a target="_blank" rel="noreferrer" class="nav-link" href="https://github.com/ToX82/logHappens">GitHub</a>

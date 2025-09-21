@@ -1,6 +1,6 @@
 <?php
 
-$content = openFileOrDie($data['file']);
+$content = \Libs\Utilities::openFileOrDie($data['file']);
 
 $logs = [];
 $time = '';
@@ -9,9 +9,9 @@ foreach ($content as $line) {
     if (substr($line, 0, 3) == "202") {
         $time = substr($line, 0, 20);
         $line = str_replace($time, "", $line);
-        $time = toDateTime($time);
+        $time = \Libs\Utilities::toDateTime($time);
     }
-    $line = normalizeChars($line);
+    $line = \Libs\Utilities::normalizeChars($line);
 
     // remove trailing spaces at the end of the line
     $line = preg_replace('/\s+$/m', '', $line);

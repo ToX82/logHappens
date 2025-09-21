@@ -29,16 +29,16 @@
 
                 <h5>How do I start tracking my logs?</h5>
                 <p>
-                    To start tracking your logs, you'll need to configure a few things. 
-                    You can do this by going to the <a href="<?= buildUrl("configurations") ?>">Configurations</a> page
+                    To start tracking your logs, you'll need to configure a few things.
+                    You can do this by going to the <a href="<?= \Libs\UrlHelper::buildUrl("configurations") ?>">Configurations</a> page
                     and adding your first configuration.
-                    You can customize some settings as well, like the UI theme, in the <a href="<?= buildUrl("settings") ?>">Settings</a> page.
+                    You can customize some settings as well, like the UI theme, in the <a href="<?= \Libs\UrlHelper::buildUrl("settings") ?>">Settings</a> page.
                 </p>
 
                 <h5>Any troubles?</h5>
                 <p>
-                    If you run into any issues, please refer to our <a href="<?= buildUrl("display/start") ?>">Start</a>
-                    or <a href="<?= buildUrl("display/troubleshooting") ?>">Troubleshooting</a> page.
+                    If you run into any issues, please refer to our <a href="<?= \Libs\UrlHelper::buildUrl("display/start") ?>">Start</a>
+                    or <a href="<?= \Libs\UrlHelper::buildUrl("display/troubleshooting") ?>">Troubleshooting</a> page.
                     And if you happen to come across any technical problems, don't hesitate to open an issue on
                     <a href="https://github.com/ToX82/logHappens/issues">GitHub</a>.
                 </p>

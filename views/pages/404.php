@@ -4,7 +4,7 @@
             <h3>404 page not found</h3>
             <span class="iconify" data-icon="bx:bx-error" data-inline="false" data-width="300"></span>
             <div class="haiku">
-                <?= randomError() ?>
+                <?= \Libs\Utilities::randomError() ?>
             </div>
         </div>
     </div>

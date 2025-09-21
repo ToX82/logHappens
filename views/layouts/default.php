@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?= getBrowserLanguage() ?>">
+<html lang="<?= \Libs\getBrowserLanguage() ?>">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,30 +19,30 @@
     <title><?= ($pageTitle) ? $pageTitle . " - " : '' ?>LogHappens</title>
 
     <!-- Favicons-->
-    <link rel="icon" href="<?= buildAssetUrl("webroot/img/favicon/favicon-32x32.png") ?>" sizes="32x32">
-    <link rel="apple-touch-icon-precomposed" href="<?= buildAssetUrl("webroot/img/favicon/apple-touch-icon-152x152.png") ?>">
+    <link rel="icon" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/favicon-32x32.png") ?>" sizes="32x32">
+    <link rel="apple-touch-icon-precomposed" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/apple-touch-icon-152x152.png") ?>">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css">
-    <?php if (setting('theme') !== 'bootstrap') { ?>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/<?= setting('theme') ?>/bootstrap.min.css">
+    <?php if (\Libs\Utilities::setting('theme') !== 'bootstrap') { ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/<?= \Libs\Utilities::setting('theme') ?>/bootstrap.min.css">
     <?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="<?= buildAssetUrl("webroot/css/layout.css") ?>">
+    <link rel="stylesheet" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/css/layout.css") ?>">
 
     <!-- PWA Manifest -->
-    <link rel="manifest" href="<?= buildAssetUrl("webroot/manifest.json") ?>">
+    <link rel="manifest" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/manifest.json") ?>">
 
     <!-- Apple Touch Icons -->
-    <link rel="apple-touch-icon" href="<?= buildAssetUrl("webroot/img/favicon/icon-152x152.png") ?>">
-    <link rel="apple-touch-icon" sizes="152x152" href="<?= buildAssetUrl("webroot/img/favicon/icon-152x152.png") ?>">
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= buildAssetUrl("webroot/img/favicon/icon-192x192.png") ?>">
+    <link rel="apple-touch-icon" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/icon-152x152.png") ?>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/icon-152x152.png") ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/icon-192x192.png") ?>">
 
     <!-- Windows Tile Icons -->
-    <meta name="msapplication-TileImage" content="<?= buildAssetUrl("webroot/img/favicon/icon-144x144.png") ?>">
+    <meta name="msapplication-TileImage" content="<?= \Libs\UrlHelper::buildAssetUrl("webroot/img/favicon/icon-144x144.png") ?>">
 
     <script rel=preconnect src="https://cdn.jsdelivr.net/npm/@iconify/iconify@1/dist/iconify.min.js"></script>
 </head>
-<body data-language="<?= getUserLanguage() ?>">
+<body data-language="<?= \Libs\getUserLanguage() ?>">
     <?php include(ROOT . 'views/elements/pwa.php') ?>
 
     <header id="header" class="page-topbar">
@@ -81,14 +81,14 @@
     <script src="https://cdn.jsdelivr.net/npm/push.js@1/bin/push.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-select-plugin@1/iconify-select-plugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mark.js@8/dist/jquery.mark.min.js"></script>
-    <script type="text/javascript" src="<?= buildAssetUrl("webroot/js/custom.js") ?>"></script>
+    <script type="text/javascript" src="<?= \Libs\UrlHelper::buildAssetUrl("webroot/js/custom.js") ?>"></script>
 
     <!-- PWA Service Worker Registration -->
     <script>
         // Register service worker for PWA functionality
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('<?= buildAssetUrl("webroot/sw.js") ?>')
+                navigator.serviceWorker.register('<?= \Libs\UrlHelper::buildAssetUrl("webroot/sw.js") ?>')
                     .then(function(registration) {
                         console.log('SW registered: ', registration);
                     })

@@ -29,7 +29,7 @@ $json->data = [];
             <td>
                 <div class="card border-primary mb-2">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span><?= toDateTime($time, true) ?></span>
+                        <span><?= \Libs\Utilities::toDateTime($time, true) ?></span>
                         <div class="perplexity-button-container">
                             <button class="perplexity-button btn btn-outline-primary btn-sm"
                                     data-error="<?= htmlspecialchars(json_encode(implode("\n", $log))) ?>"

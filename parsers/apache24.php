@@ -1,6 +1,6 @@
 <?php
 
-$content = openFileOrDie($data['file']);
+$content = \Libs\Utilities::openFileOrDie($data['file']);
 
 $logs = [];
 $time = '';
@@ -10,11 +10,11 @@ foreach ($content as $line) {
     } else {
         // Grab the log's time and group logs by time
         $time = substr($line, 1, 19);
-        $time = toDateTime($time);
+        $time = \Libs\Utilities::toDateTime($time);
 
         if ($time != '') {
             // Remove date-time and other useless informations from the log details
-            $line = normalizeChars($line);
+            $line = \Libs\Utilities::normalizeChars($line);
             $line = substr($line, 34);
             $line = preg_replace('[\[:error(.*?)\]]', '', $line, 1);
             $line = preg_replace('[\[pid (.*?)\]]', '', $line, 1);
