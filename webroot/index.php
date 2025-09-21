@@ -2,6 +2,11 @@
 
 define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
 
+if (!is_file(ROOT . 'vendor/autoload.php')) {
+    echo file_get_contents(ROOT . 'webroot/firstrun.html');
+    die;
+}
+
 require_once ROOT . 'vendor/autoload.php';
 require_once ROOT . 'libs/libs.php';
 

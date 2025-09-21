@@ -1,6 +1,6 @@
 {
     "parsers": {
-        "apache": {
+        "1": {
             "icon": "logos:apache",
             "color": "#104B73",
             "title": "apache",
