@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Controllers;
 
 use Libs\UrlHelper;
@@ -7,7 +9,7 @@ use Logics\Services\Pages;
 
 class PagesController
 {
-    public function display(&$pageTitle, &$views, $displayPage, $countAll)
+    public function display(&$pageTitle, &$views, string $displayPage, $countAll): void
     {
         $pageTitle = ucfirst($displayPage);
 

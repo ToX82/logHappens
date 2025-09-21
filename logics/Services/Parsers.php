@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Services;
 
 class Parsers
@@ -78,7 +80,8 @@ class Parsers
     {
         $counts = [];
         foreach ($this->config as $key => $config) {
-            $counts[$key] = $this->count($key);
+            $keyString = (string)$key;
+            $counts[$keyString] = $this->count($keyString);
         }
 
         return $counts;
@@ -185,13 +188,23 @@ class Parsers
     private function getLogs(string $file): array
     {
         $logs = [];
-        if (isset($this->config[$file])) {
-            $data = $this->config[$file];
-            $parserFile = ROOT . "parsers/" . $data['parser'] . ".php";
-            if (is_file($parserFile)) {
-                include $parserFile;
-            }
+        if (!isset($this->config[$file])) {
+            return $logs;
         }
+
+        $data = $this->config[$file];
+        $parserFile = ROOT . "parsers/" . $data['parser'] . ".php";
+        if (!is_file($parserFile)) {
+            return $logs;
+        }
+
+        // Isolate parser scope to avoid leaking variables
+        $logs = (static function (array $data, string $parserFile): array {
+            $logs = [];
+            /** @psalm-suppress UnresolvableInclude, UnusedVariable */
+            include $parserFile;
+            return $logs;
+        })($data, $parserFile);
         return $logs;
     }
 }

@@ -13,21 +13,6 @@ use Libs\Utilities;
 class Initializer
 {
     /**
-     * @var Container
-     */
-    private Container $container;
-
-    /**
-     * Constructor
-     *
-     * @param Container $container
-     */
-    public function __construct(Container $container)
-    {
-        $this->container = $container;
-    }
-
-    /**
      * Initialize the application
      *
      * @return void

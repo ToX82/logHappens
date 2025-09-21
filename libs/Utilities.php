@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Libs;
 
 use Moment\CustomFormats\MomentJs;
@@ -69,8 +71,13 @@ class Utilities
      */
     public static function convert(int $size): string
     {
+        if ($size <= 0) {
+            return '0 b';
+        }
+
         $unit = ['b', 'kb', 'mb', 'gb', 'tb', 'pb'];
         $index = (int)floor(log($size, 1024));
+        $index = max(0, min($index, count($unit) - 1));
 
         return round($size / pow(1024, $index), 2) . ' ' . $unit[$index];
     }

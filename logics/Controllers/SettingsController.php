@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Controllers;
 
 use Libs\UrlHelper;
@@ -7,12 +9,15 @@ use Libs\Utilities;
 
 class SettingsController
 {
-    public function write($parameter, $selected)
+    public function write(string $parameter, string $selected): void
     {
         Utilities::writeSettingsCookie($parameter, $selected);
 
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            UrlHelper::reload($_SERVER['HTTP_REFERER']);
+        $referer = (string)($_SERVER['HTTP_REFERER'] ?? '');
+        $base = UrlHelper::baseUrl();
+        if ($referer !== '' && str_starts_with($referer, $base)) {
+            UrlHelper::reload($referer);
+            return;
         }
 
         UrlHelper::reload('/');

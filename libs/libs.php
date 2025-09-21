@@ -48,8 +48,7 @@ function getContainer(): Container
  */
 function init(): void
 {
-    $container = getContainer();
-    $initializer = new Initializer($container);
+    $initializer = new Initializer();
     $initializer->initialize();
 }
 

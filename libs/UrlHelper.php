@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Libs;
 
 /**
@@ -90,8 +92,7 @@ class UrlHelper
             $destination = BASE_URL . $destination;
         }
         header('Location: ' . $destination);
-        echo "<meta http-equiv='refresh' content=\"0;URL='{$destination}'\">";
-        die();
+        exit;
     }
 
     /**

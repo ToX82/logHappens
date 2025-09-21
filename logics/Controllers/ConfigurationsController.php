@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Controllers;
 
 use Libs\UrlHelper;
@@ -14,7 +16,7 @@ class ConfigurationsController
         $this->configService = $configService;
     }
 
-    public function index(&$pageTitle, &$views, &$configurations)
+    public function index(&$pageTitle, &$views, &$configurations): void
     {
         if (!file_exists(ROOT . "config.json") || !is_writeable(ROOT . "config.json")) {
             $this->configService->starterConfigFile();
@@ -26,7 +28,7 @@ class ConfigurationsController
         $views[] = ROOT . "views/configurations/index.php";
     }
 
-    public function edit(&$pageTitle, &$views, &$parsers, &$config, &$configName)
+    public function edit(&$pageTitle, &$views, &$parsers, &$config, &$configName): void
     {
         $pageTitle = 'Edit Configuration';
         $parsers = $this->configService->getAvailableParsers();
@@ -43,24 +45,24 @@ class ConfigurationsController
         $views[] = ROOT . 'views/configurations/edit.php';
     }
 
-    public function add(&$pageTitle, &$views, &$parsers)
+    public function add(&$pageTitle, &$views, &$parsers): void
     {
         $pageTitle = 'Add Configuration';
         $parsers = $this->configService->getAvailableParsers();
         $views[] = ROOT . 'views/configurations/add.php';
     }
 
-    public function save()
+    public function save(): void
     {
         $this->configService->saveConfig();
     }
 
-    public function duplicate($configName)
+    public function duplicate(string $configName): void
     {
         $this->configService->duplicateConfig($configName);
     }
 
-    public function delete($configName)
+    public function delete(string $configName): void
     {
         $this->configService->deleteConfig($configName);
     }

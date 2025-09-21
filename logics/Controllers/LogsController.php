@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Controllers;
 
 use Libs\UrlHelper;
@@ -14,12 +16,12 @@ class LogsController
         $this->parsersService = $parsersService;
     }
 
-    public function countAll(&$countAll)
+    public function countAll(&$countAll): void
     {
         $countAll = $this->parsersService->countAll();
     }
 
-    public function handleDefault(&$countAll)
+    public function handleDefault(&$countAll): void
     {
         if (empty($countAll)) {
             UrlHelper::reload(UrlHelper::buildUrl('display/start'));
@@ -27,7 +29,7 @@ class LogsController
         UrlHelper::reload(UrlHelper::buildUrl('display/info'));
     }
 
-    public function view(&$pageTitle, &$views, $file)
+    public function view(&$pageTitle, &$views, string $file): array
     {
         $logs = $this->parsersService->view($file);
         $pageTitle = $logs['title'] ?? '';
@@ -35,7 +37,7 @@ class LogsController
         return $logs;
     }
 
-    public function truncate($file)
+    public function truncate(string $file): void
     {
         $this->parsersService->truncate($file);
         UrlHelper::reload(UrlHelper::buildUrl('viewlog/' . $file));

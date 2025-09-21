@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Logics\Services;
 
 use Libs\UrlHelper;
@@ -28,30 +30,41 @@ class Configurations
      *
      * @return void
      */
-    public function saveConfig()
+    public function saveConfig(): void
     {
         $configurations = $this->getConfigurations();
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-save-config'])) {
+        if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['btn-save-config'])) {
             $config = [];
 
             $configKey = count($configurations) + 1;
-            if (isset($_POST['input-name']) && is_numeric($_POST['input-name'])) {
-                $configKey = intval($_POST['input-name']);
+            $rawName = $_POST['input-name'] ?? '';
+            if ($rawName !== '' && is_numeric($rawName)) {
+                $configKey = (int)$rawName;
             }
 
-            $config['icon'] = $_POST["input-icon"];
-            $config['color'] = $_POST["input-color"];
-            $config['title'] = $_POST["input-title"];
-            $config['file'] = $_POST["input-file"];
-            $config['parser'] = $_POST["input-parser"];
-            $config['disabled'] = isset($_POST['input-disabled']) ? false : true;
-            $config['truncatable'] = isset($_POST['input-truncatable']) ? true : false;
+            $icon = (string)filter_var($_POST['input-icon'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $color = (string)filter_var($_POST['input-color'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $title = (string)filter_var($_POST['input-title'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $file = (string)filter_var($_POST['input-file'] ?? '', FILTER_UNSAFE_RAW);
+            $parser = (string)filter_var($_POST['input-parser'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $disabled = !isset($_POST['input-disabled']);
+            $truncatable = isset($_POST['input-truncatable']);
+
+            $config['icon'] = $icon;
+            $config['color'] = $color;
+            $config['title'] = $title;
+            $config['file'] = $file;
+            $config['parser'] = $parser;
+            $config['disabled'] = (bool)$disabled;
+            $config['truncatable'] = (bool)$truncatable;
 
             $configurations[$configKey] = $config;
 
             $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-            file_put_contents(ROOT . '/config.json', $jsonData);
+            if ($jsonData !== false) {
+                file_put_contents(ROOT . '/config.json', $jsonData);
+            }
 
             UrlHelper::reload(UrlHelper::buildUrl('edit_configuration/' . $configKey));
         }
@@ -63,7 +76,7 @@ class Configurations
      * @param string $configName The name of the configuration file to be duplicated.
      * @return void
      */
-    public function duplicateConfig($configName)
+    public function duplicateConfig(string $configName): void
     {
         $configurations = $this->getConfigurations();
         $new = count($configurations) + 1;
@@ -82,7 +95,7 @@ class Configurations
      * @param string $configName The name of the configuration to delete.
      * @return void
      */
-    public function deleteConfig($configName)
+    public function deleteConfig(string $configName): void
     {
         $configurations = $this->getConfigurations();
 
@@ -101,7 +114,7 @@ class Configurations
      * @param string $string The string to be slugified.
      * @return string The slugified string.
      */
-    public function slugString($string)
+    public function slugString(string $string): string
     {
         $slug = preg_replace('/[^a-z0-9\s]/', '', strtolower($string));
         $slug = trim($slug);
@@ -118,7 +131,7 @@ class Configurations
      *
      * @return array The list of available parsers.
      */
-    public function getAvailableParsers()
+    public function getAvailableParsers(): array
     {
         $directory = ROOT . "/parsers/";
 
@@ -139,7 +152,7 @@ class Configurations
      * @param string $filename The name of the file to check.
      * @return bool Returns true if the file exists, false otherwise.
      */
-    public function checkFileExists($filename)
+    public function checkFileExists(string $filename): bool
     {
         return file_exists($filename) && is_file($filename);
     }
@@ -148,9 +161,9 @@ class Configurations
      * Change the visibility of a configuration.
      *
      * @param string $configName The name of the configuration to change.
-     * @return object Returns the configuration object.
+     * @return array Returns the configuration array.
      */
-    public function changeVisibility($configName)
+    public function changeVisibility(string $configName): array
     {
         $configurations = $this->getConfigurations();
         $configurations[$configName]['disabled'] = !$configurations[$configName]['disabled'];
@@ -168,7 +181,7 @@ class Configurations
      * populates it with the default configurations. It also sets the
      * necessary permissions on the config file.
      */
-    public function starterConfigFile()
+    public function starterConfigFile(): void
     {
         if (is_writeable(ROOT)) {
             $starterFile = fopen(ROOT . "config.json", 'w');
@@ -176,7 +189,7 @@ class Configurations
 
             $defaultConfigurations = file_get_contents(ROOT . "config.default.json");
             file_put_contents(ROOT . "config.json", $defaultConfigurations);
-            chmod(ROOT . "config.json", 0777);
+            chmod(ROOT . "config.json", 0664);
         }
 
         if (!is_file(ROOT . "config.json")) {
@@ -192,7 +205,7 @@ class Configurations
      * @param array $order Array containing the configuration names in the new order
      * @return bool Returns true if successful, false otherwise
      */
-    public function updateOrder($order)
+    public function updateOrder(array $order): bool
     {
         $configurations = $this->getConfigurations();
         $newConfigurations = [];
