@@ -46,8 +46,11 @@ if (isset($_GET['update-order'])) {
     if (!is_array($order)) {
         $order = [];
     }
-    $return = $objConfig->updateOrder($order);
-    $return = json_encode($return);
+    $ok = $objConfig->updateOrder($order);
+    $return = json_encode([
+        'success' => (bool)$ok,
+        'message' => $ok ? 'Order updated' : 'Order update failed'
+    ]);
 }
 
 if (isset($_GET['check-version'])) {

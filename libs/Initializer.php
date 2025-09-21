@@ -23,6 +23,7 @@ class Initializer
         $this->loadAutoloader();
         $this->setHeaders();
         $this->configureErrorReporting();
+        $this->initializeSession();
         $this->loadSettings();
         $this->defineConstants();
     }
@@ -47,6 +48,18 @@ class Initializer
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL ^ E_DEPRECATED);
+    }
+
+    /**
+     * Initialize PHP session if not started
+     *
+     * @return void
+     */
+    private function initializeSession(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Logics\Services;
 
+use Libs\Flash;
 use Libs\UrlHelper;
 
 class Configurations
@@ -66,7 +67,9 @@ class Configurations
                 file_put_contents(ROOT . '/config.json', $jsonData);
             }
 
-            UrlHelper::reload(UrlHelper::buildUrl('edit_configuration/' . $configKey));
+            Flash::add('Configuration saved successfully', 'success');
+
+            UrlHelper::reload(UrlHelper::buildUrl('configurations/'));
         }
     }
 
@@ -86,6 +89,8 @@ class Configurations
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
+        Flash::add('Configuration duplicated as #' . $new, 'success');
+
         UrlHelper::reload(UrlHelper::buildUrl('edit_configuration/' . $new));
     }
 
@@ -103,6 +108,8 @@ class Configurations
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
+
+        Flash::add('Configuration deleted', 'success');
 
         UrlHelper::reload(UrlHelper::buildUrl('configurations'));
     }
@@ -170,6 +177,10 @@ class Configurations
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
+
+        $title = $configurations[$configName]['title'] ?? (string)$configName;
+        $enabled = !$configurations[$configName]['disabled'];
+        Flash::add(($enabled ? 'Enabled' : 'Disabled') . ' ' . $title, 'info');
 
         return $configurations[$configName];
     }

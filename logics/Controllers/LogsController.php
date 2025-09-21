@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Logics\Controllers;
 
 use Libs\UrlHelper;
+use Libs\Flash;
 use Logics\Services\Parsers;
 
 class LogsController
@@ -40,6 +41,7 @@ class LogsController
     public function truncate(string $file): void
     {
         $this->parsersService->truncate($file);
+        Flash::add('Logs truncated', 'warning');
         UrlHelper::reload(UrlHelper::buildUrl('viewlog/' . $file));
     }
 }

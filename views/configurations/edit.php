@@ -121,12 +121,19 @@ if ($config === null) {
                         role="switch" <?= ($config['truncatable'] ?? true) === true ? 'checked' : ''; ?>>
                 </div>
 
-                <div class="d-flex justify-content-end gap-2">
-                    <a href="<?= \Libs\UrlHelper::buildUrl('configurations') ?>" class="btn btn-outline-secondary">Cancel</a>
-                    <button type="submit" name="btn-save-config" class="btn btn-primary">
-                        <span class="iconify me-1" data-icon="mdi:content-save"></span>
-                        Save Configuration
-                    </button>
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="<?= \Libs\UrlHelper::buildUrl('delete_configuration/' . $configName) ?>"
+                           class="btn btn-outline-danger btn-openModal"
+                           data-message="Are you sure you want to delete this configuration?">
+                            <span class="iconify me-1" data-icon="mdi:trash-can-outline"></span>
+                            Delete
+                        </a>
+
+                        <button type="submit" name="btn-save-config" class="btn btn-primary">
+                            <span class="iconify me-1" data-icon="mdi:content-save"></span>
+                            Save Configuration
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

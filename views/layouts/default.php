@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/<?= \Libs\Utilities::setting('theme') ?>/bootstrap.min.css">
     <?php } ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs4@1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="<?= \Libs\UrlHelper::buildAssetUrl("webroot/css/layout.css") ?>">
 
     <!-- PWA Manifest -->
@@ -72,6 +73,7 @@
     </main>
 
     <?php include(ROOT . 'views/elements/confirm_truncate.php') ?>
+    <?php include(ROOT . 'views/elements/flash.php') ?>
     <div class="baseUrl d-none"><?= BASE_URL ?></div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
@@ -81,6 +83,7 @@
     <script src="https://cdn.jsdelivr.net/npm/push.js@1/bin/push.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-select-plugin@1/iconify-select-plugin.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mark.js@8/dist/jquery.mark.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     <script type="text/javascript" src="<?= \Libs\UrlHelper::buildAssetUrl("webroot/js/custom.js") ?>"></script>
 
     <!-- PWA Service Worker Registration -->

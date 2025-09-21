@@ -107,7 +107,36 @@ $(document).ready(function () {
                 $.ajax({
                     url: `${baseUrl}ajax.php?update-order`,
                     method: 'POST',
+                    dataType: 'json',
                     data: { order: JSON.stringify(order) }
+                }).done(function (res) {
+                    var ok = !!(res && (res.success === true || res === true));
+                    var msg = (res && res.message) ? res.message : (ok ? 'Order updated' : 'Order update failed');
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: ok ? 'success' : 'error',
+                            title: msg,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            showCloseButton: true,
+                            showConfirmButton: false
+                        });
+                    }
+                }).fail(function () {
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Order update failed',
+                            timer: 2500,
+                            timerProgressBar: true,
+                            showCloseButton: true,
+                            showConfirmButton: false
+                        });
+                    }
                 });
             });
         });
@@ -128,6 +157,8 @@ $(document).ready(function () {
         e.preventDefault();
         const link = $(this).attr('href');
         const $modal = $('#js-confirm');
+        const message = $(this).data('message') || 'Are you sure you want to proceed?';
+        $modal.find('.js-confirm-message').text(message);
         $modal.modal('show');
 
         $modal.find('.yes-btn').off('click').on('click', function () {
