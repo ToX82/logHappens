@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Logics\Services;
 
+use Libs\UrlHelper;
+
 class Parsers
 {
     private $config = [];
@@ -15,18 +17,18 @@ class Parsers
     public function __construct()
     {
         if (!is_file(self::CONFIG_PATH)) {
-            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_missing.html'));
+            UrlHelper::reload(UrlHelper::buildUrl('config_missing.html'));
         }
 
         if (!is_writeable(self::CONFIG_PATH)) {
-            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_readonly.html'));
+            UrlHelper::reload(UrlHelper::buildUrl('config_readonly.html'));
         }
 
         $configContent = file_get_contents(self::CONFIG_PATH);
         $config = json_decode($configContent, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('config_error.html'));
+            UrlHelper::reload(UrlHelper::buildUrl('config_error.html'));
         }
 
         if (isset($config['parsers'])) {
@@ -111,6 +113,10 @@ class Parsers
      */
     public function view(string $file): array
     {
+        if (!isset($this->config[$file])) {
+            UrlHelper::reload(UrlHelper::buildUrl('404'));
+        }
+
         $data = $this->config[$file];
 
         return [
@@ -172,7 +178,7 @@ class Parsers
     public function truncate(string $file): void
     {
         if (!isset($this->config[$file])) {
-            \Libs\UrlHelper::reload(\Libs\UrlHelper::buildUrl('404'));
+            UrlHelper::reload(UrlHelper::buildUrl('404'));
         }
 
         $data = $this->config[$file];
