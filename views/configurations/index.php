@@ -62,7 +62,7 @@
                                                            <?= $value['disabled'] ? 'opacity-50' : '' ?>"
                                                     id="<?= $configName ?>"
                                                     title="<?= $value['disabled'] ? 'Show in sidebar' : 'Hide from sidebar' ?>">
-                                                <span class="iconify"
+                                                <span class="iconify text-dark"
                                                       id="icon-eye-<?= $configName ?>"
                                                       data-icon="<?= $value['disabled'] ? 'dashicons:hidden' : 'dashicons:visibility' ?>"
                                                       data-width="18"
