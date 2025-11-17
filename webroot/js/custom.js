@@ -270,6 +270,50 @@ function initPerplexityButton() {
             openPerplexityWithError(errorText);
         }
     });
+
+    // Handle Copy button click
+    $(document).on('click', '.copy-button', function(e) {
+        e.preventDefault();
+        const errorText = $(this).data('error');
+
+        if (errorText) {
+            // jQuery automatically parses JSON from data attributes
+            const textToCopy = typeof errorText === 'string' ? errorText : JSON.stringify(errorText);
+
+            navigator.clipboard.writeText(textToCopy).then(function() {
+                // Show feedback to user
+                const $button = $(e.currentTarget);
+                const originalText = $button.html();
+                $button.html('<span class="iconify me-1" data-icon="mdi:check" data-inline="true"></span>Copied!');
+                $button.addClass('btn-success').removeClass('btn-outline-secondary');
+
+                setTimeout(function() {
+                    $button.html(originalText);
+                    $button.removeClass('btn-success').addClass('btn-outline-secondary');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+
+                // Show feedback even with fallback
+                const $button = $(e.currentTarget);
+                const originalText = $button.html();
+                $button.html('<span class="iconify me-1" data-icon="mdi:check" data-inline="true"></span>Copied!');
+                $button.addClass('btn-success').removeClass('btn-outline-secondary');
+
+                setTimeout(function() {
+                    $button.html(originalText);
+                    $button.removeClass('btn-success').addClass('btn-outline-secondary');
+                }, 2000);
+            });
+        }
+    });
 }
 
 /**
@@ -278,8 +322,12 @@ function initPerplexityButton() {
  */
 function showPerplexityButton($card) {
     const $button = $card.find('.perplexity-button');
+    const $copyButton = $card.find('.copy-button');
     if ($button.length) {
         $button.addClass('show');
+    }
+    if ($copyButton.length) {
+        $copyButton.addClass('show');
     }
 }
 
@@ -289,8 +337,12 @@ function showPerplexityButton($card) {
  */
 function hidePerplexityButton($card) {
     const $button = $card.find('.perplexity-button');
+    const $copyButton = $card.find('.copy-button');
     if ($button.length) {
         $button.removeClass('show');
+    }
+    if ($copyButton.length) {
+        $copyButton.removeClass('show');
     }
 }
 
