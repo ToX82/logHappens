@@ -103,7 +103,7 @@ class UrlHelper
     public static function currentUrl(): string
     {
         if (!isset($_SERVER['HTTP_HOST'])) {
-            return BASE_URL ?: '/';
+            return BASE_URL;
         }
         $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = (string)$_SERVER['HTTP_HOST'];

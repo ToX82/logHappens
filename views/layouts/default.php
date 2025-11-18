@@ -16,6 +16,12 @@
     <meta name="msapplication-TileColor" content="#0D47A1">
     <meta name="msapplication-config" content="/browserconfig.xml">
 
+<?php
+/** @var string $pageTitle */
+/** @var array $views */
+$pageTitle = $pageTitle ?? '';
+$views = $views ?? [];
+?>
     <title><?= ($pageTitle) ? $pageTitle . " - " : '' ?>LogHappens</title>
 
     <!-- Favicons-->

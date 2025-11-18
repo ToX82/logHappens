@@ -54,7 +54,7 @@
                         <div class="mb-4">
                             <label for="input-parser" class="form-label fw-bold">Log Parser</label>
                             <select class="form-select" id="input-parser" name="input-parser">
-                                <?php foreach ($parsers as $parser) { ?>
+                                <?php foreach ($parsers ?? [] as $parser) { ?>
                                     <option><?= htmlspecialchars($parser) ?></option>
                                 <?php } ?>
                             </select>

@@ -1,6 +1,6 @@
 <?php
 // Check if config exists
-if ($config === null) {
+if (!isset($config) || !is_array($config)) {
     echo '<div class="alert alert-danger">Configuration not found.</div>';
     return;
 }
@@ -22,7 +22,7 @@ if ($config === null) {
             </div>
 
             <form method="post" action="<?= \Libs\UrlHelper::buildUrl('save_configurations') ?>" class="needs-validation p-4" novalidate>
-                <input type="text" id="input-name" name="input-name" value="<?= htmlspecialchars($configName) ?>" hidden>
+                <input type="text" id="input-name" name="input-name" value="<?= htmlspecialchars($configName ?? '') ?>" hidden>
 
                 <div class="row mb-4">
                     <!-- Colonna sinistra -->
@@ -51,7 +51,7 @@ if ($config === null) {
                         <div class="mb-4">
                             <label for="input-parser" class="form-label fw-bold">Log Parser</label>
                             <select class="form-select" id="input-parser" name="input-parser">
-                                <?php foreach ($parsers as $parser) { ?>
+                                <?php foreach ($parsers ?? [] as $parser) { ?>
                                     <option <?= $config['parser'] == $parser ? 'selected' : '' ?>>
                                         <?= htmlspecialchars($parser) ?>
                                     </option>
@@ -122,7 +122,7 @@ if ($config === null) {
                 </div>
 
                     <div class="d-flex justify-content-end gap-2">
-                        <a href="<?= \Libs\UrlHelper::buildUrl('delete_configuration/' . $configName) ?>"
+                        <a href="<?= \Libs\UrlHelper::buildUrl('delete_configuration/' . ($configName ?? '')) ?>"
                            class="btn btn-outline-danger btn-openModal"
                            data-message="Are you sure you want to delete this configuration?">
                             <span class="iconify me-1" data-icon="mdi:trash-can-outline"></span>

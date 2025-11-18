@@ -1,3 +1,10 @@
+<?php
+if (!isset($logs) || !is_array($logs)) {
+    echo '<div class="alert alert-danger">Logs not found.</div>';
+    return;
+}
+?>
+
 <h4 data-file="<?= $logs['file'] ?>" class="mb-4">
     <i style="color: <?= $logs['color'] ?>">
         <span class="iconify" data-height="30" data-width="30" data-icon="<?= $logs['icon'] ?>" data-inline="false"></span>

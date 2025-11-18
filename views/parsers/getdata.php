@@ -1,4 +1,6 @@
 <?php
+/** @var array $return */
+$return = $return ?? ['recordsTotal' => 0, 'recordsFiltered' => 0, 'data' => []];
 $json = new stdClass();
 $json->recordsTotal = $return['recordsTotal'];
 $json->recordsFiltered = $return['recordsFiltered'];

@@ -1,5 +1,6 @@
 <?php
 
+/** @var array $data */
 $content = \Libs\Utilities::openFileOrDie($data['file']);
 
 $logs = [];
