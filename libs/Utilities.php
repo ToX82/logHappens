@@ -127,7 +127,7 @@ class Utilities
         }
 
         $settings = self::listSettings($parameter);
-        $selected = $settings['default'] ?? '';
+        $selected = (string)($settings['default'] ?? '');
 
         return self::writeSettingsCookie($parameter, $selected);
     }
