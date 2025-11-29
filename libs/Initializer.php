@@ -63,15 +63,23 @@ class Initializer
     }
 
     /**
-     * Load application settings
+     * Ensures all required settings cookies exist with default values.
      *
      * @return void
      */
     private function loadSettings(): void
     {
-        Utilities::setting('theme');
-        Utilities::setting('refresh');
-        Utilities::setting('page-length');
+        $settings = ['theme', 'refresh', 'page-length'];
+
+        foreach ($settings as $parameter) {
+            if (!isset($_COOKIE[$parameter])) {
+                $settingsData = Utilities::listSettings($parameter);
+                if ($settingsData !== null) {
+                    $default = (string)($settingsData['default'] ?? '');
+                    Utilities::writeSettingsCookie($parameter, $default);
+                }
+            }
+        }
     }
 
     /**

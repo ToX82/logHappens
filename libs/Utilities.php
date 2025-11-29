@@ -115,7 +115,7 @@ class Utilities
     }
 
     /**
-     * Get the user-selected theme.
+     * Returns the current setting value. Read-only - never writes cookies.
      *
      * @param string $parameter
      * @return string
@@ -123,34 +123,52 @@ class Utilities
     public static function setting(string $parameter): string
     {
         if (isset($_COOKIE[$parameter])) {
-            return (string)$_COOKIE[$parameter];
+            $value = (string)$_COOKIE[$parameter];
+            $settings = self::listSettings($parameter);
+
+            // Reject invalid cookie values (e.g., manually tampered)
+            if (isset($settings['options']) && in_array($value, $settings['options'], true)) {
+                return $value;
+            }
         }
 
         $settings = self::listSettings($parameter);
-        $selected = (string)($settings['default'] ?? '');
-
-        return self::writeSettingsCookie($parameter, $selected);
+        return (string)($settings['default'] ?? '');
     }
 
     /**
-     * Writes the user's selected value into a cookie.
+     * Sets a cookie with the given setting value.
      *
      * @param string $parameter
      * @param string $selected
-     * @return string
+     * @return string The validated value (may differ from input if invalid)
+     * @throws \InvalidArgumentException If parameter is unknown
+     * @throws \RuntimeException If headers have already been sent
      */
     public static function writeSettingsCookie(string $parameter, string $selected): string
     {
         $settings = self::listSettings($parameter);
 
+        if (!isset($settings)) {
+            throw new \InvalidArgumentException("Unknown setting parameter: {$parameter}");
+        }
+
         if (!in_array($selected, $settings['options'] ?? [], true)) {
             $selected = (string)($settings['default'] ?? '');
         }
 
-        // Avoid header warnings during CLI runs
-        if (PHP_SAPI !== 'cli') {
-            setcookie($parameter, $selected, strtotime('+1 year'), '/');
+        if (PHP_SAPI === 'cli') {
+            return $selected;
         }
+
+        if (headers_sent()) {
+            throw new \RuntimeException(
+                "Cannot set cookie '{$parameter}': headers have already been sent. " .
+                "Cookies must be set before any output."
+            );
+        }
+
+        setcookie($parameter, $selected, strtotime('+1 year'), '/');
 
         return $selected;
     }
