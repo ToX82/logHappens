@@ -34,14 +34,12 @@ $json->data = [];
                         <span><?= \Libs\Utilities::toDateTime($time, true) ?></span>
                         <div class="perplexity-button-container">
                             <button class="perplexity-button btn btn-outline-primary btn-sm"
-                                    data-error="<?= htmlspecialchars(json_encode(implode("\n", $log))) ?>"
                                     data-time="<?= htmlspecialchars($time) ?>"
                                     title="Help me understand this error">
                                 <span class="iconify me-1" data-icon="mdi:robot" data-inline="true"></span>
                                 Help me
                             </button>
                             <button class="copy-button btn btn-outline-secondary btn-sm ms-2"
-                                    data-error="<?= htmlspecialchars(json_encode(implode("\n", $log))) ?>"
                                     title="Copy error message to clipboard">
                                 <span class="iconify me-1" data-icon="mdi:content-copy" data-inline="true"></span>
                                 Copy

@@ -264,7 +264,7 @@ function initPerplexityButton() {
     // Handle Perplexity button click
     $(document).on('click', '.perplexity-button', function(e) {
         e.preventDefault();
-        const errorText = $(this).data('error');
+        const errorText = $(this).closest('.card').find('.card-text').text();
 
         if (errorText) {
             openPerplexityWithError(errorText);
@@ -274,13 +274,10 @@ function initPerplexityButton() {
     // Handle Copy button click
     $(document).on('click', '.copy-button', function(e) {
         e.preventDefault();
-        const errorText = $(this).data('error');
+        const errorText = $(this).closest('.card').find('.card-text').text();
 
         if (errorText) {
-            // jQuery automatically parses JSON from data attributes
-            const textToCopy = typeof errorText === 'string' ? errorText : JSON.stringify(errorText);
-
-            navigator.clipboard.writeText(textToCopy).then(function() {
+            navigator.clipboard.writeText(errorText).then(function() {
                 // Show feedback to user
                 const $button = $(e.currentTarget);
                 const originalText = $button.html();
@@ -295,7 +292,7 @@ function initPerplexityButton() {
                 console.error('Failed to copy text: ', err);
                 // Fallback for older browsers
                 const textArea = document.createElement('textarea');
-                textArea.value = textToCopy;
+                textArea.value = errorText;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
