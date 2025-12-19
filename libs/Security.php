@@ -15,7 +15,7 @@ class Security
      * @param int|string $key
      * @return string
      */
-    public static function filterString(int|string $key): string
+    public static function filterString($key): string
     {
         $params = UrlHelper::splitQueryParams();
         return (string)filter_var($params[$key] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -27,7 +27,7 @@ class Security
      * @param int|string $key
      * @return int
      */
-    public static function filterInt(int|string $key): int
+    public static function filterInt($key): int
     {
         $params = UrlHelper::splitQueryParams();
         return (int)filter_var($params[$key] ?? 0, FILTER_SANITIZE_NUMBER_INT);

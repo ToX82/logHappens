@@ -15,7 +15,7 @@ class SettingsController
 
         $referer = (string)($_SERVER['HTTP_REFERER'] ?? '');
         $base = UrlHelper::baseUrl();
-        if ($referer !== '' && str_starts_with($referer, $base)) {
+        if ($referer !== '' && strpos($referer, $base) === 0) {
             UrlHelper::reload($referer);
             return;
         }

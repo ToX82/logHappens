@@ -25,7 +25,7 @@ class UrlHelper
             $path = (string)parse_url($requestUri, PHP_URL_PATH);
             // Remove script directory and script name
             $scriptDir = rtrim((string)dirname((string)($_SERVER['SCRIPT_NAME'] ?? '')), '/');
-            if ($scriptDir !== '' && str_starts_with($path, $scriptDir)) {
+            if ($scriptDir !== '' && strpos($path, $scriptDir) === 0) {
                 $path = substr($path, strlen($scriptDir));
             }
             $path = str_replace(['/index.php', '/ajax.php'], '', $path);
@@ -39,7 +39,7 @@ class UrlHelper
             $normalizedBase = '/' . ltrim($basePath, '/');
             if ($normalizedPath === $normalizedBase) {
                 $path = '';
-            } elseif (str_starts_with($normalizedPath, $normalizedBase . '/')) {
+            } elseif (strpos($normalizedPath, $normalizedBase . '/') === 0) {
                 $path = substr($normalizedPath, strlen($normalizedBase));
             }
         }

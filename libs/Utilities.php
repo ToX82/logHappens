@@ -46,9 +46,9 @@ class Utilities
     /**
      * Time tracker.
      *
-     * @return float|bool
+     * @return float|bool Returns true on first call, float on subsequent calls
      */
-    public static function benchmark(): float|bool
+    public static function benchmark()
     {
         static $start = null;
 

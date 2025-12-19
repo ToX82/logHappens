@@ -5,11 +5,12 @@
             "Libs\\": "libs/"
         }
     },
+    "require": {
+        "php": "^7.4",
+        "fightbulc/moment": "^1.33"
+    },
     "require-dev": {
         "fig-r/psr2r-sniffer": "^0.6.3",
         "phpstan/phpstan": "*"
-    },
-    "require": {
-        "fightbulc/moment": "^1.33"
     }
 }
