@@ -47,8 +47,20 @@ class Configurations
             $icon = (string)filter_var($_POST['input-icon'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $color = (string)filter_var($_POST['input-color'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $title = (string)filter_var($_POST['input-title'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $file = (string)filter_var($_POST['input-file'] ?? '', FILTER_UNSAFE_RAW);
-            $parser = (string)filter_var($_POST['input-parser'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $fileRaw = $_POST['input-file'] ?? '';
+            $file = \Libs\Security::validateFilePath((string)$fileRaw);
+            if ($file === null) {
+                Flash::add('Invalid file path provided', 'danger');
+                UrlHelper::reload(UrlHelper::buildUrl('configurations/'));
+                return;
+            }
+            $parserRaw = (string)filter_var($_POST['input-parser'] ?? '', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $parser = \Libs\Security::validateParserName($parserRaw);
+            if ($parser === null) {
+                Flash::add('Invalid parser name provided', 'danger');
+                UrlHelper::reload(UrlHelper::buildUrl('configurations/'));
+                return;
+            }
             $disabled = !isset($_POST['input-disabled']);
             $truncatable = isset($_POST['input-truncatable']);
 
@@ -135,6 +147,7 @@ class Configurations
      *
      * This function scans the "/parsers/" directory and retrieves the list
      * of available parsers by removing the file extension from each file name.
+     * Only returns validated parser names to prevent security issues.
      *
      * @return array The list of available parsers.
      */
@@ -142,26 +155,45 @@ class Configurations
     {
         $directory = ROOT . "/parsers/";
 
+        if (!is_dir($directory)) {
+            return [];
+        }
+
         $files = scandir($directory);
+
+        if ($files === false) {
+            return [];
+        }
 
         $filteredFiles = array_slice($files, 2);
 
-        $parsers = array_map(function ($file) {
-            return str_replace(".php", "", $file);
-        }, $filteredFiles);
+        $parsers = [];
+        foreach ($filteredFiles as $file) {
+            $parserName = str_replace(".php", "", $file);
+            // Validate parser name before including it in the list
+            $validatedName = \Libs\Security::validateParserName($parserName);
+            if ($validatedName !== null && is_file($directory . $file)) {
+                $parsers[] = $validatedName;
+            }
+        }
 
         return $parsers;
     }
 
     /**
      * Checks if a file exists.
+     * Validates the file path before checking existence to prevent path traversal attacks.
      *
      * @param string $filename The name of the file to check.
-     * @return bool Returns true if the file exists, false otherwise.
+     * @return bool Returns true if the file exists and is valid, false otherwise.
      */
     public function checkFileExists(string $filename): bool
     {
-        return file_exists($filename) && is_file($filename);
+        $validatedPath = \Libs\Security::validateFilePath($filename);
+        if ($validatedPath === null) {
+            return false;
+        }
+        return file_exists($validatedPath) && is_file($validatedPath);
     }
 
     /**
@@ -172,17 +204,23 @@ class Configurations
      */
     public function changeVisibility(string $configName): array
     {
+        // Validate configuration name
+        $validatedName = \Libs\Security::validateConfigName($configName);
+        if ($validatedName === null || !isset($this->getConfigurations()[$validatedName])) {
+            return [];
+        }
+
         $configurations = $this->getConfigurations();
-        $configurations[$configName]['disabled'] = !$configurations[$configName]['disabled'];
+        $configurations[$validatedName]['disabled'] = !$configurations[$validatedName]['disabled'];
 
         $jsonData = json_encode(['parsers' => $configurations], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         file_put_contents(ROOT . '/config.json', $jsonData);
 
-        $title = $configurations[$configName]['title'] ?? (string)$configName;
-        $enabled = !$configurations[$configName]['disabled'];
+        $title = $configurations[$validatedName]['title'] ?? (string)$validatedName;
+        $enabled = !$configurations[$validatedName]['disabled'];
         Flash::add(($enabled ? 'Enabled' : 'Disabled') . ' ' . $title, 'info');
 
-        return $configurations[$configName];
+        return $configurations[$validatedName];
     }
 
     /**
@@ -212,16 +250,25 @@ class Configurations
 
     /**
      * Updates the order of configurations based on the provided order array.
+     * Validates all configuration names before processing.
      *
      * @param array $order Array containing the configuration names in the new order
      * @return bool Returns true if successful, false otherwise
      */
     public function updateOrder(array $order): bool
     {
+        // Validate all configuration names
+        $validatedOrder = \Libs\Security::validateConfigOrder($order);
+
+        // If validation removed any items, reject the update
+        if (count($validatedOrder) !== count($order)) {
+            return false;
+        }
+
         $configurations = $this->getConfigurations();
         $newConfigurations = [];
 
-        foreach ($order as $configName) {
+        foreach ($validatedOrder as $configName) {
             if (isset($configurations[$configName])) {
                 $newConfigurations[$configName] = $configurations[$configName];
             }

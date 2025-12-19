@@ -119,13 +119,20 @@ class Parsers
 
         $data = $this->config[$file];
 
+        // Validate file path for security
+        $validatedPath = \Libs\Security::validateFilePath($data['file'] ?? '');
+        if ($validatedPath === null) {
+            UrlHelper::reload(UrlHelper::buildUrl('404'));
+            return [];
+        }
+
         return [
             'file' => $file,
-            'icon' => $data['icon'],
-            'color' => $data['color'],
-            'writable' => is_writable($data['file']),
+            'icon' => $data['icon'] ?? '',
+            'color' => $data['color'] ?? '',
+            'writable' => is_writable($validatedPath),
             'truncatable' => $data['truncatable'] ?? true,
-            'title' => $data['title'],
+            'title' => $data['title'] ?? '',
         ];
     }
 
@@ -182,7 +189,21 @@ class Parsers
         }
 
         $data = $this->config[$file];
-        file_put_contents($data['file'], "");
+
+        // Validate file path before truncating
+        $validatedPath = \Libs\Security::validateFilePath($data['file'] ?? '');
+        if ($validatedPath === null) {
+            UrlHelper::reload(UrlHelper::buildUrl('404'));
+            return;
+        }
+
+        // Check if file is writable before truncating
+        if (!is_writable($validatedPath)) {
+            UrlHelper::reload(UrlHelper::buildUrl('404'));
+            return;
+        }
+
+        file_put_contents($validatedPath, "");
     }
 
     /**
@@ -199,8 +220,26 @@ class Parsers
         }
 
         $data = $this->config[$file];
-        $parserFile = ROOT . "parsers/" . $data['parser'] . ".php";
-        if (!is_file($parserFile)) {
+
+        // Validate parser name to prevent path traversal attacks
+        $parserName = \Libs\Security::validateParserName($data['parser'] ?? '');
+        if ($parserName === null) {
+            return $logs;
+        }
+
+        // Build parser file path using validated name
+        $parserFile = ROOT . "parsers/" . $parserName . ".php";
+
+        // Additional security: verify the file is actually in the parsers directory
+        $realParserPath = realpath($parserFile);
+        $parsersDir = realpath(ROOT . "parsers/");
+
+        if (
+            $realParserPath === false ||
+            $parsersDir === false ||
+            strpos($realParserPath, $parsersDir) !== 0 ||
+            !is_file($realParserPath)
+        ) {
             return $logs;
         }
 
@@ -210,7 +249,7 @@ class Parsers
             /** @psalm-suppress UnresolvableInclude, UnusedVariable */
             include $parserFile;
             return $logs;
-        })($data, $parserFile);
+        })($data, $realParserPath);
         return $logs;
     }
 }
