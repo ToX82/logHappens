@@ -65,8 +65,10 @@ class Security
         // Remove null bytes
         $filePath = str_replace("\0", '', $filePath);
 
-        // Must be an absolute path
-        if (substr($filePath, 0, 1) !== '/') {
+        // Must be an absolute path (Unix: starts with '/', Windows: starts with drive letter e.g. C:\ or C:/)
+        $isUnixAbsolute = substr($filePath, 0, 1) === '/';
+        $isWindowsAbsolute = (bool)preg_match('/^[a-zA-Z]:[\\\\\/]/', $filePath);
+        if (!$isUnixAbsolute && !$isWindowsAbsolute) {
             return null;
         }
 
