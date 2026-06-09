@@ -38,7 +38,7 @@ class Configurations
         if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && isset($_POST['btn-save-config'])) {
             $config = [];
 
-            $configKey = count($configurations) + 1;
+            $configKey = $this->getNextAvailableKey($configurations);
             $rawName = $_POST['input-name'] ?? '';
             if ($rawName !== '' && is_numeric($rawName)) {
                 $configKey = (int)$rawName;
@@ -94,7 +94,19 @@ class Configurations
     public function duplicateConfig(string $configName): void
     {
         $configurations = $this->getConfigurations();
-        $new = count($configurations) + 1;
+
+        // Check if the configuration to duplicate exists
+        if (!isset($configurations[$configName])) {
+            Flash::add('Configuration to duplicate does not exist', 'danger');
+            UrlHelper::reload(UrlHelper::buildUrl('configurations/'));
+            return;
+        }
+
+        // Generate a new unique key for the duplicated configuration
+        $existingKeys = array_keys($configurations);
+        $numericKeys = array_filter($existingKeys, 'is_numeric');
+        $new = !empty($numericKeys) ? max($numericKeys) + 1 : 1;
+
         $configurations[$new] = $configurations[$configName];
         $configurations[$new]['title'] = $configurations[$new]['title'] . ' (Copy)';
 
@@ -246,6 +258,19 @@ class Configurations
         } elseif (!is_writeable(ROOT . "config.json")) {
             UrlHelper::reload(UrlHelper::buildUrl('/display/create-config-writeable'));
         }
+    }
+
+    /**
+     * Gets the next available numeric key for configurations.
+     *
+     * @param array $configurations The array of existing configurations
+     * @return int The next available numeric key
+     */
+    private function getNextAvailableKey(array $configurations): int
+    {
+        $existingKeys = array_keys($configurations);
+        $numericKeys = array_filter($existingKeys, 'is_numeric');
+        return !empty($numericKeys) ? max($numericKeys) + 1 : 1;
     }
 
     /**
